@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import Tool from '../components/Tool.astro';
+import { SITE, SITE_NAME, abs } from '../config';
+const jsonld = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE + '/' },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: SITE_NAME, url: SITE + '/', applicationCategory: 'MultimediaApplication', operatingSystem: 'Any (modern web browser)', description: 'Browser-based image compressor with target file sizes in KB.' },
+];
+---
+<Base title="ImageTo20KB: Free Online Image Compressor to a Target KB Size" description="Free online image compressor. Pick a target size such as 20KB or 100KB, compress JPG, PNG or WebP in your browser, preview the result and download." path="/" jsonld={jsonld}>
+  <section class="hero"><div class="wrap hero-grid">
+    <div>
+      <h1>Compress Image to 20KB Online Free</h1>
+      <p class="lead">Reduce JPG, JPEG, PNG, and supported image files to a smaller file size with ImageTo20KB. Choose a target size, preview the result, and download your compressed image. Your images are processed locally in your browser.</p>
+      <div class="cta"><a class="btn" href="#tool" data-t="20">Compress to 20KB</a><a class="btn alt" href="#tool" data-t="100">Compress to 100KB</a></div>
+    </div>
+    <div class="illus" aria-hidden="true"><div class="card3d a">Original 2.4 MB</div><div class="card3d b">20 KB</div></div>
+  </div></section>
+  <div class="wrap">
+    <Tool target={20} />
+    <article class="prose">
+      <h2>More ways to reduce image size</h2>
+      <ul class="links">
+        <li><a href="/compress-image-to-20kb/">Compress image to 20KB</a></li>
+        <li><a href="/compress-image-to-100kb/">Compress image to 100KB</a></li>
+        <li><a href="/image-compressor/">General image compressor</a></li>
+        <li><a href="/image-resizer/">Image resizer</a></li>
+        <li><a href="/faqs/">Frequently asked questions</a></li>
+        <li><a href="/how-it-works/">How the compression works</a></li>
+      </ul>
+      <h2>A target-size image compressor</h2>
+      <p>Many forms and uploads limit files to a number of kilobytes. ImageTo20KB lets you choose that number, tests real encoded file sizes, and tells you honestly whether the target was reached. You can compress image to 20KB for a tight upload field, compress image to 100KB for a typical application portal, or compress image to 200KB when you want to keep more detail.</p>
+      <h2>How it differs from slider-based tools</h2>
+      <p>Most image compressors ask you to move a quality slider until the file looks acceptable. That works when you are exploring, but it is slow when a form says "maximum 20KB". Tools such as Squoosh, the open-source image compression app from Google Chrome Labs, are excellent for comparing codecs and tuning settings by hand. ImageTo20KB is built for a narrower job: you give a size in KB and it searches for the best result within it. We are not affiliated with Squoosh, and the two suit different needs.</p>
+      <h2>What happens when you add an image</h2>
+      <p>The file is checked by its real contents rather than its name. It is decoded in your browser and drawn at the size you allow. For JPEG and WebP the tool tries quality levels, measures the true output size each time, and keeps the best one that fits. If quality alone cannot reach the target, it reduces dimensions smoothly while keeping a sensible quality floor. You then see both pictures, the sizes, the dimensions and whether the target was reached.</p>
+      <h2>Supported formats</h2>
+      <p>You can add JPG, JPEG, PNG and WebP images. Output can be JPEG, WebP or PNG, depending on what your browser can encode. JPEG is the safest choice for forms. WebP is often smaller. PNG is lossless, so photographs saved as PNG usually cannot reach very small sizes. Animated GIF, animated WebP, SVG and HEIC files are not supported, and the tool will say so instead of silently removing animation.</p>
+      <h2>Who uses a tool like this</h2>
+      <p>Students filling in admission or scholarship forms, job applicants uploading a photo or signature, small businesses preparing product pictures, and anyone who needs to email several photos without hitting an attachment limit. For form uploads, read the <a href="/image-compressor-for-online-forms/">guide to preparing images for online forms</a>. For exact pixel sizes, use the <a href="/image-resizer/">image resizer</a>.</p>
+      <h2>Your images stay on your device</h2>
+      <p>The compression runs inside your browser. There is no upload step for compression and no external image-processing service. Images exist only in your device's memory and as temporary links that the page removes when you delete a file or leave the page. See the <a href="/privacy-policy/">privacy policy</a> and the <a href="/security/">security page</a> for details and limits.</p>
+      <h2>Tips for better small images</h2>
+      <p>Start from the original photo, crop away what you do not need, and set a maximum width that matches how the picture will be shown. Avoid compressing the same file repeatedly, because each lossy save removes detail.</p>
+      <h2>Honest results</h2>
+      <p>Not every image can be reduced to every size without becoming blurry. A large, detailed photograph may not reach 20KB at a reasonable quality. When that happens the tool shows the smallest result it could make and labels it as above target, so you can decide what to do next. Use the <a href="/compress-image-to-50kb/">50KB tool</a> or <a href="/compress-image-to-200kb/">200KB tool</a> if a slightly larger target is allowed.</p>
+    </article>
+  </div>
+  <script>
+    document.querySelectorAll<HTMLAnchorElement>('[data-t]').forEach((a) => a.addEventListener('click', () => {
+      document.querySelector<HTMLButtonElement>(`[data-preset="${a.dataset.t}"]`)?.click();
+    }));
+  </script>
+</Base>

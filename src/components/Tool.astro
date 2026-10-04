@@ -1,0 +1,152 @@
+---
+interface Props { target?: number; format?: string; advanced?: boolean; id?: string }
+const { target = 20, format = 'image/jpeg', advanced = false } = Astro.props;
+const presets = [20, 50, 100, 200, 500];
+---
+<section class="panel" id="tool" aria-labelledby="tool-h" data-target={target} data-format={format}>
+  <h2 id="tool-h" style="margin-top:0">Compression tool</h2>
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept="image/jpeg,image/png,image/webp" multiple />
+    <strong>Drop images here or click to choose</strong><br />
+    <span class="note">JPG, PNG, WebP · up to 50 MB each · processed on your device</span>
+  </label>
+
+  <fieldset class="row" style="border:0;padding:0;margin:14px 0 0">
+    <legend class="sr">Target size</legend>
+    <span>Target size:</span>
+    {presets.map((p) => <button type="button" class="chip" data-preset={p} aria-pressed={p === target}>{p}KB</button>)}
+    <label>Custom <input type="number" id="custom" min="1" max="10240" step="1" inputmode="numeric" aria-label="Custom target in KB" /> KB</label>
+  </fieldset>
+
+  <details class="adv" open={advanced}>
+    <summary>Advanced settings</summary>
+    <div class="grid2">
+      <label>Output format<select id="format"></select></label>
+      <label>Max width (px)<input type="number" id="maxw" min="1" placeholder="Original" /></label>
+      <label>Max height (px)<input type="number" id="maxh" min="1" placeholder="Original" /></label>
+      <label class="chk"><span><input type="checkbox" id="keepdim" /> Keep dimensions (allow lower quality)</span></label>
+      <label>Minimum quality (JPEG/WebP): <output id="qout">10</output>%<input type="range" id="minq" min="5" max="90" value="10" /></label>
+    </div>
+    <p class="note">By default the tool keeps quality reasonable (about 62% or higher) and reduces dimensions to reach small targets; tick “Keep dimensions” to prefer full size at lower quality. Aspect ratio is always preserved and images are never enlarged. PNG is lossless and may not reach a small target; JPEG/WebP are lossy. JPEG replaces transparency with white; WebP and PNG keep it.</p>
+    <button type="button" class="chip" id="reset">Reset settings</button>
+  </details>
+
+  <div class="row">
+    <button type="button" class="btn" id="zip" disabled>Download all (ZIP)</button>
+    <button type="button" class="btn alt" id="clear" disabled>Clear all</button>
+  </div>
+  <p id="status" role="status" aria-live="polite" class="note"></p>
+  <div class="items" id="items"></div>
+</section>
+
+<script>
+  import { formatBytes, parseTargetKb, safeFilename } from '../lib/image/target-size';
+  import { supportedOutputs } from '../lib/image/format-support';
+  import type { CompressResult, OutputMime } from '../lib/image/compress-image';
+
+  type Item = { id: number; file: File; status: 'queued' | 'working' | 'done' | 'error'; result?: CompressResult; error?: string; origUrl: string; outUrl?: string; ctrl?: AbortController; targetKb: number; outName?: string };
+  const $ = <T extends HTMLElement>(s: string) => document.querySelector<T>(s)!;
+  const root = $('#tool');
+  let targetKb = Number(root.dataset.target) || 20;
+  const defaultFormat = (root.dataset.format || 'image/jpeg') as OutputMime;
+  const items: Item[] = [];
+  let nextId = 1, running = 0;
+  const MAX_CONCURRENCY = 2;
+  const fmtSel = $<HTMLSelectElement>('#format'), maxw = $<HTMLInputElement>('#maxw'), maxh = $<HTMLInputElement>('#maxh'), minq = $<HTMLInputElement>('#minq'), keepdim = $<HTMLInputElement>('#keepdim');
+  const listEl = $('#items'), statusEl = $('#status'), zipBtn = $<HTMLButtonElement>('#zip'), clearBtn = $<HTMLButtonElement>('#clear');
+  const label: Record<string, string> = { 'image/jpeg': 'JPEG', 'image/webp': 'WebP', 'image/png': 'PNG (lossless)' };
+
+  supportedOutputs().then((fm) => {
+    fmtSel.innerHTML = fm.map((m) => `<option value="${m}">${label[m]}</option>`).join('');
+    fmtSel.value = fm.includes(defaultFormat) ? defaultFormat : fm[0];
+  });
+  minq.addEventListener('input', () => ($('#qout').textContent = minq.value));
+  const setTarget = (kb: number) => {
+    targetKb = kb;
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.preset) === kb)));
+  };
+  root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => { setTarget(Number(b.dataset.preset)); $<HTMLInputElement>('#custom').value = ''; }));
+  $<HTMLInputElement>('#custom').addEventListener('input', (e) => {
+    const v = parseTargetKb((e.target as HTMLInputElement).value);
+    if (v) setTarget(v); else statusEl.textContent = 'Enter a custom target between 1 and 10240 KB.';
+  });
+  $('#reset').addEventListener('click', () => { maxw.value = maxh.value = ''; keepdim.checked = false; minq.value = '10'; $('#qout').textContent = '10'; fmtSel.value = defaultFormat; setTarget(Number(root.dataset.target) || 20); $<HTMLInputElement>('#custom').value = ''; });
+
+  const input = $<HTMLInputElement>('#file'), drop = $('#drop');
+  input.addEventListener('change', () => { add([...(input.files || [])]); input.value = ''; });
+  ['dragenter', 'dragover'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', (e) => add([...((e as DragEvent).dataTransfer?.files || [])]));
+
+  function add(files: File[]) {
+    for (const file of files) items.push({ id: nextId++, file, status: 'queued', origUrl: URL.createObjectURL(file), targetKb });
+    render(); pump();
+  }
+  async function pump() {
+    while (running < MAX_CONCURRENCY) {
+      const it = items.find((i) => i.status === 'queued');
+      if (!it) return;
+      it.status = 'working'; it.ctrl = new AbortController(); running++; render();
+      run(it).finally(() => { running--; render(); pump(); });
+    }
+  }
+  async function run(it: Item) {
+    try {
+      const { compressImage } = await import('../lib/image/compress-image');
+      const res = await compressImage(it.file, {
+        targetKb: it.targetKb, format: fmtSel.value as OutputMime, signal: it.ctrl!.signal,
+        maxWidth: Number(maxw.value) || undefined, maxHeight: Number(maxh.value) || undefined, minQuality: Number(minq.value) / 100, keepDimensions: keepdim.checked,
+      });
+      if (!items.includes(it)) return;
+      it.result = res; it.outUrl = URL.createObjectURL(res.blob); it.status = 'done';
+    } catch (e: any) {
+      if (e?.code === 'cancelled') return;
+      it.status = 'error'; it.error = e?.message || 'Compression failed.';
+    }
+  }
+  function remove(id: number) {
+    const i = items.findIndex((x) => x.id === id); if (i < 0) return;
+    const it = items[i]; it.ctrl?.abort(); URL.revokeObjectURL(it.origUrl); if (it.outUrl) URL.revokeObjectURL(it.outUrl); items.splice(i, 1); render();
+  }
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
+  function render() {
+    const used = new Set<string>();
+    for (const it of items) if (it.result) it.outName = safeFilename(it.file.name, it.result.mime, `${it.targetKb}kb`, used);
+    listEl.innerHTML = items.map((it) => {
+      const meta = `<div class="meta"><span>${esc(it.file.name)}</span><span>Original: ${formatBytes(it.file.size)}</span></div>`;
+      let body = '';
+      if (it.status === 'queued') body = '<span class="badge">Waiting…</span>';
+      else if (it.status === 'working') body = '<span class="badge">Compressing…</span><progress aria-label="Compressing"></progress>';
+      else if (it.status === 'error') body = `<span class="badge err">Failed: ${esc(it.error || '')}</span><button class="chip" data-retry="${it.id}">Retry</button>`;
+      else if (it.result) {
+        const r = it.result, saved = Math.round((1 - r.blob.size / it.file.size) * 100);
+        const ok = r.status === 'achieved';
+        body = `<span class="badge ${ok ? 'ok' : 'warn'}">${ok ? `Target of ${it.targetKb}KB reached` : `Above ${it.targetKb}KB target (best result)`}</span>
+        <div class="cmp"><figure><img src="${it.origUrl}" alt="Original image preview" /><figcaption>Original · ${formatBytes(it.file.size)} · ${r.originalWidth}×${r.originalHeight}</figcaption></figure>
+        <figure><img src="${it.outUrl}" alt="Compressed image preview" /><figcaption>Compressed · ${formatBytes(r.blob.size)} · ${r.width}×${r.height}</figcaption></figure></div>
+        <div class="meta"><span>${saved >= 0 ? `Saved ${saved}%` : `Larger by ${-saved}%`}</span><span>${label[r.mime]}${r.quality ? ` · quality ${Math.round(r.quality * 100)}%` : ''}</span></div>
+        ${r.notes.map((n) => `<p class="note">${esc(n)}</p>`).join('')}
+        <div class="row" style="margin:0"><a class="btn" href="${it.outUrl}" download="${esc(it.outName || 'image')}" data-dl>Download</a></div>`;
+      }
+      return `<article class="item">${meta}${body}<div class="row" style="margin:0"><button class="chip" data-rm="${it.id}">Remove</button></div></article>`;
+    }).join('');
+    const done = items.filter((i) => i.status === 'done').length, err = items.filter((i) => i.status === 'error').length, active = items.filter((i) => i.status === 'queued' || i.status === 'working').length;
+    zipBtn.disabled = done === 0; clearBtn.disabled = items.length === 0;
+    statusEl.textContent = items.length ? (active ? `Processing… ${done} of ${items.length} done.` : `${done} compressed, ${err} failed.`) : '';
+  }
+  listEl.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t.dataset.rm) remove(Number(t.dataset.rm));
+    if (t.dataset.retry) { const it = items.find((i) => i.id === Number(t.dataset.retry)); if (it) { it.status = 'queued'; it.targetKb = targetKb; render(); pump(); } }
+  });
+  clearBtn.addEventListener('click', () => { [...items].forEach((i) => remove(i.id)); });
+  zipBtn.addEventListener('click', async () => {
+    const { default: JSZip } = await import('jszip');
+    const zip = new JSZip();
+    for (const it of items) if (it.status === 'done' && it.result && it.outName) zip.file(it.outName, it.result.blob);
+    const blob = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(blob); const a = document.createElement('a');
+    a.href = url; a.download = 'compressed-images.zip'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 5000);
+  });
+  window.addEventListener('pagehide', () => items.forEach((i) => { URL.revokeObjectURL(i.origUrl); if (i.outUrl) URL.revokeObjectURL(i.outUrl); }));
+</script>

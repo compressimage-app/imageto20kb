@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import { OPERATOR_NAME } from '../config';
+---
+<Base title="About ImageTo20KB" description="About ImageTo20KB, a browser-based image compressor for target file sizes such as 20KB and 100KB." path="/about/" crumbs={[{ name: 'About', href: '/about/' }]}>
+  <div class="wrap"><article class="prose">
+    <h1>About ImageTo20KB</h1>
+    <p>ImageTo20KB helps people reduce image files to a size limit, such as 20KB or 100KB, using their own browser.</p>
+    <h2>Why it exists</h2>
+    <p>Online forms, exam portals, job sites and content systems often set strict upload limits in kilobytes. People then lose time trying different settings in photo editors or apps. ImageTo20KB turns the question around: you enter the size you need, and the tool searches for the best image it can make within it.</p>
+    <h2>What we focus on</h2>
+    <p>The main job is simple: compress image to 20KB, 100KB, 200KB or another target, entirely in your browser. We also provide an image resizer for maximum pixel dimensions and guides that explain how to prepare photos and signatures for forms. The tool reports honestly when a target cannot be reached rather than claiming success.</p>
+    <h2>How we approach privacy</h2>
+    <p>Compression runs on your device. There is no upload step for compression and no external image-processing service. The site is a static website, so there is no server-side image storage. You can read the exact details, including what our hosting provider may process, on the <a href="/privacy-policy/">privacy policy</a> page. We do not promise absolute security, and we explain the limits on the <a href="/security/">security page</a>.</p>
+    <h2>How we approach quality</h2>
+    <p>Very low JPEG quality produces blocky images, so the tool prefers to reduce dimensions moderately and keep quality reasonable. You stay in control through Advanced settings: set a maximum width, a minimum quality, or keep the original dimensions. We test the search logic with a real JPEG encoder, and we are open about its limits: results depend on the image, the browser and the target, and heavily detailed photos may not fit very small sizes.</p>
+    <h2>What we do not claim</h2>
+    <p>We are not affiliated with any government body, exam board, employer or other website whose upload rules you may be following. We cannot confirm that any particular portal will accept a file. We are also not affiliated with other image tools you may know, such as Squoosh from Google Chrome Labs, which is a good option when you want manual control over codecs and settings. ImageTo20KB aims at a narrower job: reaching a size in KB quickly.</p>
+    <h2>Supported files</h2>
+    <p>JPG, JPEG, PNG and WebP images are supported as input. Animated GIF, animated WebP, SVG and HEIC files are not supported, and the tool tells you instead of silently changing them. Keep your original files, because lossy compression cannot be undone.</p>
+    <h2>Accessibility and design</h2>
+    <p>The interface is designed to work on phones, tablets and desktops. It supports keyboard use, visible focus outlines, a light and dark theme, and a reduced-motion mode that turns off decorative animation. Status messages are announced to screen readers. We have not completed a formal accessibility audit, so if you find a barrier, please tell us through the <a href="/contact/">contact page</a>.</p>
+    <h2>Keeping the site simple</h2>
+    <p>There are no accounts, no sign-up and no advertising scripts in the current version of the site. The tool is free to use. If that ever changes, the privacy and cookie pages will be updated to say what is collected and why. We try to keep pages fast by loading the compression code only when it is needed.</p>
+    <h2>Feedback</h2>
+    <p>Suggestions, bug reports and examples of images that did not compress well are useful, because they help improve the search. Please describe the browser, the device, the target size and the settings you used.</p>
+    <h2>Where to start</h2>
+    <p>Most visitors begin with <a href="/compress-image-to-20kb/">compress image to 20KB</a> or <a href="/compress-image-to-100kb/">compress image to 100KB</a>. For other sizes, see the <a href="/image-compressor/">image compressor</a>, and for answers to common questions, the <a href="/faqs/">FAQs</a>.</p>
+    <p>Operator: {OPERATOR_NAME}</p>
+    <p>Start with the <a href="/image-compressor/">image compressor</a> or read <a href="/how-it-works/">how it works</a>.</p>
+  </article></div>
+</Base>

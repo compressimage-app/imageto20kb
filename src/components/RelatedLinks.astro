@@ -1,0 +1,5 @@
+---
+import { bySlug } from '../data/landing';
+const { slugs } = Astro.props as { slugs: string[] };
+---
+<ul class="links">{slugs.map((s) => <li><a href={`/${s}/`}>{bySlug(s).nav}</a></li>)}</ul>

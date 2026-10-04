@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL } from '../config';
+const mail = `mailto:${CONTACT_EMAIL}`;
+---
+<Base title="Contact ImageTo20KB" description="Contact the ImageTo20KB site owner by email for support, feedback, bug reports, copyright notices or security reports." path="/contact/" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
+  <div class="wrap"><article class="prose">
+    <h1>Contact</h1>
+    <p>Email: <a href={mail}>{CONTACT_EMAIL}</a></p>
+    <p>You can write to us about problems with the tool, ideas for improvement, accessibility barriers, copyright notices, security reports, or questions about the policies.</p>
+    <h2>What to include</h2>
+    <p>For a problem with the tool, tell us the page address, your browser and device, the target size you chose and what happened. Please do not send photos of identity documents or other sensitive images by email.</p>
+    <p>This site has no contact form, so nothing is submitted through the page. Your email is received by our mail provider and used only to reply to you.</p>
+  </article></div>
+</Base>

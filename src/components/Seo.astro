@@ -1,0 +1,20 @@
+---
+import { SITE, SITE_NAME, abs } from '../config';
+interface Props { title: string; description: string; path: string; noindex?: boolean; jsonld?: object[] }
+const { title, description, path, noindex = false, jsonld = [] } = Astro.props;
+const canonical = abs(path);
+const safe = (o: object) => JSON.stringify(o).replace(/</g, '\\u003c');
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_NAME} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{jsonld.map((o) => <script type="application/ld+json" set:html={safe(o)} />)}

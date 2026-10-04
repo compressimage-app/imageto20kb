@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL } from '../config';
+interface Props { code: string; title: string; message: string; path: string; retry?: boolean }
+const { code, title, message, path, retry = false } = Astro.props;
+---
+<Base title={`${title} (${code}) | ImageTo20KB`} description={`${title}. ${message}`} path={path} noindex>
+  <div class="wrap"><article class="prose err">
+    <p class="err-code" aria-hidden="true">{code}</p>
+    <h1>{title}</h1>
+    <p>{message}</p>
+    <div class="cta">
+      <a class="btn" href="/">Go to the image compressor</a>
+      {retry && <button class="btn alt" type="button" id="retry">Try again</button>}
+    </div>
+    <h2>Popular tools</h2>
+    <ul class="links">
+      <li><a href="/compress-image-to-20kb/">Compress image to 20KB</a></li>
+      <li><a href="/compress-image-to-100kb/">Compress image to 100KB</a></li>
+      <li><a href="/image-resizer/">Image resizer</a></li>
+      <li><a href="/faqs/">FAQs</a></li>
+    </ul>
+    <p class="note">Still stuck? Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and tell us the page address and what you were doing. Your images are processed on your own device, so nothing you added is lost on our side by this error.</p>
+  </article></div>
+  {retry && <script>document.getElementById('retry')?.addEventListener('click', () => location.reload());</script>}
+</Base>
