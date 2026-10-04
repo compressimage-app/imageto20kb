@@ -1,4 +1,5 @@
 import { landing } from '../data/landing';
+import { posts } from '../data/posts';
 import { SITE, CONTACT_EMAIL, abs } from '../config';
 export function GET() {
   const tools = landing.map((l) => `- [${l.h1}](${abs(`/${l.slug}/`)})`).join('\n');
@@ -8,6 +9,9 @@ export function GET() {
 
 ## Tools
 ${tools}
+
+## Blog
+${posts.map((p) => `- [${p.title}](${abs(`/blog/${p.slug}/`)})`).join('\n')}
 
 ## Supported formats
 - Input: JPG/JPEG, PNG, WebP. Output: JPEG, WebP or PNG depending on the browser.

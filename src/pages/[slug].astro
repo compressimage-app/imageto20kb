@@ -27,9 +27,9 @@ const jsonld = [
 ---
 <Base {title} {description} {path} {jsonld} {crumbs}>
   {page && (<>
-    <section class="hero" style="padding-bottom:0"><div class="wrap"><h1>{page.h1}</h1><p class="lead">{page.intro}</p></div></section>
+    <section class="hero" style="padding-bottom:0"><div class="wrap"><h1>{page.h1}</h1><p class="lead">{page.intro}</p>{page.updated && <p class="note">Size ranges last reviewed: {page.updated}. Always confirm against your exam notification.</p>}</div></section>
     <div class="wrap">
-      <Tool target={page.target} format={page.format} advanced={page.advanced} />
+      <Tool target={page.target} format={page.format} advanced={page.advanced} examPresets={page.examPresets} />
       <article class="prose">
         {[...page.sections, ...(more[page.slug] ?? []), ...(more2[page.slug] ?? []), ...(more3[page.slug] ?? [])].map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}
         <h2>Common questions</h2>

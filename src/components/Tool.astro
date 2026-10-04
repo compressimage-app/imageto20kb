@@ -1,6 +1,6 @@
 ---
-interface Props { target?: number; format?: string; advanced?: boolean; id?: string }
-const { target = 20, format = 'image/jpeg', advanced = false } = Astro.props;
+interface Props { target?: number; format?: string; advanced?: boolean; examPresets?: { label: string; kb: number; min: number }[] }
+const { target = 20, format = 'image/jpeg', advanced = false, examPresets = [] } = Astro.props;
 const presets = [20, 50, 100, 200, 500];
 ---
 <section class="panel" id="tool" aria-labelledby="tool-h" data-target={target} data-format={format}>
@@ -17,6 +17,14 @@ const presets = [20, 50, 100, 200, 500];
     {presets.map((p) => <button type="button" class="chip" data-preset={p} aria-pressed={p === target}>{p}KB</button>)}
     <label>Custom <input type="number" id="custom" min="1" max="10240" step="1" inputmode="numeric" aria-label="Custom target in KB" /> KB</label>
   </fieldset>
+
+  {examPresets.length > 0 && (
+    <div class="row" role="group" aria-label="Exam size ranges">
+      <span>Exam range:</span>
+      {examPresets.map((e) => <button type="button" class="chip" data-exam data-kb={e.kb} data-min={e.min} data-label={e.label} aria-pressed="false" title={`Targets ${e.kb} KB, minimum ${e.min} KB`}>{e.label}</button>)}
+      <span class="note">Targets sit a little below the maximum. Check your notice.</span>
+    </div>
+  )}
 
   <details class="adv" open={advanced}>
     <summary>Advanced settings</summary>
@@ -44,13 +52,13 @@ const presets = [20, 50, 100, 200, 500];
   import { supportedOutputs } from '../lib/image/format-support';
   import type { CompressResult, OutputMime } from '../lib/image/compress-image';
 
-  type Item = { id: number; file: File; status: 'queued' | 'working' | 'done' | 'error'; result?: CompressResult; error?: string; origUrl: string; outUrl?: string; ctrl?: AbortController; targetKb: number; outName?: string };
+  type Item = { id: number; file: File; status: 'queued' | 'working' | 'done' | 'error'; result?: CompressResult; error?: string; minKb: number; origUrl: string; outUrl?: string; ctrl?: AbortController; targetKb: number; outName?: string };
   const $ = <T extends HTMLElement>(s: string) => document.querySelector<T>(s)!;
   const root = $('#tool');
   let targetKb = Number(root.dataset.target) || 20;
   const defaultFormat = (root.dataset.format || 'image/jpeg') as OutputMime;
   const items: Item[] = [];
-  let nextId = 1, running = 0;
+  let nextId = 1, running = 0, activeMin = 0;
   const MAX_CONCURRENCY = 2;
   const fmtSel = $<HTMLSelectElement>('#format'), maxw = $<HTMLInputElement>('#maxw'), maxh = $<HTMLInputElement>('#maxh'), minq = $<HTMLInputElement>('#minq'), keepdim = $<HTMLInputElement>('#keepdim');
   const listEl = $('#items'), statusEl = $('#status'), zipBtn = $<HTMLButtonElement>('#zip'), clearBtn = $<HTMLButtonElement>('#clear');
@@ -62,10 +70,16 @@ const presets = [20, 50, 100, 200, 500];
   });
   minq.addEventListener('input', () => ($('#qout').textContent = minq.value));
   const setTarget = (kb: number) => {
-    targetKb = kb;
+    targetKb = kb; activeMin = 0;
+    root.querySelectorAll<HTMLButtonElement>('[data-exam]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
     root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.preset) === kb)));
   };
   root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) => b.addEventListener('click', () => { setTarget(Number(b.dataset.preset)); $<HTMLInputElement>('#custom').value = ''; }));
+  root.querySelectorAll<HTMLButtonElement>('[data-exam]').forEach((b) => b.addEventListener('click', () => {
+    setTarget(Number(b.dataset.kb)); activeMin = Number(b.dataset.min) || 0;
+    b.setAttribute('aria-pressed', 'true'); $<HTMLInputElement>('#custom').value = '';
+    statusEl.textContent = `Target set to ${b.dataset.kb} KB for the ${b.dataset.label} range (minimum ${b.dataset.min} KB).`;
+  }));
   $<HTMLInputElement>('#custom').addEventListener('input', (e) => {
     const v = parseTargetKb((e.target as HTMLInputElement).value);
     if (v) setTarget(v); else statusEl.textContent = 'Enter a custom target between 1 and 10240 KB.';
@@ -79,7 +93,7 @@ const presets = [20, 50, 100, 200, 500];
   drop.addEventListener('drop', (e) => add([...((e as DragEvent).dataTransfer?.files || [])]));
 
   function add(files: File[]) {
-    for (const file of files) items.push({ id: nextId++, file, status: 'queued', origUrl: URL.createObjectURL(file), targetKb });
+    for (const file of files) items.push({ id: nextId++, file, status: 'queued', minKb: activeMin, origUrl: URL.createObjectURL(file), targetKb });
     render(); pump();
   }
   async function pump() {
@@ -120,8 +134,10 @@ const presets = [20, 50, 100, 200, 500];
       else if (it.status === 'error') body = `<span class="badge err">Failed: ${esc(it.error || '')}</span><button class="chip" data-retry="${it.id}">Retry</button>`;
       else if (it.result) {
         const r = it.result, saved = Math.round((1 - r.blob.size / it.file.size) * 100);
-        const ok = r.status === 'achieved';
-        body = `<span class="badge ${ok ? 'ok' : 'warn'}">${ok ? `Target of ${it.targetKb}KB reached` : `Above ${it.targetKb}KB target (best result)`}</span>
+        const tooSmall = r.status === 'achieved' && it.minKb > 0 && r.blob.size < it.minKb * 1024;
+        const ok = r.status === 'achieved' && !tooSmall;
+        body = `<span class="badge ${ok ? 'ok' : 'warn'}">${tooSmall ? `Below the ${it.minKb} KB minimum for this range` : ok ? `Within ${it.targetKb}KB target` : `Above ${it.targetKb}KB target (best result)`}</span>
+        ${tooSmall ? `<p class="note">The file is smaller than the minimum in your range. Use a larger or sharper original, crop less tightly, tick Keep dimensions, or raise the target.</p>` : ''}
         <div class="cmp"><figure><img src="${it.origUrl}" alt="Original image preview" /><figcaption>Original · ${formatBytes(it.file.size)} · ${r.originalWidth}×${r.originalHeight}</figcaption></figure>
         <figure><img src="${it.outUrl}" alt="Compressed image preview" /><figcaption>Compressed · ${formatBytes(r.blob.size)} · ${r.width}×${r.height}</figcaption></figure></div>
         <div class="meta"><span>${saved >= 0 ? `Saved ${saved}%` : `Larger by ${-saved}%`}</span><span>${label[r.mime]}${r.quality ? ` · quality ${Math.round(r.quality * 100)}%` : ''}</span></div>
@@ -137,7 +153,7 @@ const presets = [20, 50, 100, 200, 500];
   listEl.addEventListener('click', (e) => {
     const t = e.target as HTMLElement;
     if (t.dataset.rm) remove(Number(t.dataset.rm));
-    if (t.dataset.retry) { const it = items.find((i) => i.id === Number(t.dataset.retry)); if (it) { it.status = 'queued'; it.targetKb = targetKb; render(); pump(); } }
+    if (t.dataset.retry) { const it = items.find((i) => i.id === Number(t.dataset.retry)); if (it) { it.status = 'queued'; it.targetKb = targetKb; it.minKb = activeMin; render(); pump(); } }
   });
   clearBtn.addEventListener('click', () => { [...items].forEach((i) => remove(i.id)); });
   zipBtn.addEventListener('click', async () => {

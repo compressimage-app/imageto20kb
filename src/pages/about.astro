@@ -1,11 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
-import { OPERATOR_NAME } from '../config';
+import { OPERATOR_NAME, OWNER_ROLE, CONTACT_EMAIL, abs } from '../config';
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'Person', name: OPERATOR_NAME, jobTitle: OWNER_ROLE, url: abs('/about/') }];
 ---
-<Base title="About ImageTo20KB" description="About ImageTo20KB, a browser-based image compressor for target file sizes such as 20KB and 100KB." path="/about/" crumbs={[{ name: 'About', href: '/about/' }]}>
+<Base title="About ImageTo20KB" description="About ImageTo20KB, a browser-based image compressor for target file sizes such as 20KB and 100KB." path="/about/" jsonld={jsonld} crumbs={[{ name: 'About', href: '/about/' }]}>
   <div class="wrap"><article class="prose">
     <h1>About ImageTo20KB</h1>
     <p>ImageTo20KB helps people reduce image files to a size limit, such as 20KB or 100KB, using their own browser.</p>
+    <h2>Editorial and owner information</h2>
+    <p><strong>{OPERATOR_NAME}, {OWNER_ROLE}</strong>, develops, edits and manages ImageTo20KB. He builds the compression tool and the website, writes and reviews the guides and blog posts, looks after hosting and updates, and answers email sent to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h3>How content is written and checked</h3>
+    <p>Method guides, such as how to photograph a signature or choose an image format, are written from how the tool behaves and from common upload problems. Size ranges for government exams are different: they change with each notification, so the exam pages present them as commonly reported figures, show the date they were last reviewed, and tell readers to confirm them on the official portal. We do not copy official notices.</p>
+    <h3>Independence</h3>
+    <p>The site currently carries no advertising and no sponsored content, and it is not affiliated with any exam body, government department, employer or university mentioned in the guides. If that ever changes, it will be stated clearly on the site.</p>
+    <h3>Corrections</h3>
+    <p>If you find a mistake or an out-of-date figure, email the address above with the page and the correction. Errors are fixed as soon as they are confirmed.</p>
     <h2>Why it exists</h2>
     <p>Online forms, exam portals, job sites and content systems often set strict upload limits in kilobytes. People then lose time trying different settings in photo editors or apps. ImageTo20KB turns the question around: you enter the size you need, and the tool searches for the best image it can make within it.</p>
     <h2>What we focus on</h2>

@@ -1,11 +1,14 @@
+import { examPages } from './exams';
+export interface ExamPreset { label: string; kb: number; min: number }
 export interface Landing {
+  examPresets?: ExamPreset[]; updated?: string;
   slug: string; nav: string; title: string; description: string; h1: string;
   target: number; format: 'image/jpeg' | 'image/webp' | 'image/png'; advanced?: boolean;
   intro: string; sections: { h2: string; body: string[] }[];
   faqs: { q: string; a: string }[]; related: string[];
 }
 const T = (s: string) => `${s} | ImageTo20KB`;
-export const landing: Landing[] = [
+const baseLanding: Landing[] = [
 { slug: 'compress-image-to-20kb', nav: 'Compress to 20KB', title: T('Compress Image to 20KB Online Free'),
   description: 'Compress image to 20KB online for free. Reduce JPG and supported image sizes, preview the result, and download your smaller image directly from your browser.',
   h1: 'Compress Image to 20KB Online', target: 20, format: 'image/jpeg',
@@ -82,6 +85,7 @@ export const landing: Landing[] = [
   h1: 'Image Compressor for Online Forms', target: 50, format: 'image/jpeg',
   intro: 'Many application portals set a maximum size in KB and a required format. Use this page to prepare a photo or signature, then check it against the portal’s own rules.',
   sections: [{ h2: 'Before you start', body: ['Read the form’s requirements: maximum KB, accepted formats (often JPG), and any pixel dimensions. ImageTo20KB cannot know a specific portal’s rules, so always confirm them.'] }, { h2: 'Photos and signatures', body: ['Set the target to the form’s maximum, choose JPEG, and, if exact pixel dimensions are required, resize with the Image Resizer first.'] }, { h2: 'Check the result', body: ['After processing, confirm the final size and dimensions in the result card before uploading.'] }],
-  faqs: [{ q: 'Will my file be accepted by every portal?', a: 'Not guaranteed. Each portal has its own rules; this tool only prepares the file size and format.' }], related: ['compress-image-to-20kb', 'compress-image-to-50kb', 'image-resizer'] },
+  faqs: [{ q: 'Will my file be accepted by every portal?', a: 'Not guaranteed. Each portal has its own rules; this tool only prepares the file size and format.' }], related: ['government-exam-photo-signature-size', 'ssc-photo-signature-size', 'rrb-photo-signature-size', 'upsc-photo-signature-size', 'compress-image-to-20kb', 'image-resizer'] },
 ];
+export const landing: Landing[] = [...baseLanding, ...examPages];
 export const bySlug = (s: string) => landing.find((l) => l.slug === s)!;

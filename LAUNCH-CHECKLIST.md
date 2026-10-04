@@ -1,5 +1,7 @@
 # Launch checklist
-- [ ] Set `CONTACT_EMAIL`, `OPERATOR_NAME`, `JURISDICTION` in `src/config.ts` (currently placeholders shown on the site)
+- [x] `CONTACT_EMAIL` and `OPERATOR_NAME` are set in `src/config.ts`
+- [ ] Set `JURISDICTION` (and a postal address if the lawyer advises) in `src/config.ts`
+- [ ] Before each exam season, re-check size ranges on `src/data/exams.ts` against the official notifications and update `UPDATED`
 - [ ] Have a lawyer review privacy, terms, cookie, disclaimer, copyright pages (marked DRAFT) and add takedown wording
 - [ ] Confirm Cloudflare cookies/analytics, then update the cookie and privacy policies
 - [ ] Test in real browsers: Chrome, Safari (iOS), Firefox; large (20+ MP) photos, PNG with transparency, WebP, batch + ZIP

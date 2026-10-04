@@ -27,3 +27,31 @@ describe('mobile drawer', () => {
   it('closes when a link is tapped', () => { t.open(); (t.d.querySelector('#nav a') as HTMLElement).addEventListener('click', (e) => e.preventDefault()); (t.d.querySelector('#nav a') as HTMLElement).click(); closed(); });
   it('can reopen after closing', () => { t.open(); (t.q('nav-close') as HTMLElement).click(); t.open(); expect(t.isOpen()).toBe(true); });
 });
+
+describe('header navigation and Tools dropdown', () => {
+  it('has only Home, About, Contact, Tools, Blog, FAQs at the top level', () => {
+    const { d } = load();
+    const items = [...d.querySelectorAll('#nav > a:not(.nav-cta), #nav > .dd > button')].map((e) => (e.textContent || '').replace('▾', '').trim());
+    expect(items).toEqual(['Home', 'About', 'Contact', 'Tools', 'Blog', 'FAQs']);
+  });
+  it('Tools dropdown lists tool links, opens, closes with Escape and outside click', () => {
+    const t = load(); const btn = t.q('tools-btn') as HTMLElement, panel = t.q('tools-menu');
+    expect(panel.querySelectorAll('a').length).toBeGreaterThan(10);
+    btn.click(); expect(panel.classList.contains('open')).toBe(true); expect(btn.getAttribute('aria-expanded')).toBe('true');
+    t.d.dispatchEvent(new (t.dom.window as any).KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    expect(panel.classList.contains('open')).toBe(false);
+    btn.click(); (t.d.body as HTMLElement).click(); expect(panel.classList.contains('open')).toBe(false);
+  });
+  it('closing the mobile drawer also collapses Tools', () => {
+    const t = load(); t.open(); (t.q('tools-btn') as HTMLElement).click(); expect(t.q('tools-menu').classList.contains('open')).toBe(true);
+    (t.q('nav-close') as HTMLElement).click(); expect(t.q('tools-menu').classList.contains('open')).toBe(false);
+  });
+});
+describe('footer', () => {
+  it('has Tools, Exam forms, Site and Legal sections, a logo, and no email or byte-definition line', () => {
+    const { d } = load(); const f = d.querySelector('footer')!;
+    expect([...f.querySelectorAll('h2')].map((h) => h.textContent)).toEqual(['Tools', 'Exam forms', 'Site', 'Legal']);
+    expect(f.querySelector('img.logo-img')).not.toBeNull();
+    expect(f.textContent).not.toContain('@'); expect(f.textContent).not.toContain('1,024');
+  });
+});

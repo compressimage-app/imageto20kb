@@ -1,14 +1,14 @@
 ---
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
-import { SITE_NAME, CONTACT_EMAIL } from '../config';
+import { SITE_NAME } from '../config';
+import { toolGroups, toolPaths, footer } from '../data/nav';
 interface Props { title: string; description: string; path: string; noindex?: boolean; jsonld?: object[]; crumbs?: { name: string; href: string }[] }
 const { crumbs, ...seo } = Astro.props;
-const nav = [
-  ['Image Compressor', '/image-compressor/'], ['Compress to 20KB', '/compress-image-to-20kb/'], ['Compress to 100KB', '/compress-image-to-100kb/'],
-  ['Image Resizer', '/image-resizer/'], ['FAQs', '/faqs/'], ['How It Works', '/how-it-works/'],
-];
-const foot = [['About', '/about/'], ['Contact', '/contact/'], ['Privacy Policy', '/privacy-policy/'], ['Terms and Conditions', '/terms-and-conditions/'], ['Cookie Policy', '/cookie-policy/'], ['Disclaimer', '/disclaimer/'], ['Security', '/security/'], ['Accessibility', '/accessibility/'], ['Copyright Policy', '/copyright-policy/']];
+const here = Astro.url.pathname;
+const top = [['Home', '/'], ['About', '/about/'], ['Contact', '/contact/']];
+const top2 = [['Blog', '/blog/'], ['FAQs', '/faqs/']];
+const cur = (h: string) => (here === h ? 'page' : undefined);
 ---
 <!doctype html>
 <html lang="en">
@@ -29,11 +29,18 @@ const foot = [['About', '/about/'], ['Contact', '/contact/'], ['Privacy Policy',
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap bar">
-      <a class="logo" href="/"><span class="logo-mark" aria-hidden="true"></span>{SITE_NAME}</a>
+      <a class="logo" href="/"><img class="logo-img" src="/favicon-96x96.png" width="32" height="32" alt="" />{SITE_NAME}</a>
       <nav id="nav" aria-label="Main">
         <span class="nav-title" aria-hidden="true">Menu</span>
         <button class="icon-btn nav-close" id="nav-close" type="button" aria-label="Close menu">✕</button>
-        {nav.map(([n, h]) => <a href={h} aria-current={Astro.url.pathname === h ? 'page' : undefined}>{n}</a>)}
+        {top.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}
+        <div class="dd">
+          <button type="button" class:list={['dd-btn', { active: toolPaths.has(here) }]} id="tools-btn" aria-expanded="false" aria-controls="tools-menu">Tools <span class="chev" aria-hidden="true">▾</span></button>
+          <div class="dd-panel" id="tools-menu">
+            {toolGroups.map((g) => (<div><h3>{g.title}</h3>{g.links.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}</div>))}
+          </div>
+        </div>
+        {top2.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}
         <a class="nav-cta" href="/compress-image-to-20kb/">Compress to 20KB</a>
       </nav>
       <div class="actions">
@@ -48,9 +55,19 @@ const foot = [['About', '/about/'], ['Contact', '/contact/'], ['Privacy Policy',
     <slot />
   </main>
   <footer class="site-footer"><div class="wrap">
-    <p><strong>{SITE_NAME}</strong>: image compression that runs in your browser.</p>
-    <nav aria-label="Footer">{foot.map(([n, h]) => <a href={h}>{n}</a>)}</nav>
-    <p class="muted">1 KB = 1,024 bytes. © {new Date().getFullYear()} {SITE_NAME}</p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="/"><img class="logo-img" src="/favicon-96x96.png" width="34" height="34" alt="" loading="lazy" />{SITE_NAME}</a>
+        <p>Compress photos and signatures to the KB size your form asks for, right in your browser.</p>
+      </div>
+      {footer.map((sec) => (
+        <nav aria-labelledby={`f-${sec.title.replace(/\s/g, '')}`}>
+          <h2 id={`f-${sec.title.replace(/\s/g, '')}`}>{sec.title}</h2>
+          <ul>{sec.links.map(([n, h]) => <li><a href={h}>{n}</a></li>)}</ul>
+        </nav>
+      ))}
+    </div>
+    <div class="foot-bottom">© {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</div>
   </div></footer>
   <script is:inline>
     (function () {
@@ -64,12 +81,20 @@ const foot = [['About', '/about/'], ['Contact', '/contact/'], ['Privacy Policy',
       var mb = document.getElementById('menu-btn'), nav = document.getElementById('nav'),
           ov = document.getElementById('overlay'), cb = document.getElementById('nav-close');
       if (!mb || !nav || !ov) return;
+      var tb = document.getElementById('tools-btn'), tp = document.getElementById('tools-menu');
+      function setTools(o) { if (!tb || !tp) return; tp.classList.toggle('open', o); tb.setAttribute('aria-expanded', String(o)); }
+      if (tb && tp) {
+        tb.addEventListener('click', function () { setTools(!tp.classList.contains('open')); });
+        document.addEventListener('click', function (e) { if (!tb.contains(e.target) && !tp.contains(e.target)) setTools(false); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && tp.classList.contains('open') && !nav.classList.contains('open')) { setTools(false); tb.focus(); } });
+      }
       function isOpen() { return nav.classList.contains('open'); }
       function setOpen(open, restoreFocus) {
         nav.classList.toggle('open', open);
         ov.classList.toggle('show', open);
         document.body.classList.toggle('menu-open', open);
         mb.setAttribute('aria-expanded', String(open));
+        if (!open) setTools(false);
         mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         if (open && cb) cb.focus();
         else if (restoreFocus) mb.focus();
@@ -89,7 +114,7 @@ const foot = [['About', '/about/'], ['Contact', '/contact/'], ['Privacy Policy',
           else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         }
       });
-      var mq = window.matchMedia('(max-width: 980px)');
+      var mq = window.matchMedia('(max-width: 960px)');
       var onChange = function (e) { if (!e.matches && isOpen()) setOpen(false, false); };
       if (mq.addEventListener) mq.addEventListener('change', onChange); else mq.addListener(onChange);
       window.addEventListener('pageshow', function () { setOpen(false, false); }); // e.g. back button / bfcache

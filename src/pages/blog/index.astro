@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts } from '../../data/posts';
+import { OPERATOR_NAME, OWNER_ROLE } from '../../config';
+---
+<Base title="Blog: Photo and Signature Upload Help for Online Forms | ImageTo20KB" description="Answers to common questions about compressing photos, signatures and documents for government exam forms, private job applications and online admissions." path="/blog/" crumbs={[{ name: 'Blog', href: '/blog/' }]}>
+  <div class="wrap"><article class="prose">
+    <h1>Blog: Photo and Signature Upload Help</h1>
+    <p class="lead">Practical, question-and-answer guides about preparing photographs, signatures and documents for online forms, including government exam applications, private job portals and admission pages.</p>
+    <p>Written and maintained by {OPERATOR_NAME}, {OWNER_ROLE}. Read more on the <a href="/about/">about page</a>.</p>
+    <ul class="links">
+      {posts.map((p) => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}
+    </ul>
+    {posts.map((p) => <section><h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2><p class="note">{p.date}</p><p>{p.excerpt}</p></section>)}
+    <h2>What you will find here</h2>
+    <p>Most people arrive at this site because a form rejected a file. The posts therefore start with the problem and explain the likely causes in plain language: a size limit counted in a different way, a missing minimum size, a file whose real format does not match its name, or a signature that became unreadable after strong compression. Each post links to the tool or page that helps with that situation, so you can try the fix straight away.</p>
+    <h2>How these guides are written</h2>
+    <p>Guides explain methods that do not change much, such as how to photograph a signature, how to choose a format, or how to check a result. When a post mentions size ranges for a particular exam, it says that the numbers vary by notification and tells you to confirm them on the official portal. We do not copy official notices, and we do not claim to speak for any exam body, employer or university.</p>
+    <h2>Corrections and suggestions</h2>
+    <p>If you spot something that is wrong or out of date, email us at the address on the <a href="/contact/">contact page</a> with the page address and what you found. We would rather correct a mistake quickly than leave it. If there is a question about uploads that you would like answered, send that too.</p>
+    <h2>Who this blog is for</h2>
+    <p>Students, job seekers, parents filling forms for children, and anyone who has met a vague upload error at a bad moment. The explanations assume no technical background, and every guide ends with links to the relevant tool.</p>
+    <h2>Start with the tools</h2>
+    <p>If you are in a hurry, go straight to the <a href="/government-exam-photo-signature-size/">government exam photo and signature page</a>, the <a href="/compress-image-to-20kb/">20KB compressor</a>, or the <a href="/image-compressor-for-online-forms/">online forms guide</a>. All of them process images in your browser, and none of them can guarantee that a particular portal will accept the result, so always read the instructions on the form itself.</p>
+  </article></div>
+</Base>

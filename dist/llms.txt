@@ -1,0 +1,28 @@
+# ImageTo20KB
+
+> ImageTo20KB (https://www.imageto20kb.in/) is a free browser-based image compressor. Users choose a target size in KB (for example 20KB or 100KB); compression runs locally in the user's browser and images are not uploaded for compression.
+
+## Tools
+- [Compress Image to 20KB Online](https://www.imageto20kb.in/compress-image-to-20kb/)
+- [Compress Image to 100KB Online](https://www.imageto20kb.in/compress-image-to-100kb/)
+- [Compress JPG to 20KB](https://www.imageto20kb.in/compress-jpg-to-20kb/)
+- [Compress JPG to 100KB](https://www.imageto20kb.in/compress-jpg-to-100kb/)
+- [Compress PNG to 20KB](https://www.imageto20kb.in/compress-png-to-20kb/)
+- [Compress Image to 50KB](https://www.imageto20kb.in/compress-image-to-50kb/)
+- [Compress Image to 200KB](https://www.imageto20kb.in/compress-image-to-200kb/)
+- [Compress Image to 500KB](https://www.imageto20kb.in/compress-image-to-500kb/)
+- [Image Resizer Online](https://www.imageto20kb.in/image-resizer/)
+- [Image Compressor Online](https://www.imageto20kb.in/image-compressor/)
+- [Image Compressor for Online Forms](https://www.imageto20kb.in/image-compressor-for-online-forms/)
+
+## Supported formats
+- Input: JPG/JPEG, PNG, WebP. Output: JPEG, WebP or PNG depending on the browser.
+- Not supported: animated GIF/WebP/APNG, SVG, HEIC/HEIF.
+- 1 KB = 1,024 bytes. Targets are not always achievable; the tool reports when a result is above target.
+
+## Help
+- [FAQs](https://www.imageto20kb.in/faqs/)
+- [How it works](https://www.imageto20kb.in/how-it-works/)
+- [Privacy policy](https://www.imageto20kb.in/privacy-policy/)
+- [Contact](https://www.imageto20kb.in/contact/)
+- Email: compressimageto@gmail.com
