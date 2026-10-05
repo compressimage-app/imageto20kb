@@ -1,15 +1,83 @@
 ---
 import Base from '../layouts/Base.astro';
-import { CONTACT_EMAIL } from '../config';
+import { CONTACT_EMAIL, CONTACT_FORM_ENDPOINT, OPERATOR_NAME, OWNER_ROLE } from '../config';
+import { TOPICS, LIMITS } from '../lib/contact';
 const mail = `mailto:${CONTACT_EMAIL}`;
 ---
-<Base title="Contact ImageTo20KB" description="Contact the ImageTo20KB site owner by email for support, feedback, bug reports, copyright notices or security reports." path="/contact/" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
+<Base title="Contact ImageTo20KB: Support, Feedback and Reports" description="Contact ImageTo20KB for tool problems, exam size questions, feedback, accessibility, copyright or security reports. Use the contact form or email us." path="/contact/" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
   <div class="wrap"><article class="prose">
-    <h1>Contact</h1>
-    <p>Email: <a href={mail}>{CONTACT_EMAIL}</a></p>
-    <p>You can write to us about problems with the tool, ideas for improvement, accessibility barriers, copyright notices, security reports, or questions about the policies.</p>
-    <h2>What to include</h2>
-    <p>For a problem with the tool, tell us the page address, your browser and device, the target size you chose and what happened. Please do not send photos of identity documents or other sensitive images by email.</p>
-    <p>This site has no contact form, so nothing is submitted through the page. Your email is received by our mail provider and used only to reply to you.</p>
+    <h1>Contact ImageTo20KB</h1>
+    <p class="lead">Have a question about compressing a photo or signature, found a mistake in a guide, or need to report a problem? Use the form below or email us directly. This page also explains what to include so that we can help you quickly.</p>
+
+    <section class="panel" id="contact-form-panel" aria-labelledby="cf-h" data-email={CONTACT_EMAIL} data-endpoint={CONTACT_FORM_ENDPOINT}>
+      <h2 id="cf-h" style="margin-top:0">Send us a message</h2>
+      <form id="contact-form" novalidate>
+        <div class="field"><label for="cf-name">Your name</label><input id="cf-name" name="name" type="text" autocomplete="name" maxlength={LIMITS.nameMax} required aria-describedby="cf-name-err" /><p class="ferr" id="cf-name-err" role="alert"></p></div>
+        <div class="field"><label for="cf-email">Your email address</label><input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="cf-email-err" /><p class="ferr" id="cf-email-err" role="alert"></p></div>
+        <div class="field"><label for="cf-topic">Topic</label>
+          <select id="cf-topic" name="topic" required aria-describedby="cf-topic-err"><option value="">Choose a topic…</option>{TOPICS.map((t) => <option value={t}>{t}</option>)}</select><p class="ferr" id="cf-topic-err" role="alert"></p></div>
+        <div class="field"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="7" maxlength={LIMITS.msgMax} required aria-describedby="cf-message-hint cf-message-err"></textarea>
+          <p class="note" id="cf-message-hint">Tell us the page address, your browser and device, and what happened. Maximum {LIMITS.msgMax} characters. Please do not include ID numbers or private documents.</p><p class="ferr" id="cf-message-err" role="alert"></p></div>
+        <div class="hp" aria-hidden="true"><label for="cf-website">Leave this field empty</label><input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+        <div class="row"><button class="btn" type="submit" id="cf-submit">Send message</button><a class="btn alt" href={mail}>Or email us directly</a></div>
+        <p id="cf-status" class="note" role="status" aria-live="polite"></p>
+      </form>
+      <p class="note">This form opens your own email application with the message ready to send, so nothing is sent until you press send there. If nothing opens, copy your message and email it to us at the address on this page.</p>
+    </section>
+
+    <h2>Ways to contact us</h2>
+    <p>The simplest way is the form above, which prepares an email for you. You can also write directly to <a href={mail}>{CONTACT_EMAIL}</a>. The site has no accounts, no chat widget and no telephone line, which keeps things simple and means there is no profile of you on this site to manage.</p>
+
+    <h2>Which topic should I choose?</h2>
+    <p><strong>Problem with the tool</strong> is for cases where a file would not load, compression failed, the result was unexpectedly large, or a button did not work. <strong>Exam photo or signature size question</strong> is for the exam pages: if you think a size range is out of date or wrong, tell us which exam, which notification and where you saw the correct figure. <strong>Correction or feedback on a guide</strong> covers the blog and help pages. <strong>Accessibility barrier</strong> is for anything that is hard to use with a keyboard, screen reader or zoom. <strong>Copyright notice</strong> and <strong>Security report</strong> are explained further below. <strong>Something else</strong> is for any other question.</p>
+
+    <h2>What to include in your message</h2>
+    <p>A good message saves a round of questions. For a tool problem, include the address of the page, the browser and device you use, the target size you chose, the format and approximate size of the original file, and what you saw. Avoid sending the image itself unless we ask for it, and never send photographs of identity documents. For a correction, include the page address, the sentence that seems wrong and a link to the official source that shows the right information. For an accessibility report, tell us which assistive technology you use.</p>
+
+    <h2>What we can and cannot help with</h2>
+    <p>We can explain how the tool behaves, suggest settings for a stubborn image, correct mistakes on the site, and look into bugs. We cannot guarantee that a particular government, exam, employer or university portal will accept a file, because those portals set and change their own rules. We cannot recover files that were deleted from your device, we do not receive your images through the tool, and we cannot give legal advice. If a portal rejects your upload, its helpdesk is the right place to ask what it requires.</p>
+
+    <h2>Quick answers before you write</h2>
+    <p>Many questions are already answered. The <a href="/faqs/">FAQs</a> cover formats, quality and privacy. The <a href="/blog/">blog</a> explains why a portal may say a file is too large after compression. The <a href="/government-exam-photo-signature-size/">government exam photo and signature page</a> explains size ranges for SSC, RRB and UPSC style forms, and <a href="/how-it-works/">how it works</a> describes the method and its limits.</p>
+
+    <h2>Privacy of your message</h2>
+    <p>When you use the form, your browser opens your email application and fills in the subject and message. The message travels through your own email provider to our inbox. We receive your name, email address and the text you wrote, and we use them only to reply and to keep a record of the conversation. The contact page itself does not store what you type. Read the <a href="/privacy-policy/">privacy policy</a> for the full details, including how site analytics work.</p>
+
+    <h2>Security and copyright reports</h2>
+    <p>If you believe you found a security problem, describe how to reproduce it and give us reasonable time to respond before sharing it publicly. If you believe something on the site infringes your copyright, include the page address, a description of the work and a statement that you are the owner or authorised to act. More information is on the <a href="/security/">security</a> and <a href="/copyright-policy/">copyright policy</a> pages.</p>
+
+    <h2>Who replies</h2>
+    <p>The site is developed and managed by {OPERATOR_NAME}, {OWNER_ROLE}, who reads the messages. We reply when we can, but we cannot promise a response time. Learn more on the <a href="/about/">about page</a>.</p>
   </article></div>
+  <script>
+    import { validateContact, buildMailto, type ContactInput } from '../lib/contact';
+    const panel = document.getElementById('contact-form-panel')!;
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const status = document.getElementById('cf-status')!;
+    const to = panel.dataset.email || '', endpoint = panel.dataset.endpoint || '';
+    const ids = ['name', 'email', 'topic', 'message'] as const;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = new FormData(form);
+      const input: ContactInput = { name: String(f.get('name') || ''), email: String(f.get('email') || ''), topic: String(f.get('topic') || ''), message: String(f.get('message') || ''), website: String(f.get('website') || '') };
+      const res = validateContact(input);
+      ids.forEach((k) => {
+        const el = document.getElementById('cf-' + k) as HTMLElement, err = document.getElementById(`cf-${k}-err`)!;
+        err.textContent = res.errors[k] || ''; el.setAttribute('aria-invalid', res.errors[k] ? 'true' : 'false');
+      });
+      if (res.spam) { status.textContent = 'Your message could not be sent.'; return; }
+      if (!res.ok) { status.textContent = 'Please fix the highlighted fields.'; (form.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus(); return; }
+      if (endpoint) {
+        status.textContent = 'Sending…';
+        try {
+          const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: input.name, email: input.email, topic: input.topic, message: input.message }) });
+          if (!r.ok) throw new Error('bad status');
+          status.textContent = 'Thank you. Your message was sent.'; form.reset();
+        } catch { status.textContent = `Sorry, the message could not be sent. Please email ${to} instead.`; }
+        return;
+      }
+      window.location.href = buildMailto(to, input);
+      status.textContent = `Your email app should open with the message ready. If it does not, please email ${to} directly.`;
+    });
+  </script>
 </Base>

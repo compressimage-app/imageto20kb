@@ -1,0 +1,37 @@
+{
+  "before": {
+    "bytes": 393183,
+    "width": 1200,
+    "height": 800
+  },
+  "after": {
+    "20": {
+      "bytes": 19725,
+      "width": 509,
+      "height": 339,
+      "achieved": true,
+      "quality": 62
+    },
+    "50": {
+      "bytes": 51187,
+      "width": 873,
+      "height": 582,
+      "achieved": true,
+      "quality": 62
+    },
+    "100": {
+      "bytes": 102240,
+      "width": 1200,
+      "height": 800,
+      "achieved": true,
+      "quality": 62
+    },
+    "200": {
+      "bytes": 192551,
+      "width": 1200,
+      "height": 800,
+      "achieved": true,
+      "quality": 81
+    }
+  }
+}

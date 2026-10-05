@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Tool from '../components/Tool.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
 import { SITE, SITE_NAME, abs } from '../config';
 const jsonld = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE + '/' },
@@ -14,10 +15,11 @@ const jsonld = [
       <p class="lead">Reduce JPG, JPEG, PNG, and supported image files to a smaller file size with ImageTo20KB. Choose a target size, preview the result, and download your compressed image. Your images are processed locally in your browser.</p>
       <div class="cta"><a class="btn" href="#tool" data-t="20">Compress to 20KB</a><a class="btn alt" href="#tool" data-t="100">Compress to 100KB</a></div>
     </div>
-    <div class="illus" aria-hidden="true"><div class="card3d a">Original 2.4 MB</div><div class="card3d b">20 KB</div></div>
+    <div class="hero-ba"><BeforeAfter target={20} variant="hero" /></div>
   </div></section>
   <div class="wrap">
     <Tool target={20} />
+    <BeforeAfter target={20} class="ba-mobile-only" />
     <article class="prose">
       <h2>More ways to reduce image size</h2>
       <ul class="links">

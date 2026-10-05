@@ -1,0 +1,34 @@
+---
+import ba from '../data/ba.json';
+import { formatBytes } from '../lib/image/target-size';
+interface Props { target?: number; variant?: 'hero' | 'section'; class?: string }
+const { target = 20, variant = 'section', class: cls = '' } = Astro.props;
+const presets = Object.keys(ba.after).map(Number);
+const key = presets.reduce((best, p) => (Math.abs(p - target) < Math.abs(best - target) ? p : best), presets[0]);
+const a = (ba.after as Record<string, { bytes: number; width: number; height: number }>)[String(key)];
+const before = formatBytes(ba.before.bytes), after = formatBytes(a.bytes);
+const hero = variant === 'hero';
+---
+<figure class:list={['ba', cls]}>
+  {!hero && <h2 class="ba-h">See the difference: {before} → {after}</h2>}
+  <div class="ba-stage">
+    <img class="ba-img" src="/img/before.jpg" width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading={hero ? 'eager' : 'lazy'} decoding="async" />
+    <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading={hero ? 'eager' : 'lazy'} decoding="async" />
+    <span class="ba-tag l">Original · {before}</span>
+    <span class="ba-tag r">Compressed · {after}</span>
+    <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparison slider: drag to compare the original and the compressed image" />
+    <div class="ba-line" aria-hidden="true"></div>
+    <div class="ba-knob" aria-hidden="true">⇆</div>
+  </div>
+  <figcaption class="note">
+    Real example from this tool: {ba.before.width}×{ba.before.height} px, {before} compressed to {after} ({a.width}×{a.height} px) for a {key}KB target. Drag the handle, or use the arrow keys. Sample illustration created for this site, with no third-party copyright. Your results depend on your image.
+  </figcaption>
+</figure>
+<script>
+  document.querySelectorAll<HTMLElement>('.ba').forEach((el) => {
+    const r = el.querySelector<HTMLInputElement>('.ba-range');
+    if (!r) return;
+    const set = () => el.style.setProperty('--pos', r.value + '%');
+    r.addEventListener('input', set); set();
+  });
+</script>

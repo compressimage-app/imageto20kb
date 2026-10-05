@@ -10,8 +10,11 @@ for (const p of html) {
   const s = readFileSync(p, 'utf8'), r = route(p);
   const is404 = /noindex/.test(s.match(/<meta name="robots"[^>]*>/)?.[0] ?? ''); if (is404) noindexRoutes.add(r);
   const t = s.match(/<title>(.*?)<\/title>/)?.[1], d = s.match(/<meta name="description" content="(.*?)"/)?.[1], c = s.match(/<link rel="canonical" href="(.*?)"/)?.[1];
-  if (!is404 && r !== '/contact/' && words(s) < 600) errors.push(`${r}: only ${words(s)} words (min 600)`);
+  if (!is404 && words(s) < 600) errors.push(`${r}: only ${words(s)} words (min 600)`);
   if (!/rel="apple-touch-icon"/.test(s) || !/rel="manifest"/.test(s) || !/favicon-96x96\.png/.test(s)) errors.push(`${r}: favicon links missing`);
+  if (!s.includes('googletagmanager.com/gtag/js?id=G-YNJS39ZTBL') || !s.includes("gtag('config', 'G-YNJS39ZTBL')")) errors.push(`${r}: Google tag missing`);
+  if (!s.includes('name="msvalidate.01" content="B2CC874597C52F944CF785656679176A"')) errors.push(`${r}: Bing tag missing`);
+  if ((r === '/' || (!is404 && /id="tool"/.test(s))) && !s.includes('class="ba-stage"')) errors.push(`${r}: before/after missing`);
   if (!t) errors.push(`${r}: no title`); if (!d) errors.push(`${r}: no description`);
   if ((s.match(/<h1[ >]/g) || []).length !== 1) errors.push(`${r}: expected exactly one h1`);
   if (!is404) {
@@ -28,7 +31,8 @@ for (const l of locs) if (!routes.has(l.replace(SITE, ''))) errors.push(`sitemap
 for (const r of routes) if (!noindexRoutes.has(r) && !locs.includes(SITE + r)) errors.push(`page missing from sitemap: ${r}`);
 if (!readFileSync(join(DIST, 'robots.txt'), 'utf8').includes(`Sitemap: ${SITE}/sitemap.xml`)) errors.push('robots.txt missing sitemap');
 for (const e of ['404.html','500.html','403/index.html','503/index.html']) if (!existsSync(join(DIST, e))) errors.push(`missing error page ${e}`);
-if (!readFileSync(join(DIST, 'contact/index.html'), 'utf8').includes('mailto:compressimageto@gmail.com')) errors.push('contact email missing');
+{ const c = readFileSync(join(DIST, 'contact/index.html'), 'utf8'); if (!c.includes('mailto:compressimageto@gmail.com')) errors.push('contact email missing'); if (!c.includes('id="contact-form"')) errors.push('contact form missing'); }
+for (const f of ['before.jpg','after-20kb.jpg','after-50kb.jpg','after-100kb.jpg','after-200kb.jpg']) if (!existsSync(join(DIST, 'img', f))) errors.push(`missing image ${f}`);
 if (!existsSync(join(DIST, 'llms.txt'))) errors.push('llms.txt missing');
 for (const [page, kw] of [['compress-image-to-200kb/', 'compress image to 200kb'], ['image-compressor/', 'squoosh image compression'], ['', 'squoosh']]) if (!new RegExp(kw, 'i').test(readFileSync(join(DIST, page, 'index.html'), 'utf8'))) errors.push(`keyword "${kw}" missing on /${page}`);
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

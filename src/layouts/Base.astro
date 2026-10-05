@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
-import { SITE_NAME } from '../config';
+import { SITE_NAME, GA_ID, BING_VALIDATION } from '../config';
 import { toolGroups, toolPaths, footer } from '../data/nav';
 interface Props { title: string; description: string; path: string; noindex?: boolean; jsonld?: object[]; crumbs?: { name: string; href: string }[] }
 const { crumbs, ...seo } = Astro.props;
@@ -23,7 +23,16 @@ const cur = (h: string) => (here === h ? 'page' : undefined);
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#4F46E5" />
   <script is:inline>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
+  <meta name="msvalidate.01" content={BING_VALIDATION} />
   <Seo {...seo} />
+  {import.meta.env.PROD && (<>
+    <!-- Google tag (gtag.js) -->
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script is:inline set:html={`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}></script>
+  </>)}
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>

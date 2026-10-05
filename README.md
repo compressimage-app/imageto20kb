@@ -30,3 +30,6 @@ Then in the Cloudflare dashboard:
 - Analytics are not implemented. If added, update the privacy and cookie policies.
 - No browser E2E or real-image tests have been run yet (see LAUNCH-CHECKLIST.md).
 - Icons are plain text/inline glyphs, not Lucide.
+
+## Before/after sample images
+`npx vite-node scripts/make-before-after.ts` regenerates `public/img/before.jpg`, the `after-*kb.jpg` files and `src/data/ba.json` (real sizes shown on the site) using the same search as the tool.
