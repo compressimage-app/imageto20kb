@@ -55,3 +55,48 @@ describe('footer', () => {
     expect(f.textContent).not.toContain('@'); expect(f.textContent).not.toContain('1,024');
   });
 });
+
+// ---- cookie consent ----
+function loadWith(storage: Record<string, string> = {}, path = 'dist/index.html') {
+  const dom = new JSDOM(readFileSync(path, 'utf8'), { runScripts: 'dangerously', url: 'https://www.imageto20kb.in/', pretendToBeVisual: true,
+    beforeParse(w) { (w as any).matchMedia = () => ({ matches: false, addEventListener() {}, addListener() {} }); for (const [k, v] of Object.entries(storage)) w.localStorage.setItem(k, v); } });
+  const d = dom.window.document;
+  const gaScripts = () => [...d.querySelectorAll('script')].filter((s) => (s.getAttribute('src') || '').includes('googletagmanager.com'));
+  return { dom, d, gaScripts, banner: () => d.getElementById('consent') as HTMLElement };
+}
+describe('cookie consent', () => {
+  it('shows the banner and does NOT load Google Analytics before a choice', () => {
+    const t = loadWith(); expect(t.banner().hidden).toBe(false); expect(t.gaScripts().length).toBe(0);
+  });
+  it('accept loads the Google tag, stores the choice and hides the banner', () => {
+    const t = loadWith(); (t.d.getElementById('consent-accept') as HTMLElement).click();
+    expect(t.dom.window.localStorage.getItem('cookie-consent')).toBe('granted');
+    expect(t.gaScripts().length).toBe(1); expect(t.gaScripts()[0].getAttribute('src')).toContain('G-YNJS39ZTBL'); expect(t.banner().hidden).toBe(true);
+  });
+  it('reject keeps analytics off and disables the tag', () => {
+    const t = loadWith(); (t.d.getElementById('consent-reject') as HTMLElement).click();
+    expect(t.dom.window.localStorage.getItem('cookie-consent')).toBe('denied'); expect(t.gaScripts().length).toBe(0);
+    expect((t.dom.window as any)['ga-disable-G-YNJS39ZTBL']).toBe(true); expect(t.banner().hidden).toBe(true);
+  });
+  it('remembers a previous accept (loads tag, no banner) and a previous reject (no tag, no banner)', () => {
+    const a = loadWith({ 'cookie-consent': 'granted' }); expect(a.gaScripts().length).toBe(1); expect(a.banner().hidden).toBe(true);
+    const r = loadWith({ 'cookie-consent': 'denied' }); expect(r.gaScripts().length).toBe(0); expect(r.banner().hidden).toBe(true);
+  });
+  it('footer Cookie settings link reopens the banner', () => {
+    const t = loadWith({ 'cookie-consent': 'denied' }); (t.d.querySelector('[data-cookie-settings]') as HTMLElement).click(); expect(t.banner().hidden).toBe(false);
+  });
+  it('cookie policy page has choice buttons that work', () => {
+    const t = loadWith({}, 'dist/cookie-policy/index.html'); (t.d.querySelector('[data-consent="granted"]') as HTMLElement).click();
+    expect(t.d.getElementById('consent-status')!.textContent).toContain('accepted'); expect(t.gaScripts().length).toBe(1);
+    (t.d.querySelector('[data-consent="denied"]') as HTMLElement).click(); expect(t.d.getElementById('consent-status')!.textContent).toContain('rejected');
+  });
+});
+
+describe('layout guards (static checks on built HTML/CSS)', () => {
+  it('uses a centred prose column and no render-blocking stylesheet', () => {
+    const html = readFileSync('dist/index.html', 'utf8');
+    expect(html).not.toMatch(/<link[^>]+rel="stylesheet"/);
+    expect(html).toMatch(/margin-inline:auto/);
+    expect(html).toMatch(/overflow-x:clip/);
+  });
+});

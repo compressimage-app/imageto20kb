@@ -25,14 +25,13 @@ const cur = (h: string) => (here === h ? 'page' : undefined);
   <script is:inline>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
   <meta name="msvalidate.01" content={BING_VALIDATION} />
   <Seo {...seo} />
-  {import.meta.env.PROD && (<>
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
-    <script is:inline set:html={`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA_ID}');`}></script>
-  </>)}
+  <script is:inline set:html={`(function(){var ID='${GA_ID}',KEY='cookie-consent',PROD=${import.meta.env.PROD ? 'true' : 'false'};
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
+function get(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
+function load(){if(!PROD||window.__gaLoaded)return;window.__gaLoaded=true;window['ga-disable-'+ID]=false;
+var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);
+gtag('js',new Date());gtag('config',ID);}
+window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')load();})();`}></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -63,6 +62,11 @@ gtag('config', '${GA_ID}');`}></script>
     {crumbs && <nav class="wrap crumbs" aria-label="Breadcrumb"><a href="/">Home</a>{crumbs.map((c) => <><span aria-hidden="true"> › </span><a href={c.href}>{c.name}</a></>)}</nav>}
     <slot />
   </main>
+  <div id="consent" class="consent" role="dialog" aria-labelledby="consent-t" aria-describedby="consent-d" hidden>
+    <p id="consent-t" class="consent-title">Cookies and analytics</p>
+    <p id="consent-d">We would like to use Google Analytics cookies to count visits and improve this site. They are only set if you accept. Your images are never sent. <a href="/cookie-policy/">Read the cookie policy</a>.</p>
+    <div class="consent-actions"><button class="btn" type="button" id="consent-accept">Accept analytics</button><button class="btn alt" type="button" id="consent-reject">Reject</button></div>
+  </div>
   <footer class="site-footer"><div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
@@ -72,7 +76,7 @@ gtag('config', '${GA_ID}');`}></script>
       {footer.map((sec) => (
         <nav aria-labelledby={`f-${sec.title.replace(/\s/g, '')}`}>
           <h2 id={`f-${sec.title.replace(/\s/g, '')}`}>{sec.title}</h2>
-          <ul>{sec.links.map(([n, h]) => <li><a href={h}>{n}</a></li>)}</ul>
+          <ul>{sec.links.map(([n, h]) => <li><a href={h} data-cookie-settings={n === 'Cookie settings' ? '' : undefined}>{n}</a></li>)}</ul>
         </nav>
       ))}
     </div>
@@ -127,6 +131,38 @@ gtag('config', '${GA_ID}');`}></script>
       var onChange = function (e) { if (!e.matches && isOpen()) setOpen(false, false); };
       if (mq.addEventListener) mq.addEventListener('change', onChange); else mq.addListener(onChange);
       window.addEventListener('pageshow', function () { setOpen(false, false); }); // e.g. back button / bfcache
+    })();
+  </script>
+  <script is:inline>
+    (function () {
+      var C = window.__consent; if (!C) return;
+      var box = document.getElementById('consent');
+      function get() { try { return localStorage.getItem(C.KEY); } catch (e) { return null; } }
+      function clearGa() {
+        var base = location.hostname.replace(/^www\./, '');
+        document.cookie.split(';').forEach(function (c) {
+          var n = c.split('=')[0].trim();
+          if (n === '_ga' || n.indexOf('_ga_') === 0 || n === '_gid' || n === '_gat') {
+            ['', ';domain=' + base, ';domain=.' + base, ';domain=' + location.hostname].forEach(function (d) { document.cookie = n + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/' + d; });
+          }
+        });
+      }
+      function status() {
+        var v = get(), el = document.getElementById('consent-status');
+        if (el) el.textContent = v === 'granted' ? 'Analytics cookies: accepted' : v === 'denied' ? 'Analytics cookies: rejected' : 'You have not made a choice yet';
+      }
+      function choose(v) {
+        try { localStorage.setItem(C.KEY, v); } catch (e) {}
+        if (v === 'granted') C.load(); else { window['ga-disable-' + C.ID] = true; clearGa(); }
+        box.hidden = true; status();
+      }
+      function openBox() { box.hidden = false; var a = document.getElementById('consent-accept'); if (a) a.focus(); }
+      if (get() === null) box.hidden = false;
+      document.getElementById('consent-accept').addEventListener('click', function () { choose('granted'); });
+      document.getElementById('consent-reject').addEventListener('click', function () { choose('denied'); });
+      document.querySelectorAll('[data-consent]').forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-consent')); }); });
+      document.querySelectorAll('[data-cookie-settings]').forEach(function (a) { a.addEventListener('click', function (e) { if (location.pathname === '/cookie-policy/') return; e.preventDefault(); openBox(); }); });
+      status();
     })();
   </script>
 </body>

@@ -14,6 +14,18 @@
 - [Image Resizer Online](https://www.imageto20kb.in/image-resizer/)
 - [Image Compressor Online](https://www.imageto20kb.in/image-compressor/)
 - [Image Compressor for Online Forms](https://www.imageto20kb.in/image-compressor-for-online-forms/)
+- [Government Exam Photo and Signature Size](https://www.imageto20kb.in/government-exam-photo-signature-size/)
+- [SSC Photo and Signature Size](https://www.imageto20kb.in/ssc-photo-signature-size/)
+- [RRB Photo and Signature Size](https://www.imageto20kb.in/rrb-photo-signature-size/)
+- [UPSC Photo and Signature Size](https://www.imageto20kb.in/upsc-photo-signature-size/)
+
+## Blog
+- [How to Resize Photo and Signature for Online Exam Forms (Step by Step)](https://www.imageto20kb.in/blog/how-to-resize-photo-and-signature-for-online-exam-forms/)
+- [Why Does the Portal Say "File Size Too Large" After I Compressed My Photo?](https://www.imageto20kb.in/blog/photo-rejected-file-size-too-large-after-compression/)
+- [How to Make a Clean Signature Image for Online Forms](https://www.imageto20kb.in/blog/how-to-make-a-clean-signature-image-for-online-forms/)
+- [Photo Upload Checklist for Private Job Applications and Online Admissions](https://www.imageto20kb.in/blog/photo-upload-checklist-for-private-jobs-and-online-admissions/)
+- [JPG, PNG or WebP: Which Image Format Should You Use for Online Forms?](https://www.imageto20kb.in/blog/jpg-png-or-webp-which-format-for-online-forms/)
+- [Is It Safe to Compress Photos and ID Images Online?](https://www.imageto20kb.in/blog/is-it-safe-to-compress-photos-online/)
 
 ## Supported formats
 - Input: JPG/JPEG, PNG, WebP. Output: JPEG, WebP or PNG depending on the browser.

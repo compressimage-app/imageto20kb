@@ -3,24 +3,46 @@ import Base from '../../layouts/Base.astro';
 import { posts } from '../../data/posts';
 import { OPERATOR_NAME, OWNER_ROLE } from '../../config';
 ---
-<Base title="Blog: Photo and Signature Upload Help for Online Forms | ImageTo20KB" description="Answers to common questions about compressing photos, signatures and documents for government exam forms, private job applications and online admissions." path="/blog/" crumbs={[{ name: 'Blog', href: '/blog/' }]}>
-  <div class="wrap"><article class="prose">
-    <h1>Blog: Photo and Signature Upload Help</h1>
-    <p class="lead">Practical, question-and-answer guides about preparing photographs, signatures and documents for online forms, including government exam applications, private job portals and admission pages.</p>
-    <p>Written and maintained by {OPERATOR_NAME}, {OWNER_ROLE}. Read more on the <a href="/about/">about page</a>.</p>
-    <ul class="links">
-      {posts.map((p) => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}
+<Base title="Blog: How to Compress Image to 20KB and Fix Upload Errors | ImageTo20KB" description="Guides on how to compress image to 20KB or 100KB, and answers about photo and signature uploads for government exam forms, job applications and admissions." path="/blog/" crumbs={[{ name: 'Blog', href: '/blog/' }]}>
+  <div class="wrap">
+    <section class="blog-hero">
+      <img class="blog-hero-img" src="/img/blog/blog-hero.svg" width="1600" height="520" alt="" fetchpriority="high" />
+      <div class="blog-hero-text">
+        <h1>Blog: How to Compress Image to 20KB and Fix Upload Errors</h1>
+        <p>Practical, question-and-answer guides about preparing photographs, signatures and documents for online forms, including government exam applications, private job portals and admission pages.</p>
+        <p class="byline">Written and maintained by {OPERATOR_NAME}, {OWNER_ROLE}. Read more on the <a href="/about/">about page</a>.</p>
+      </div>
+    </section>
+    <ul class="cards">
+      {posts.map((p, i) => (
+        <li class="card">
+          <a href={`/blog/${p.slug}/`} tabindex="-1" aria-hidden="true"><img src={`/img/blog/${p.slug}.svg`} width="1200" height="630" alt="" loading={i < 3 ? 'eager' : 'lazy'} decoding="async" /></a>
+          <div class="card-body">
+            <p class="note">{p.date}</p>
+            <h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2>
+            <p>{p.excerpt}</p>
+            <a class="more" href={`/blog/${p.slug}/`}>Read the answer →</a>
+          </div>
+        </li>
+      ))}
     </ul>
-    {posts.map((p) => <section><h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2><p class="note">{p.date}</p><p>{p.excerpt}</p></section>)}
-    <h2>What you will find here</h2>
-    <p>Most people arrive at this site because a form rejected a file. The posts therefore start with the problem and explain the likely causes in plain language: a size limit counted in a different way, a missing minimum size, a file whose real format does not match its name, or a signature that became unreadable after strong compression. Each post links to the tool or page that helps with that situation, so you can try the fix straight away.</p>
-    <h2>How these guides are written</h2>
-    <p>Guides explain methods that do not change much, such as how to photograph a signature, how to choose a format, or how to check a result. When a post mentions size ranges for a particular exam, it says that the numbers vary by notification and tells you to confirm them on the official portal. We do not copy official notices, and we do not claim to speak for any exam body, employer or university.</p>
-    <h2>Corrections and suggestions</h2>
-    <p>If you spot something that is wrong or out of date, email us at the address on the <a href="/contact/">contact page</a> with the page address and what you found. We would rather correct a mistake quickly than leave it. If there is a question about uploads that you would like answered, send that too.</p>
-    <h2>Who this blog is for</h2>
-    <p>Students, job seekers, parents filling forms for children, and anyone who has met a vague upload error at a bad moment. The explanations assume no technical background, and every guide ends with links to the relevant tool.</p>
-    <h2>Start with the tools</h2>
-    <p>If you are in a hurry, go straight to the <a href="/government-exam-photo-signature-size/">government exam photo and signature page</a>, the <a href="/compress-image-to-20kb/">20KB compressor</a>, or the <a href="/image-compressor-for-online-forms/">online forms guide</a>. All of them process images in your browser, and none of them can guarantee that a particular portal will accept the result, so always read the instructions on the form itself.</p>
-  </article></div>
+    <article class="prose">
+      <h2>Guides to compress image to 20KB and 100KB</h2>
+      <p>Start with the guide on how to compress image to 20KB if a form limits your photo or signature to 20KB. If the limit is larger, read how to compress image to 100KB online. Both guides explain the steps, the checks and the common reasons a portal still rejects a file after you compress image to 20KB or compress image to 100KB.</p>
+      <h2>What you will find here</h2>
+      <p>Most people arrive at this site because a form rejected a file. The posts therefore start with the problem and explain the likely causes in plain language: a size limit counted in a different way, a missing minimum size, a file whose real format does not match its name, or a signature that became unreadable after strong compression. Each post links to the tool or page that helps with that situation, so you can try the fix straight away.</p>
+      <h2>How these guides are written</h2>
+      <p>Guides explain methods that do not change much, such as how to photograph a signature, how to choose a format, or how to check a result. When a post mentions size ranges for a particular exam, it says that the numbers vary by notification and tells you to confirm them on the official portal. We do not copy official notices, and we do not claim to speak for any exam body, employer or university. The illustrations are original artwork made for this site.</p>
+      <h2>Corrections and suggestions</h2>
+      <p>If you spot something that is wrong or out of date, email us at the address on the <a href="/contact/">contact page</a> with the page address and what you found. We would rather correct a mistake quickly than leave it. If there is a question about uploads that you would like answered, send that too.</p>
+      <h2>Who this blog is for</h2>
+      <p>Students, job seekers, parents filling forms for children, and anyone who has met a vague upload error at a bad moment. The explanations assume no technical background, and every guide ends with links to the relevant tool.</p>
+      <h2>Why readers want to compress image to 20KB</h2>
+      <p>The most common question we receive is how to compress image to 20KB for a signature or photograph. The guide explains how to compress image to 20KB online, how to check the size, and what to do when the result is still too large. If you cannot compress image to 20KB without making a picture blurry, the guide also explains when to choose 50KB or 100KB.</p>
+      <h2>How to use the blog</h2>
+      <p>Pick the post that matches the message you are seeing, read the short answers, and then open the linked tool to try the fix on your own file. If your problem is not covered, the FAQs and the contact page are the next places to look, and new questions are added as readers send them.</p>
+      <h2>Start with the tools</h2>
+      <p>If you are in a hurry, go straight to the <a href="/government-exam-photo-signature-size/">government exam photo and signature page</a>, the <a href="/compress-image-to-20kb/">20KB compressor</a>, or the <a href="/image-compressor-for-online-forms/">online forms guide</a>. All of them process images in your browser, and none of them can guarantee that a particular portal will accept the result, so always read the instructions on the form itself.</p>
+    </article>
+  </div>
 </Base>

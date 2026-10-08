@@ -9,7 +9,10 @@
     "preview": "astro preview",
     "test": "vitest run",
     "check:seo": "node scripts/check-seo.mjs",
-    "verify": "npm run build && npm test && npm run check:seo",
+    "report:keywords": "node scripts/keyword-report.mjs",
+    "audit:render": "node scripts/audit-render-blocking.mjs",
+    "check:redirects": "node scripts/check-redirects.mjs",
+    "verify": "npm run build && npm test && npm run check:seo && npm run audit:render",
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {

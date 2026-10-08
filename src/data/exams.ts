@@ -5,9 +5,9 @@ const CAVEAT = 'Requirements change with every notification. The ranges on this 
 
 export const examPages: Landing[] = [
 { slug: 'government-exam-photo-signature-size', nav: 'Govt Exam Photo Size', updated: UPDATED,
-  title: T('Government Exam Photo and Signature Size: Compress to KB'),
-  description: 'Compress photo and signature to the KB range asked by SSC, RRB, UPSC, bank and other online exam forms. Free, runs in your browser, with checks for minimum size.',
-  h1: 'Government Exam Photo and Signature Size', target: 47, format: 'image/jpeg',
+  title: T('Compress Image to 20KB for Government Exam Photo and Signature'),
+  description: 'Compress image to 20KB or the KB range asked by SSC, RRB, UPSC, bank and other online exam forms. Free, runs in your browser, with checks for minimum size.',
+  h1: 'Compress Image to 20KB for Government Exam Photo and Signature', target: 47, format: 'image/jpeg',
   examPresets: [{ label: '10–20 KB', kb: 19, min: 10 }, { label: '20–50 KB', kb: 47, min: 20 }, { label: '30–49 KB', kb: 46, min: 30 }, { label: '20–100 KB', kb: 95, min: 20 }, { label: '20–200 KB', kb: 190, min: 20 }],
   intro: 'Online forms for government exams usually ask for a photograph and a signature as separate JPEG files, each inside a size range in KB. Pick the range from your notification, add your files, and check the result.',
   sections: [
@@ -22,9 +22,9 @@ export const examPages: Landing[] = [
   faqs: [{ q: 'Which size range should I choose?', a: 'The one printed in your exam notification or on the upload screen. Each exam and each year can differ, so do not rely on memory or on another candidate’s form.' }, { q: 'My result is below the minimum size. What now?', a: 'Use a larger or sharper original, crop less tightly, tick Keep dimensions, or raise the target. A signature on plain paper can be very small, so a higher-resolution scan helps.' }],
   related: ['ssc-photo-signature-size', 'rrb-photo-signature-size', 'upsc-photo-signature-size', 'compress-image-to-20kb', 'compress-image-to-50kb', 'image-resizer'] },
 { slug: 'ssc-photo-signature-size', nav: 'SSC Photo & Signature', updated: UPDATED,
-  title: T('SSC Photo and Signature Size: Resize to KB Online'),
-  description: 'Prepare your SSC photo and signature in the KB range the form asks for. Compress to 10–20 KB or 20–50 KB JPEG in your browser and check the result.',
-  h1: 'SSC Photo and Signature Size', target: 47, format: 'image/jpeg',
+  title: T('SSC Photo and Signature: Compress Image to 20KB and Beyond'),
+  description: 'Compress image to 20KB for the SSC signature and prepare the photo in the KB range the form asks for. Free JPEG compression in your browser.',
+  h1: 'SSC Photo and Signature: Compress Image to 20KB and Beyond', target: 47, format: 'image/jpeg',
   examPresets: [{ label: 'Signature 10–20 KB', kb: 19, min: 10 }, { label: 'Photo 20–50 KB', kb: 47, min: 20 }],
   intro: 'For SSC exams such as CGL, CHSL, MTS and GD, the application asks for a signature and, depending on the notice, a photograph. Use the presets below to prepare each file.',
   sections: [

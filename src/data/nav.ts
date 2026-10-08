@@ -11,5 +11,5 @@ export const footer: { title: string; links: [string, string][] }[] = [
   { title: 'Tools', links: [...L(['compress-image-to-20kb', 'compress-image-to-50kb', 'compress-image-to-100kb', 'compress-image-to-200kb', 'compress-image-to-500kb', 'image-compressor', 'image-resizer'])] },
   { title: 'Exam forms', links: [...L(['government-exam-photo-signature-size', 'ssc-photo-signature-size', 'rrb-photo-signature-size', 'upsc-photo-signature-size', 'image-compressor-for-online-forms'])] },
   { title: 'Site', links: [['Home', '/'], ['About', '/about/'], ['Contact', '/contact/'], ['Blog', '/blog/'], ['FAQs', '/faqs/'], ['How It Works', '/how-it-works/']] },
-  { title: 'Legal', links: [['Privacy Policy', '/privacy-policy/'], ['Terms and Conditions', '/terms-and-conditions/'], ['Cookie Policy', '/cookie-policy/'], ['Disclaimer', '/disclaimer/'], ['Copyright Policy', '/copyright-policy/'], ['Security', '/security/'], ['Accessibility', '/accessibility/']] },
+  { title: 'Legal', links: [['Privacy Policy', '/privacy-policy/'], ['Terms and Conditions', '/terms-and-conditions/'], ['Cookie Policy', '/cookie-policy/'], ['Cookie settings', '/cookie-policy/'], ['Disclaimer', '/disclaimer/'], ['Copyright Policy', '/copyright-policy/'], ['Security', '/security/'], ['Accessibility', '/accessibility/']] },
 ];

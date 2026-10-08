@@ -1,15 +1,21 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="How Image Compression to a Target Size Works | ImageTo20KB" description="How ImageTo20KB reaches a target file size in your browser: decoding, quality search, gradual resizing and real size checks." path="/how-it-works/" crumbs={[{ name: 'How It Works', href: '/how-it-works/' }]}>
+<Base title="How We Compress Image to 20KB: How It Works | ImageTo20KB" description="How ImageTo20KB lets you compress image to 20KB or 100KB in your browser: decoding, quality search, gradual resizing and real size checks." path="/how-it-works/" crumbs={[{ name: 'How It Works', href: '/how-it-works/' }]}>
   <div class="wrap"><article class="prose">
-    <h1>How ImageTo20KB Works</h1>
+    <h1>How We Compress Image to 20KB: How It Works</h1>
     <p>Everything below happens in your browser. Your image is not uploaded for compression.</p>
+    <h2>What happens when you compress image to 20KB</h2>
+    <p>When you compress image to 20KB with this tool, five things happen in your browser: the file is checked, decoded, resized if needed, encoded at several quality levels and measured. The result is only called a success if it is really 20KB or less. The same method lets you compress image to 100KB or any custom size.</p>
+    <h2>Compress image to 20KB online: the image compress to 20KB search</h2>
+    <p>To compress image to 20KB online, the tool runs a bounded search. For an image compress to 20KB request it tries high quality first, then lowers quality, then reduces dimensions, and it stops as soon as the file fits. For an image compress to 100KB request the same search runs with a larger byte limit.</p>
     <h2>1. Check the file</h2><p>The file’s first bytes are inspected to confirm it is really a JPEG, PNG or WebP, and size and pixel limits are applied. Animated, SVG and HEIC files are rejected with an explanation.</p>
     <h2>2. Decode and resize</h2><p>The image is decoded and drawn on a canvas at your chosen maximum dimensions, keeping the aspect ratio. Images are never enlarged.</p>
     <h2>3. Search for the best quality</h2><p>For JPEG and WebP, the tool encodes at several quality levels using a bounded binary search and measures the actual size of each result. It keeps the highest quality that fits the target.</p>
     <h2>4. Shrink only if needed</h2><p>If even the minimum quality is too large, dimensions are reduced step by step and the search repeats, up to fixed limits.</p>
     <h2>5. Report honestly</h2><p>If the final file is at or below the target you see “target reached”. Otherwise you get the smallest result and a message saying it is above target. PNG is encoded once because it is lossless.</p>
+    <h2>Why measurement matters when you compress image to 20KB</h2>
+    <p>If you compress image to 20KB by choosing a quality number, you are guessing. Two photos at the same quality can differ by ten times in size. That is why the tool measures every result, and why it only says it managed to compress image to 20KB when the downloaded file really is 20KB or less. The same applies if you compress image to 20KB online for a signature or a photograph, or if you compress image to 100KB.</p>
     <h2>Why real measurement matters</h2>
     <p>A quality setting such as 70 does not mean a file will be a certain size. Two photos at the same setting can differ by a factor of ten in file size. That is why the tool always encodes, measures the actual bytes, and only then decides. One kilobyte is counted as 1,024 bytes, so 20KB means 20,480 bytes and 100KB means 102,400 bytes.</p>
     <h2>Quality first, then dimensions</h2>

@@ -8,6 +8,7 @@ import { legal } from '../data/legal';
 import { more } from '../data/landing-more';
 import { more2 } from '../data/landing-more2';
 import { more3 } from '../data/landing-more3';
+import { seoMore } from '../data/landing-seo';
 import { SITE_NAME, LAST_UPDATED, abs } from '../config';
 export function getStaticPaths() {
   return [
@@ -19,6 +20,13 @@ const { kind, slug } = Astro.props;
 const page = kind === 'tool' ? landing.find((p) => p.slug === slug)! : null;
 const doc = kind === 'legal' ? legal.find((p) => p.slug === slug)! : null;
 const path = `/${slug}/`;
+const guides: Record<string, [string, string]> = {
+  'compress-image-to-20kb': ['How to compress image to 20KB: a step-by-step guide', '/blog/how-to-compress-image-to-20kb/'],
+  'compress-jpg-to-20kb': ['How to compress image to 20KB: a step-by-step guide', '/blog/how-to-compress-image-to-20kb/'],
+  'compress-image-to-100kb': ['How to compress image to 100KB online (without losing clarity)', '/blog/how-to-compress-image-to-100kb/'],
+  'compress-jpg-to-100kb': ['How to compress image to 100KB online (without losing clarity)', '/blog/how-to-compress-image-to-100kb/'],
+};
+const guide = page ? guides[page.slug] : undefined;
 const title = (page ?? doc)!.title, description = (page ?? doc)!.description, h1 = (page ?? doc)!.h1;
 const crumbs = [{ name: h1, href: path }];
 const jsonld = [
@@ -33,10 +41,10 @@ const jsonld = [
       <Tool target={page.target} format={page.format} advanced={page.advanced} examPresets={page.examPresets} />
       <BeforeAfter target={page.target} />
       <article class="prose">
-        {[...page.sections, ...(more[page.slug] ?? []), ...(more2[page.slug] ?? []), ...(more3[page.slug] ?? [])].map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}
+        {[...page.sections, ...(more[page.slug] ?? []), ...(more2[page.slug] ?? []), ...(more3[page.slug] ?? []), ...(seoMore[page.slug] ?? [])].map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}
         <h2>Common questions</h2>
         {page.faqs.map((f) => <details class="faq"><summary>{f.q}</summary><p>{f.a}</p></details>)}
-        <p>More answers on the <a href="/faqs/">FAQs page</a>.</p>
+        <p>More answers on the <a href="/faqs/">FAQs page</a>.{guide && <> Read the guide: <a href={guide[1]}>{guide[0]}</a>.</>}</p>
         <h2>Related tools</h2>
         <RelatedLinks slugs={page.related} />
       </article>
@@ -45,6 +53,14 @@ const jsonld = [
   {doc && (
     <div class="wrap"><article class="prose">
       <h1>{doc.h1}</h1><p class="muted">Last updated: {LAST_UPDATED}</p>
+      {doc.slug === 'cookie-policy' && (
+        <section class="panel" id="choices" aria-labelledby="choice-h">
+          <h2 id="choice-h" style="margin-top:0">Your cookie choice</h2>
+          <p id="consent-status" role="status" aria-live="polite">You have not made a choice yet</p>
+          <p class="note">Analytics cookies are only set if you accept. You can change your mind at any time; rejecting also removes the analytics cookies this site set in your browser.</p>
+          <div class="row"><button class="btn" type="button" data-consent="granted">Accept analytics</button><button class="btn alt" type="button" data-consent="denied">Reject analytics</button></div>
+        </section>
+      )}
       {doc.sections.map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}
       <p><a href="/contact/">Contact us</a> · <a href="/">Back to the image compressor</a></p>
     </article></div>

@@ -2,11 +2,11 @@
 import Base from '../layouts/Base.astro';
 import { faqs } from '../data/faqs';
 ---
-<Base title="FAQs: Compress Image to 20KB and 100KB | ImageTo20KB" description="Answers about compressing images to 20KB or 100KB, supported formats, quality, batch downloads and privacy." path="/faqs/" crumbs={[{ name: 'FAQs', href: '/faqs/' }]}>
+<Base title="FAQs: Compress Image to 20KB and 100KB Online | ImageTo20KB" description="Answers about how to compress image to 20KB or compress image to 100KB, supported formats, quality, batch downloads and privacy." path="/faqs/" crumbs={[{ name: 'FAQs', href: '/faqs/' }]}>
   <div class="wrap"><article class="prose">
-    <h1>Frequently Asked Questions</h1>
+    <h1>FAQs: Compress Image to 20KB and 100KB</h1>
     <label>Search questions <input type="search" id="q" style="width:100%;max-width:360px;padding:8px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text)" /></label>
-    <p>This page answers common questions about compressing images to a target size in KB, including how to compress image to 20KB, 100KB and 200KB, which formats work, how quality and dimensions interact, and how your images are handled. Use the search box to filter the questions, or browse the categories below. If you cannot find what you need, read <a href="/how-it-works/">how the tool works</a> for more detail on the method and its limits.</p>
+    <p>This page answers common questions about compressing images to a target size in KB, including how to compress image to 20KB, compress image to 100KB and compress image to 200KB, which formats work, how quality and dimensions interact, and how your images are handled. Use the search box to filter the questions, or browse the categories below. Most visitors come here to compress image to 20KB or to compress image to 100KB online for a form, and the answers below cover both. If you cannot find what you need, read <a href="/how-it-works/">how the tool works</a> for more detail on the method and its limits.</p>
     <p>Try the <a href="/compress-image-to-20kb/">20KB tool</a>, the <a href="/compress-image-to-100kb/">100KB tool</a> or the <a href="/image-resizer/">image resizer</a>.</p>
     {[...new Set(faqs.map((f) => f.c))].map((c) => (<section data-cat><h2>{c}</h2>{faqs.filter((f) => f.c === c).map((f) => <details class="faq"><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>))}
     <p id="none" hidden>No matching questions.</p>

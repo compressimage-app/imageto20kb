@@ -138,8 +138,8 @@ const presets = [20, 50, 100, 200, 500];
         const ok = r.status === 'achieved' && !tooSmall;
         body = `<span class="badge ${ok ? 'ok' : 'warn'}">${tooSmall ? `Below the ${it.minKb} KB minimum for this range` : ok ? `Within ${it.targetKb}KB target` : `Above ${it.targetKb}KB target (best result)`}</span>
         ${tooSmall ? `<p class="note">The file is smaller than the minimum in your range. Use a larger or sharper original, crop less tightly, tick Keep dimensions, or raise the target.</p>` : ''}
-        <div class="cmp"><figure><img src="${it.origUrl}" alt="Original image preview" /><figcaption>Original · ${formatBytes(it.file.size)} · ${r.originalWidth}×${r.originalHeight}</figcaption></figure>
-        <figure><img src="${it.outUrl}" alt="Compressed image preview" /><figcaption>Compressed · ${formatBytes(r.blob.size)} · ${r.width}×${r.height}</figcaption></figure></div>
+        <div class="cmp"><figure><img src="${it.origUrl}" alt="Original image preview" loading="lazy" decoding="async" /><figcaption>Original · ${formatBytes(it.file.size)} · ${r.originalWidth}×${r.originalHeight}</figcaption></figure>
+        <figure><img src="${it.outUrl}" alt="Compressed image preview" loading="lazy" decoding="async" /><figcaption>Compressed · ${formatBytes(r.blob.size)} · ${r.width}×${r.height}</figcaption></figure></div>
         <div class="meta"><span>${saved >= 0 ? `Saved ${saved}%` : `Larger by ${-saved}%`}</span><span>${label[r.mime]}${r.quality ? ` · quality ${Math.round(r.quality * 100)}%` : ''}</span></div>
         ${r.notes.map((n) => `<p class="note">${esc(n)}</p>`).join('')}
         <div class="row" style="margin:0"><a class="btn" href="${it.outUrl}" download="${esc(it.outName || 'image')}" data-dl>Download</a></div>`;
