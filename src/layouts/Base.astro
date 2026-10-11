@@ -31,7 +31,8 @@ function get(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
 function load(){if(!PROD||window.__gaLoaded)return;window.__gaLoaded=true;window['ga-disable-'+ID]=false;
 var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+ID;document.head.appendChild(s);
 gtag('js',new Date());gtag('config',ID);}
-window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')load();})();`}></script>
+function defer(){var done=false;function go(){if(done)return;done=true;load();}['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,go,{once:true,passive:true});});setTimeout(go,6000);}
+window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')defer();})();`}></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -40,10 +41,10 @@ window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')load();})();`}><
       <a class="logo" href="/"><img class="logo-img" src="/favicon-96x96.png" width="32" height="32" alt="" />{SITE_NAME}</a>
       <nav id="nav" aria-label="Main">
         <span class="nav-title" aria-hidden="true">Menu</span>
-        <button class="icon-btn nav-close" id="nav-close" type="button" aria-label="Close menu">✕</button>
+        <button class="icon-btn nav-close" id="nav-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
         {top.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}
         <div class="dd">
-          <button type="button" class:list={['dd-btn', { active: toolPaths.has(here) }]} id="tools-btn" aria-expanded="false" aria-controls="tools-menu">Tools <span class="chev" aria-hidden="true">▾</span></button>
+          <button type="button" class:list={['dd-btn', { active: toolPaths.has(here) }]} id="tools-btn" aria-expanded="false" aria-controls="tools-menu">Tools <svg class="chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="dd-panel" id="tools-menu">
             {toolGroups.map((g) => (<div><h3>{g.title}</h3>{g.links.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}</div>))}
           </div>
@@ -52,8 +53,8 @@ window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')load();})();`}><
         <a class="nav-cta" href="/compress-image-to-20kb/">Compress to 20KB</a>
       </nav>
       <div class="actions">
-        <button class="icon-btn" id="theme-btn" type="button" aria-label="Toggle dark mode">◐</button>
-        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu">☰</button>
+        <button class="icon-btn" id="theme-btn" type="button" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button>
+        <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
       </div>
     </div>
   </header>

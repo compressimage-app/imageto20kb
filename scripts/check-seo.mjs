@@ -13,7 +13,7 @@ for (const p of html) {
   const t = s.match(/<title>(.*?)<\/title>/)?.[1], d = s.match(/<meta name="description" content="(.*?)"/)?.[1], c = s.match(/<link rel="canonical" href="(.*?)"/)?.[1];
   if (!is404 && words(s) < 600) errors.push(`${r}: only ${words(s)} words (min 600)`);
   if (!/rel="apple-touch-icon"/.test(s) || !/rel="manifest"/.test(s) || !/favicon-96x96\.png/.test(s)) errors.push(`${r}: favicon links missing`);
-  if (!s.includes('googletagmanager.com/gtag/js?id=') || !s.includes("ID='G-YNJS39ZTBL'") || !s.includes('id="consent"')) errors.push(`${r}: Google tag loader / consent banner missing`);
+  if (!s.includes('googletagmanager.com/gtag/js?id=') || !s.includes('G-YNJS39ZTBL') || !s.includes('id="consent"')) errors.push(`${r}: Google tag loader / consent banner missing`);
   if (!s.includes('name="msvalidate.01" content="B2CC874597C52F944CF785656679176A"')) errors.push(`${r}: Bing tag missing`);
   if ((r === '/' || (!is404 && /id="tool"/.test(s))) && !s.includes('class="ba-stage"')) errors.push(`${r}: before/after missing`);
   if (!t) errors.push(`${r}: no title`); if (!d) errors.push(`${r}: no description`);

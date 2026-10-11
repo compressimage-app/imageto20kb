@@ -54,6 +54,7 @@ x.putImageData(img, 0, 0);
 const main = async () => {
   const before = await c.encode('jpeg', 92);
   writeFileSync('public/img/before.jpg', before);
+  for (const w of [640, 960]) { const h2 = Math.round((H * w) / W), cc = createCanvas(w, h2), cx = cc.getContext('2d'); cx.imageSmoothingQuality = 'high'; cx.drawImage(c, 0, 0, w, h2); writeFileSync(`public/img/before-${w}.jpg`, await cc.encode('jpeg', 72)); }
   const out: any = { before: { bytes: before.length, width: W, height: H }, after: {} };
   for (const kb of [20, 50, 100, 200]) {
     const r = await fitToTarget<{ buf: Buffer; width: number; height: number }>({

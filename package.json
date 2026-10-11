@@ -5,15 +5,17 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/minify-inline.mjs",
     "preview": "astro preview",
     "test": "vitest run",
     "check:seo": "node scripts/check-seo.mjs",
     "report:keywords": "node scripts/keyword-report.mjs",
     "audit:render": "node scripts/audit-render-blocking.mjs",
     "check:redirects": "node scripts/check-redirects.mjs",
-    "verify": "npm run build && npm test && npm run check:seo && npm run audit:render",
-    "deploy": "npm run build && wrangler deploy"
+    "verify": "npm run build && npm test && npm run check:seo && npm run audit:render && npm run audit:perf",
+    "deploy": "npm run build && wrangler deploy",
+    "audit:perf": "node scripts/perf-budget.mjs",
+    "audit:browser": "node scripts/browser-audit.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",

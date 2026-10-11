@@ -12,13 +12,13 @@ const hero = variant === 'hero';
 <figure class:list={['ba', cls]}>
   {!hero && <h2 class="ba-h">See the difference: {before} → {after}</h2>}
   <div class="ba-stage">
-    <img class="ba-img" src="/img/before.jpg" width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading={hero ? 'eager' : 'lazy'} decoding="async" />
-    <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading={hero ? 'eager' : 'lazy'} decoding="async" />
+    <img class="ba-img" src="/img/before.jpg" srcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" sizes={hero ? '(max-width: 1100px) 46vw, 520px' : '(max-width: 800px) 94vw, 760px'} width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading="lazy" decoding="async" />
+    <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading="lazy" decoding="async" />
     <span class="ba-tag l">Original · {before}</span>
     <span class="ba-tag r">Compressed · {after}</span>
     <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparison slider: drag to compare the original and the compressed image" />
     <div class="ba-line" aria-hidden="true"></div>
-    <div class="ba-knob" aria-hidden="true">⇆</div>
+    <div class="ba-knob" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
   </div>
   <figcaption class="note">
     Real example from this tool: {ba.before.width}×{ba.before.height} px, {before} compressed to {after} ({a.width}×{a.height} px) for a {key}KB target. Drag the handle, or use the arrow keys. Sample illustration created for this site, with no third-party copyright. Your results depend on your image.

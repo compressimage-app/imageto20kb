@@ -19,7 +19,7 @@ const jsonld = [
         <p class="sr">Perfect for online forms, SSC and RRB photos, UPSC signatures, job applications and email attachments.</p>
         <p class="lead">Reduce JPG, JPEG, PNG, and supported image files to a smaller file size with ImageTo20KB. Choose a target size, preview the result, and download your compressed image. Your images are processed locally in your browser.</p>
         <div class="cta"><a class="btn" href="#tool" data-t="20">Compress to 20KB</a><a class="btn alt" href="#tool" data-t="100">Compress to 100KB</a></div>
-        <ul class="chips" aria-label="Highlights"><li>✓ Free</li><li>✓ Runs in your browser</li><li>✓ JPG · PNG · WebP</li><li>✓ Batch + ZIP</li></ul>
+        <ul class="chips" aria-label="Highlights"><li>Free</li><li>Runs in your browser</li><li>JPG, PNG and WebP</li><li>Batch and ZIP</li></ul>
       </div>
       <div class="hero-ba"><BeforeAfter target={20} variant="hero" /></div>
     </div>
@@ -81,7 +81,7 @@ const jsonld = [
         if (n <= 0) { del = false; i = (i + 1) % phrases.length; n = 0; return void setTimeout(tick, 350); }
         setTimeout(tick, 32);
       };
-      setTimeout(tick, 1800);
+      setTimeout(tick, 2500);
     }
     document.querySelectorAll<HTMLAnchorElement>('[data-t]').forEach((a) => a.addEventListener('click', () => {
       document.querySelector<HTMLButtonElement>(`[data-preset="${a.dataset.t}"]`)?.click();

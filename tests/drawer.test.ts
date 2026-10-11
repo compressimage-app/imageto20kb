@@ -78,8 +78,9 @@ describe('cookie consent', () => {
     expect(t.dom.window.localStorage.getItem('cookie-consent')).toBe('denied'); expect(t.gaScripts().length).toBe(0);
     expect((t.dom.window as any)['ga-disable-G-YNJS39ZTBL']).toBe(true); expect(t.banner().hidden).toBe(true);
   });
-  it('remembers a previous accept (loads tag, no banner) and a previous reject (no tag, no banner)', () => {
-    const a = loadWith({ 'cookie-consent': 'granted' }); expect(a.gaScripts().length).toBe(1); expect(a.banner().hidden).toBe(true);
+  it('remembers a previous accept (loads tag after first interaction, no banner) and a previous reject (no tag, no banner)', () => {
+    const a = loadWith({ 'cookie-consent': 'granted' }); expect(a.gaScripts().length).toBe(0); expect(a.banner().hidden).toBe(true);
+    a.dom.window.dispatchEvent(new a.dom.window.Event('pointerdown')); expect(a.gaScripts().length).toBe(1); // loaded on first interaction, not during page load
     const r = loadWith({ 'cookie-consent': 'denied' }); expect(r.gaScripts().length).toBe(0); expect(r.banner().hidden).toBe(true);
   });
   it('footer Cookie settings link reopens the banner', () => {
