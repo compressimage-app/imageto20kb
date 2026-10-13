@@ -169,3 +169,13 @@ body.menu-open{overflow:hidden}
 .icon-btn{place-items:center;padding:0}
 .icon-btn:not(.menu-btn):not(.nav-close){display:inline-grid}
 .ba{max-width:760px;margin-inline:auto}.hero-ba .ba{max-width:none}
+.answer{margin:16px 0;padding:14px 18px;border-left:4px solid var(--primary);border-radius:12px;background:color-mix(in srgb,var(--primary) 8%,var(--surface))}
+.answer p{margin:0;max-width:none}
+.hero .answer{max-width:62ch}
+
+/* ===== Social icons ===== */
+.foot-note{margin:16px 0 8px!important;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#a6b0d8}
+.social{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+:root .site-footer .social a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none}
+:root .site-footer .social a:hover{background:rgba(255,255,255,.22);text-decoration:none}
+.site-footer ul.social{display:flex;flex-wrap:wrap;gap:10px}

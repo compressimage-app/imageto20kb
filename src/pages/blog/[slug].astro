@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { posts } from '../../data/posts';
+import Answer from '../../components/Answer.astro';
+import { postAnswers } from '../../data/answers';
 import { OPERATOR_NAME, OWNER_ROLE, abs } from '../../config';
 export function getStaticPaths() { return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } })); }
 const { post } = Astro.props;
@@ -11,11 +13,13 @@ const jsonld = [
 ];
 ---
 <Base title={`${post.title} | ImageTo20KB`} description={post.description} path={path} jsonld={jsonld} crumbs={[{ name: 'Blog', href: '/blog/' }, { name: post.title, href: path }]}>
+  <link slot="head" rel="preload" as="image" href={`/img/blog/${post.slug}.svg`} fetchpriority="high" />
   <div class="wrap"><article class="prose">
     <h1>{post.title}</h1>
     <p class="note">By {OPERATOR_NAME}, {OWNER_ROLE} · Published {post.date}</p>
     <img class="post-hero" src={`/img/blog/${post.slug}.svg`} width="1200" height="630" alt={`Illustration for: ${post.title}`} fetchpriority="high" />
     <p class="lead">{post.description}</p>
+    {postAnswers[post.slug] && <Answer text={postAnswers[post.slug]} />}
     {post.sections.map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}
     <h2>Try the tools mentioned</h2>
     <ul class="links">{post.links.map(([n, h]) => <li><a href={h}>{n}</a></li>)}</ul>

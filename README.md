@@ -55,3 +55,13 @@ Run Lighthouse on the **production build**, never on `astro dev` (`localhost:432
 3. For real-world numbers, test the deployed `https://www.imageto20kb.in/` (not the apex URL, which adds a redirect).
 
 `npm run verify` runs build, unit tests, SEO checks, the render-blocking audit and the performance budget. `npm run audit:browser` (optional, needs `puppeteer-core` and a Chrome binary) checks every page on desktop and mobile for sideways overflow, header regressions and console errors.
+
+## Social icons
+The footer always shows "Share this page" icons (X, Facebook, LinkedIn, WhatsApp, Telegram) that share the current page's canonical URL. To show "Follow us" profile icons, fill in the `url` values in `SOCIAL` in `src/config.ts`; use the final profile URL (`https://x.com/...`, not `twitter.com` or a shortener) so no link redirects.
+
+## Search Console: "Alternate page with proper canonical tag"
+For `http://imageto20kb.in/`, `https://imageto20kb.in/` and their sub-pages this status is expected and is not an error: Google found the non-canonical host, followed its canonical tag, and kept `https://www.imageto20kb.in/...` as the indexed version. Every page here already has an absolute canonical `https://www.imageto20kb.in/<path>/` (checked by `npm run check:seo`). To make Google drop those duplicates faster, redirect them in Cloudflare so the non-canonical hosts stop returning 200:
+1. SSL/TLS > Edge Certificates > **Always Use HTTPS** = On (http -> https).
+2. Rules > Redirect Rules > Create rule: *If* Hostname equals `imageto20kb.in` -> Dynamic redirect `concat("https://www.imageto20kb.in", http.request.uri.path)`, status 301, preserve query string.
+3. Make sure the apex DNS record is proxied (orange cloud). Then run `npm run check:redirects`.
+Validation in Search Console can take weeks; the status may linger even after redirects are live.

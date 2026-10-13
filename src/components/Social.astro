@@ -1,0 +1,22 @@
+---
+import { SOCIAL, abs } from '../config';
+import { icons } from '../data/icons';
+const here = abs(Astro.url.pathname);
+const enc = encodeURIComponent(here);
+const text = encodeURIComponent('Compress images to the exact KB size your form needs');
+// Share endpoints use their current canonical hosts (x.com, not twitter.com; api.whatsapp.com, not the wa.me redirect).
+const share = [
+  { key: 'x', label: 'Share this page on X', href: `https://x.com/intent/post?url=${enc}&text=${text}` },
+  { key: 'facebook', label: 'Share this page on Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc}` },
+  { key: 'linkedin', label: 'Share this page on LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc}` },
+  { key: 'whatsapp', label: 'Share this page on WhatsApp', href: `https://api.whatsapp.com/send?text=${text}%20${enc}` },
+  { key: 'telegram', label: 'Share this page on Telegram', href: `https://t.me/share/url?url=${enc}&text=${text}` },
+];
+const profiles = SOCIAL.filter((s) => s.url);
+---
+{profiles.length > 0 && (<>
+  <p class="foot-note">Follow us</p>
+  <ul class="social" aria-label="Social profiles">{profiles.map((s) => <li><a href={s.url} target="_blank" rel="noopener noreferrer me" aria-label={s.label}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" set:html={icons[s.key]} /></a></li>)}</ul>
+</>)}
+<p class="foot-note">Share this page</p>
+<ul class="social" aria-label="Share this page">{share.map((s) => <li><a href={s.href} target="_blank" rel="noopener noreferrer nofollow" aria-label={s.label}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" set:html={icons[s.key]} /></a></li>)}</ul>

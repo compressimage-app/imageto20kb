@@ -1,9 +1,12 @@
 ---
+import Answer from '../../components/Answer.astro';
+import { answers } from '../../data/answers';
 import Base from '../../layouts/Base.astro';
 import { posts } from '../../data/posts';
 import { OPERATOR_NAME, OWNER_ROLE } from '../../config';
 ---
 <Base title="Blog: How to Compress Image to 20KB and Fix Upload Errors | ImageTo20KB" description="Guides on how to compress image to 20KB or 100KB, and answers about photo and signature uploads for government exam forms, job applications and admissions." path="/blog/" crumbs={[{ name: 'Blog', href: '/blog/' }]}>
+  <link slot="head" rel="preload" as="image" href="/img/blog/blog-hero.svg" fetchpriority="high" />
   <div class="wrap">
     <section class="blog-hero">
       <img class="blog-hero-img" src="/img/blog/blog-hero.svg" width="1600" height="520" alt="" fetchpriority="high" />
@@ -13,6 +16,7 @@ import { OPERATOR_NAME, OWNER_ROLE } from '../../config';
         <p class="byline">Written and maintained by {OPERATOR_NAME}, {OWNER_ROLE}. Read more on the <a href="/about/">about page</a>.</p>
       </div>
     </section>
+    <Answer text={answers['blog']} />
     <ul class="cards">
       {posts.map((p, i) => (
         <li class="card">

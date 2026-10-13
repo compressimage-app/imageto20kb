@@ -1,9 +1,12 @@
 ---
+import Answer from '../components/Answer.astro';
+import { answers } from '../data/answers';
 import Base from '../layouts/Base.astro';
 ---
 <Base title="How We Compress Image to 20KB: How It Works | ImageTo20KB" description="How ImageTo20KB lets you compress image to 20KB or 100KB in your browser: decoding, quality search, gradual resizing and real size checks." path="/how-it-works/" crumbs={[{ name: 'How It Works', href: '/how-it-works/' }]}>
   <div class="wrap"><article class="prose">
     <h1>How We Compress Image to 20KB: How It Works</h1>
+    <Answer text={answers['how-it-works']} />
     <p>Everything below happens in your browser. Your image is not uploaded for compression.</p>
     <h2>What happens when you compress image to 20KB</h2>
     <p>When you compress image to 20KB with this tool, five things happen in your browser: the file is checked, decoded, resized if needed, encoded at several quality levels and measured. The result is only called a success if it is really 20KB or less. The same method lets you compress image to 100KB or any custom size.</p>

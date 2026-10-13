@@ -8,12 +8,29 @@ const key = presets.reduce((best, p) => (Math.abs(p - target) < Math.abs(best - 
 const a = (ba.after as Record<string, { bytes: number; width: number; height: number }>)[String(key)];
 const before = formatBytes(ba.before.bytes), after = formatBytes(a.bytes);
 const hero = variant === 'hero';
+const blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 ---
 <figure class:list={['ba', cls]}>
   {!hero && <h2 class="ba-h">See the difference: {before} → {after}</h2>}
   <div class="ba-stage">
-    <img class="ba-img" src="/img/before.jpg" srcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" sizes={hero ? '(max-width: 1100px) 46vw, 520px' : '(max-width: 800px) 94vw, 760px'} width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading="lazy" decoding="async" />
-    <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading="lazy" decoding="async" />
+    {hero ? (
+      <>
+        {/* Hero is hidden on phones: a 1px placeholder source stops phones downloading it; desktops get the prioritised image. */}
+        <picture>
+          <source media="(max-width: 820px)" srcset={blank} />
+          <img class="ba-img" src="/img/before.jpg" srcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" sizes="(max-width: 1100px) 46vw, 520px" width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading="eager" fetchpriority="high" decoding="async" />
+        </picture>
+        <picture>
+          <source media="(max-width: 820px)" srcset={blank} />
+          <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading="eager" decoding="async" />
+        </picture>
+      </>
+    ) : (
+      <>
+        <img class="ba-img" src="/img/before.jpg" srcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" sizes="(max-width: 800px) 94vw, 760px" width={ba.before.width} height={ba.before.height} alt="Original sample illustration of a purple sunset over mountains and a lake" loading="lazy" decoding="async" />
+        <img class="ba-img ba-after" src={`/img/after-${key}kb.jpg`} width={a.width} height={a.height} alt={`Same illustration compressed to ${after}`} loading="lazy" decoding="async" />
+      </>
+    )}
     <span class="ba-tag l">Original · {before}</span>
     <span class="ba-tag r">Compressed · {after}</span>
     <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Comparison slider: drag to compare the original and the compressed image" />

@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/minify-inline.mjs",
+    "build": "astro build && node scripts/chunk-paragraphs.mjs && node scripts/minify-inline.mjs",
     "preview": "astro preview",
     "test": "vitest run",
     "check:seo": "node scripts/check-seo.mjs",

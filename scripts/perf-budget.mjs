@@ -8,7 +8,8 @@ const size = (src) => { const f = join(DIST, src.split('?')[0]); return existsSy
 const rows = [];
 for (const p of pages) {
   const html = readFileSync(p, 'utf8'); const route = '/' + p.slice(DIST.length + 1).replace(/index\.html$/, '');
-  const eager = [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]).filter((t) => !/loading="lazy"/.test(t)).map((t) => t.match(/\ssrc="([^"]+)"/)?.[1]).filter(Boolean);
+  const phoneHtml = html.replace(/<picture>(?:(?!<\/picture>)[\s\S])*data:image\/gif(?:(?!<\/picture>)[\s\S])*<\/picture>/g, ''); // pictures with a phone placeholder source are desktop-only
+  const eager = [...phoneHtml.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]).filter((t) => !/loading="lazy"/.test(t)).map((t) => t.match(/\ssrc="([^"]+)"/)?.[1]).filter(Boolean);
   const eagerBytes = eager.reduce((a, s) => a + size(s), 0);
   const modules = [...html.matchAll(/<script[^>]+type="module"[^>]+src="([^"]+)"/g)].map((m) => size(m[1]));
   const inlineJs = [...html.matchAll(/<script\b(?![^>]*(?:src=|ld\+json))[^>]*>([\s\S]*?)<\/script>/g)].reduce((a, m) => a + m[1].length, 0);

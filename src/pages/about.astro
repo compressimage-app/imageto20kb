@@ -1,4 +1,6 @@
 ---
+import Answer from '../components/Answer.astro';
+import { answers } from '../data/answers';
 import Base from '../layouts/Base.astro';
 import { OPERATOR_NAME, OWNER_ROLE, CONTACT_EMAIL, abs } from '../config';
 const jsonld = [{ '@context': 'https://schema.org', '@type': 'Person', name: OPERATOR_NAME, jobTitle: OWNER_ROLE, url: abs('/about/') }];
@@ -6,6 +8,7 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'Person', name: OPE
 <Base title="About ImageTo20KB" description="About ImageTo20KB, a browser-based image compressor for target file sizes such as 20KB and 100KB." path="/about/" jsonld={jsonld} crumbs={[{ name: 'About', href: '/about/' }]}>
   <div class="wrap"><article class="prose">
     <h1>About ImageTo20KB</h1>
+    <Answer text={answers['about']} />
     <p>ImageTo20KB helps people reduce image files to a size limit, such as 20KB or 100KB, using their own browser.</p>
     <h2>Editorial and owner information</h2>
     <p><strong>{OPERATOR_NAME}, {OWNER_ROLE}</strong>, develops, edits and manages ImageTo20KB. He builds the compression tool and the website, writes and reviews the guides and blog posts, looks after hosting and updates, and answers email sent to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>

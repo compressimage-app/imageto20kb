@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Tool from '../components/Tool.astro';
+import Answer from '../components/Answer.astro';
+import { answers } from '../data/answers';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import { SITE, SITE_NAME, abs } from '../config';
 const jsonld = [
@@ -9,6 +11,7 @@ const jsonld = [
 ];
 ---
 <Base title="ImageTo20KB: Compress Image to 20KB or 100KB Online, Free and Private" description="Compress image to 20KB or compress image to 100KB online for free. Choose a target size, preview the result and download, all in your browser with no upload." path="/" jsonld={jsonld}>
+  <link slot="head" rel="preload" as="image" imagesrcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" imagesizes="(max-width: 1100px) 46vw, 520px" media="(min-width: 821px)" fetchpriority="high" />
   <section class="hero hero-home">
     <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
     <div class="wrap hero-grid">
@@ -18,6 +21,7 @@ const jsonld = [
         <p class="typed-line" aria-hidden="true">Perfect for <span class="typed" id="typed">online forms</span><span class="caret"></span></p>
         <p class="sr">Perfect for online forms, SSC and RRB photos, UPSC signatures, job applications and email attachments.</p>
         <p class="lead">Reduce JPG, JPEG, PNG, and supported image files to a smaller file size with ImageTo20KB. Choose a target size, preview the result, and download your compressed image. Your images are processed locally in your browser.</p>
+        <Answer text={answers['/']} />
         <div class="cta"><a class="btn" href="#tool" data-t="20">Compress to 20KB</a><a class="btn alt" href="#tool" data-t="100">Compress to 100KB</a></div>
         <ul class="chips" aria-label="Highlights"><li>Free</li><li>Runs in your browser</li><li>JPG, PNG and WebP</li><li>Batch and ZIP</li></ul>
       </div>

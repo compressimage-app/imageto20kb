@@ -7,6 +7,8 @@ import { landing } from '../data/landing';
 import { legal } from '../data/legal';
 import { more } from '../data/landing-more';
 import { more2 } from '../data/landing-more2';
+import Answer from '../components/Answer.astro';
+import { answers } from '../data/answers';
 import { more3 } from '../data/landing-more3';
 import { seoMore } from '../data/landing-seo';
 import { SITE_NAME, LAST_UPDATED, abs } from '../config';
@@ -36,7 +38,7 @@ const jsonld = [
 ---
 <Base {title} {description} {path} {jsonld} {crumbs}>
   {page && (<>
-    <section class="hero" style="padding-bottom:0"><div class="wrap"><h1>{page.h1}</h1><p class="lead">{page.intro}</p>{page.updated && <p class="note">Size ranges last reviewed: {page.updated}. Always confirm against your exam notification.</p>}</div></section>
+    <section class="hero" style="padding-bottom:0"><div class="wrap"><h1>{page.h1}</h1><p class="lead">{page.intro}</p>{answers[page.slug] && <Answer text={answers[page.slug]} />}{page.updated && <p class="note">Size ranges last reviewed: {page.updated}. Always confirm against your exam notification.</p>}</div></section>
     <div class="wrap">
       <Tool target={page.target} format={page.format} advanced={page.advanced} examPresets={page.examPresets} />
       <BeforeAfter target={page.target} />
@@ -53,6 +55,7 @@ const jsonld = [
   {doc && (
     <div class="wrap"><article class="prose">
       <h1>{doc.h1}</h1><p class="muted">Last updated: {LAST_UPDATED}</p>
+      {answers[doc.slug] && <Answer text={answers[doc.slug]} />}
       {doc.slug === 'cookie-policy' && (
         <section class="panel" id="choices" aria-labelledby="choice-h">
           <h2 id="choice-h" style="margin-top:0">Your cookie choice</h2>

@@ -101,3 +101,12 @@ describe('layout guards (static checks on built HTML/CSS)', () => {
     expect(html).toMatch(/overflow-x:clip/);
   });
 });
+
+describe('footer share icons', () => {
+  it('has labelled share links using canonical, non-redirecting hosts', () => {
+    const { d } = load(); const links = [...d.querySelectorAll('footer .social a')] as HTMLAnchorElement[];
+    expect(links.length).toBe(5);
+    for (const a of links) { expect(a.getAttribute('aria-label')).toMatch(/^Share this page on /); expect(a.href.startsWith('https://')).toBe(true); expect(a.rel).toContain('noopener'); expect(a.href).toContain(encodeURIComponent('https://www.imageto20kb.in/')); expect(a.href).not.toContain('twitter.com'); expect(a.href).not.toContain('//wa.me'); }
+    expect(links.map((a) => new URL(a.href).hostname)).toEqual(['x.com', 'www.facebook.com', 'www.linkedin.com', 'api.whatsapp.com', 't.me']);
+  });
+});

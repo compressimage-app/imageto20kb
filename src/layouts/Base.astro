@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Seo from '../components/Seo.astro';
 import { SITE_NAME, GA_ID, BING_VALIDATION } from '../config';
 import { toolGroups, toolPaths, footer } from '../data/nav';
+import Social from '../components/Social.astro';
 interface Props { title: string; description: string; path: string; noindex?: boolean; jsonld?: object[]; crumbs?: { name: string; href: string }[] }
 const { crumbs, ...seo } = Astro.props;
 const here = Astro.url.pathname;
@@ -25,6 +26,7 @@ const cur = (h: string) => (here === h ? 'page' : undefined);
   <script is:inline>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark'}catch(e){}</script>
   <meta name="msvalidate.01" content={BING_VALIDATION} />
   <Seo {...seo} />
+  <slot name="head" />
   <script is:inline set:html={`(function(){var ID='${GA_ID}',KEY='cookie-consent',PROD=${import.meta.env.PROD ? 'true' : 'false'};
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
 function get(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
@@ -73,6 +75,7 @@ window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')defer();})();`}>
       <div class="foot-brand">
         <a class="logo" href="/"><img class="logo-img" src="/favicon-96x96.png" width="34" height="34" alt="" loading="lazy" />{SITE_NAME}</a>
         <p>Compress photos and signatures to the KB size your form asks for, right in your browser.</p>
+        <Social />
       </div>
       {footer.map((sec) => (
         <nav aria-labelledby={`f-${sec.title.replace(/\s/g, '')}`}>

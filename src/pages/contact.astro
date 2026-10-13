@@ -1,4 +1,6 @@
 ---
+import Answer from '../components/Answer.astro';
+import { answers } from '../data/answers';
 import Base from '../layouts/Base.astro';
 import { CONTACT_EMAIL, CONTACT_FORM_ENDPOINT, OPERATOR_NAME, OWNER_ROLE } from '../config';
 import { TOPICS, LIMITS } from '../lib/contact';
@@ -7,6 +9,7 @@ const mail = `mailto:${CONTACT_EMAIL}`;
 <Base title="Contact ImageTo20KB: Support, Feedback and Reports" description="Contact ImageTo20KB for tool problems, exam size questions, feedback, accessibility, copyright or security reports. Use the contact form or email us." path="/contact/" crumbs={[{ name: 'Contact', href: '/contact/' }]}>
   <div class="wrap"><article class="prose">
     <h1>Contact ImageTo20KB</h1>
+    <Answer text={answers['contact']} />
     <p class="lead">Have a question about compressing a photo or signature, found a mistake in a guide, or need to report a problem? Use the form below or email us directly. This page also explains what to include so that we can help you quickly.</p>
 
     <section class="panel" id="contact-form-panel" aria-labelledby="cf-h" data-email={CONTACT_EMAIL} data-endpoint={CONTACT_FORM_ENDPOINT}>
