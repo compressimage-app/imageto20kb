@@ -44,7 +44,8 @@ for (const [page, kw] of [['compress-image-to-200kb/', 'compress image to 200kb'
   if (ten < 10) errors.push(`primary keyword used 10+ times on only ${ten} pages (need 10+)`);
   for (const r of rows) if (r.counts.primary > 20) errors.push(`${r.route}: primary keyword used ${r.counts.primary} times (stuffing guard: max 20)`);
   const all = ['compress image to 20kb online', 'image compress to 20kb', 'compress image to 100kb', 'compress image to 100kb online', 'image compress to 100kb'];
-  const need = { '/': all, '/image-compressor/': all, '/compress-image-to-20kb/': all, '/compress-image-to-100kb/': all.filter((k) => k.includes('100')) };
+  const need = { '/': ['compress image to 20kb online', 'image compress to 20kb'], '/image-compressor/': all, '/compress-image-to-20kb/': all, '/compress-image-to-100kb/': all.filter((k) => k.includes('100')) };
+  if (!by['/'] || by['/'].counts['compress image to 100kb'] < 1) errors.push('/: no mention of the 100KB sibling page');
   for (const [route, ks] of Object.entries(need)) for (const k of ks) if (!by[route] || by[route].counts[k] < 3) errors.push(`${route}: "${k}" used ${by[route]?.counts[k] ?? 0} times (need 3+)`);
   if (!existsSync(join(DIST, 'compress-image-to-20kb/index.html'))) errors.push('no URL containing the primary keyword'); }
 for (const m of new Set(headingProblems(DIST))) errors.push(m);

@@ -2,13 +2,17 @@
 import Base from '../layouts/Base.astro';
 import Tool from '../components/Tool.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
+import Decisions from '../components/Decisions.astro';
+import ba from '../data/ba.json';
+import { formatBytes } from '../lib/image/target-size';
 import { SITE, SITE_NAME, LAST_UPDATED, abs } from '../config';
+const ex = ba.after['20'], exBefore = formatBytes(ba.before.bytes), exAfter = formatBytes(ex.bytes), exPct = Math.round((ex.width / ba.before.width) * 100);
 const jsonld = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE + '/' },
-  { '@context': 'https://schema.org', '@type': 'WebApplication', name: SITE_NAME, url: SITE + '/', applicationCategory: 'MultimediaApplication', operatingSystem: 'Any (modern web browser)', description: 'Browser-based image compressor with target file sizes in KB.' },
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: SITE_NAME, url: SITE + '/', applicationCategory: 'MultimediaApplication', operatingSystem: 'Any (modern web browser)', description: 'Free browser-based tool to compress image to 20KB or another target size in KB.' },
 ];
 ---
-<Base title="Compress Image to 20KB or 100KB Online Free | ImageTo20KB" description="Compress image to 20KB or compress image to 100KB online for free. Choose a target size, preview the result and download, all in your browser with no upload." path="/" jsonld={jsonld}>
+<Base title="Compress Image to 20KB Online – Free Image Compressor" description="Compress image to 20KB online for free with ImageTo20KB. Choose a target size, preview the result and download your smaller JPG, PNG or WebP in your browser." path="/" jsonld={jsonld}>
   <link slot="head" rel="preload" as="image" imagesrcset="/img/before-640.jpg 640w, /img/before-960.jpg 960w, /img/before.jpg 1200w" imagesizes="(max-width: 1100px) 46vw, 520px" media="(min-width: 821px)" fetchpriority="high" />
   <section class="hero hero-home">
     <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
@@ -16,7 +20,7 @@ const jsonld = [
       <div>
         <p class="eyebrow">Free · Private · No upload</p>
         <h1>Compress Image to 20KB Online Free</h1>
-        <p class="lead lead-def">ImageTo20KB is a free online image compressor that helps students, job applicants and anyone filling in online forms compress image to 20KB, 100KB or any size in KB. Add a JPG, PNG or WebP image, choose a target size, and the tool compresses it in your browser and shows the real file size.</p>
+        <p class="lead lead-def">ImageTo20KB is a free online image compressor that helps students, job applicants and anyone filling in online forms compress image to 20KB. Add a JPG, PNG or WebP image, keep the 20KB target (or choose another size), and the tool compresses it in your browser and shows the real file size.</p>
         <p class="lead">Reduce JPG, JPEG, PNG, and supported image files to a smaller file size with ImageTo20KB. Choose a target size, preview the result, and download your compressed image. Your images are processed locally in your browser.</p>
         <div class="typed-line" aria-hidden="true">Perfect for <span class="typed" id="typed">online forms</span><span class="caret"></span></div>
         <div class="cta"><a class="btn" href="#tool" data-t="20">Compress to 20KB</a><a class="btn alt" href="#tool" data-t="100">Compress to 100KB</a></div>
@@ -29,41 +33,44 @@ const jsonld = [
     <Tool target={20} heading="Compress image to 20KB: free online tool" />
     <BeforeAfter target={20} class="ba-mobile-only" />
     <article class="prose">
-      <h2>Related tools: 50KB, 100KB, 200KB, resizer and exam photo sizes</h2>
-      <ul class="links">
-        <li><a href="/compress-image-to-20kb/">Compress image to 20KB</a></li>
-        <li><a href="/compress-image-to-100kb/">Compress image to 100KB</a></li>
-        <li><a href="/image-compressor/">General image compressor</a></li>
-        <li><a href="/image-resizer/">Image resizer</a></li>
-        <li><a href="/government-exam-photo-signature-size/">Government exam photo and signature size</a></li>
-        <li><a href="/blog/how-to-compress-image-to-20kb/">Guide: how to compress image to 20KB</a></li>
-        <li><a href="/blog/how-to-compress-image-to-100kb/">Guide: how to compress image to 100KB</a></li>
-        <li><a href="/blog/">Blog: photo and signature upload help</a></li>
-        <li><a href="/faqs/">Frequently asked questions</a></li>
-        <li><a href="/how-it-works/">How the compression works</a></li>
-      </ul>
-      <h2>A target-size tool for form photos and signatures</h2>
-      <p>Many forms and uploads limit files to a number of kilobytes. ImageTo20KB lets you choose that number, tests real encoded file sizes, and tells you honestly whether the target was reached. You can compress image to 20KB for a tight upload field, compress image to 100KB for a typical application portal, or compress image to 200KB when you want to keep more detail.</p>
-      <h2>Compress image to 20KB online in three steps</h2>
-      <p>To compress image to 20KB online, add your photo or signature, keep the 20KB preset and download the result. The tool is built to compress image to 20KB for forms, exams and job portals, and it checks the real file size before it says the target was reached. If you only need an image compress to 20KB for one upload, the whole process takes less than a minute.</p>
-      <h2>Why people compress image to 20KB</h2>
-      <p>Government exam forms, scholarship pages and company career sites often set tiny upload limits. People compress image to 20KB so that a signature or a small passport-style photograph is accepted without an error. When you compress image to 20KB from a large phone photo, the tool crops nothing for you, so crop first and keep the important part of the picture large.</p>
-      <h2>Image compress to 20KB and image compress to 100KB</h2>
-      <p>The two most searched sizes are image compress to 20KB and image compress to 100KB. Use the 20KB target for signatures and thumbnails, and compress image to 100KB when a form allows more room for a clearer photograph. You can open the dedicated page to compress image to 100KB online and use the same private, in-browser processing.</p>
-      <h2>Compress image to 100KB online when 20KB is too small</h2>
-      <p>If a face or small text looks soft at 20KB, compress image to 100KB instead. Many forms accept up to 100KB, and the compress image to 100KB online tool keeps far more detail. The image compress to 100KB option is also a safer choice for document scans.</p>
+      <h2>How to compress image to 20KB online in four steps</h2>
+      <ol class="steps">
+        <li><strong>Choose your image.</strong> Drag a JPG, PNG or WebP file onto the tool, or click it to browse. You can add several files at once.</li>
+        <li><strong>Keep the 20KB target.</strong> The 20KB preset is already selected. For a different limit, pick another preset or type a custom size.</li>
+        <li><strong>Check the result.</strong> The result card shows the original and final size, the dimensions and a before-and-after preview, and says plainly whether the target was reached.</li>
+        <li><strong>Download.</strong> Save the file, or use the ZIP button for several images. Everything happens in your browser, so nothing is uploaded.</li>
+      </ol>
+      <h2>Why forms ask you to compress image to 20KB</h2>
+      <p>Online application forms set small upload limits so that thousands of files can be stored and loaded quickly. Signature fields are the most common case: notices from exam bodies such as SSC are commonly reported with a signature range of about 10 to 20 KB. Job portals and scholarship pages use similar small limits for passport-style photos. If your form says "maximum 20KB", you need to compress image to 20KB before the upload is accepted.</p>
+      <p>Check the exact range on your own form, because limits differ by exam and year. The <a href="/government-exam-photo-signature-size/">government exam photo and signature guide</a> lists commonly reported ranges and explains how to handle a minimum size. If 20KB is too small for your form, you can compress image to 100KB online instead.</p>
+      <h2>A real example: {exBefore} to {exAfter}</h2>
+      <p>The slider on this page shows a real result from the tool. The original is a {ba.before.width}×{ba.before.height} pixel JPEG of {exBefore}. For this image compress to 20KB job, the tool searched for the highest JPEG quality that fits 20,480 bytes. It settled on {ex.quality}% quality at {ex.width}×{ex.height} pixels ({exPct}% of the original width), producing a {exAfter} file.</p>
+      <p>The same method applies to every image: measure the real file size, keep quality reasonable, and shrink dimensions only as much as needed. If an image cannot reach the target, the tool says so and shows the smallest result it could make.</p>
+      <h2>Which target size fits your need?</h2>
+      <table class="size-table">
+        <thead><tr><th scope="col">Target</th><th scope="col">Typical use</th><th scope="col">What to expect</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">20KB</th><td>Signatures, small passport photos, strict upload fields</td><td>A very small picture, often a few hundred pixels wide, with some softness on detailed photos</td></tr>
+          <tr><th scope="row">50KB</th><td>Form photos and signatures with a 50KB limit</td><td>A clearer face than 20KB, still at small dimensions</td></tr>
+          <tr><th scope="row">100KB</th><td>Typical application and portal uploads</td><td>Good clarity at roughly 800 to 1,200 pixels wide</td></tr>
+          <tr><th scope="row">200KB</th><td>Web uploads, documents, email</td><td>Sharp on most screens</td></tr>
+          <tr><th scope="row">500KB</th><td>High-quality sharing and scans</td><td>Close to the original look for most photos</td></tr>
+        </tbody>
+      </table>
+      <p class="note">These are typical results, not guarantees: they depend on your image and the format you choose.</p>
       <h2>Tips to compress image to 20KB with a cleaner result</h2>
-      <p>Start from the original file, crop tightly, choose JPEG and let the tool reduce dimensions instead of pushing quality too low. To compress image to 20KB without blocky patches, a width of 400 to 600 pixels is a good starting point. If the result is above target, say so honestly: this site never claims you can compress image to 20KB when the final file is larger.</p>
-      <h2>Target-size compression vs slider-based tools like Squoosh</h2>
-      <p>Most image compressors ask you to move a quality slider until the file looks acceptable. That works when you are exploring, but it is slow when a form says "maximum 20KB". Tools such as Squoosh, the open-source image compression app from Google Chrome Labs, are excellent for comparing codecs and tuning settings by hand. ImageTo20KB is built for a narrower job: you give a size in KB and it searches for the best result within it. We are not affiliated with Squoosh, and the two suit different needs.</p>
-      <h2>What the tool does with your image, step by step</h2>
-      <p>The file is checked by its real contents rather than its name. It is decoded in your browser and drawn at the size you allow. For JPEG and WebP the tool tries quality levels, measures the true output size each time, and keeps the best one that fits. If quality alone cannot reach the target, it reduces dimensions smoothly while keeping a sensible quality floor. You then see both pictures, the sizes, the dimensions and whether the target was reached.</p>
-      <h2>Supported image formats and limits</h2>
-      <p>You can add JPG, JPEG, PNG and WebP images. Output can be JPEG, WebP or PNG, depending on what your browser can encode. JPEG is the safest choice for forms. WebP is often smaller. PNG is lossless, so photographs saved as PNG usually cannot reach very small sizes. Animated GIF, animated WebP, SVG and HEIC files are not supported, and the tool will say so instead of silently removing animation.</p>
-      <h2>Who needs to compress images to a small KB size</h2>
-      <p>Students filling in admission or scholarship forms, job applicants uploading a photo or signature, small businesses preparing product pictures, and anyone who needs to email several photos without hitting an attachment limit. For form uploads, read the <a href="/image-compressor-for-online-forms/">guide to preparing images for online forms</a>. For exact pixel sizes, use the <a href="/image-resizer/">image resizer</a>.</p>
-      <h2>Your images stay on your device</h2>
-      <p>The compression runs inside your browser. There is no upload step for compression and no external image-processing service. Images exist only in your device's memory and as temporary links that the page removes when you delete a file or leave the page. See the <a href="/privacy-policy/">privacy policy</a> and the <a href="/security/">security page</a> for details and limits.</p>
+      <ul class="facts">
+        <li>Start from the original photo, not a copy sent through a messaging app.</li>
+        <li>Crop away what you do not need, so the 20,480 bytes are spent on the face or signature.</li>
+        <li>Choose JPEG, and set a maximum width of about 400 to 600 pixels for photos.</li>
+        <li>Avoid compressing the same file repeatedly, because each lossy save removes detail.</li>
+        <li>Aim for about 19KB if a portal might count 1KB as 1,000 bytes.</li>
+      </ul>
+      <p>These habits help whenever you need an image compress to 20KB from a large photo, and they keep the result sharper than lowering quality alone.</p>
+      <Decisions slug="/" />
+      <h2>Compress image to 20KB with a target-size tool, not a slider</h2>
+      <p>Most image compressors, including the open-source Squoosh image compression app from Google Chrome Labs, give you sliders and let you tune codecs by hand. That is powerful for exploring, but slow when a form simply says maximum 20KB. ImageTo20KB works the other way round: you enter the size, it searches for the best fit, and it reports the real result. Each approach suits a different job, and we are not affiliated with Squoosh.</p>
+      <p>For a quick image compress to 20KB request, a target-size tool saves guesswork. For fine control over codecs and formats, a manual tool is a better choice.</p>
       <h2>Key facts about ImageTo20KB</h2>
       <ul class="facts">
         <li>Input formats: JPG/JPEG, PNG and WebP. Not supported: animated GIF, animated WebP, SVG and HEIC.</li>
@@ -75,10 +82,18 @@ const jsonld = [
         <li>Batch: several images at once, with a ZIP download of the successful results.</li>
         <li>Maintained by Kamlesh Mohabe, Software Engineer. Last reviewed {LAST_UPDATED}.</li>
       </ul>
-      <h2>Tips for better small images</h2>
-      <p>Start from the original photo, crop away what you do not need, and set a maximum width that matches how the picture will be shown. Avoid compressing the same file repeatedly, because each lossy save removes detail.</p>
-      <h2>What if the image cannot reach 20KB?</h2>
-      <p>Not every image can be reduced to every size without becoming blurry. A large, detailed photograph may not reach 20KB at a reasonable quality. When that happens the tool shows the smallest result it could make and labels it as above target, so you can decide what to do next. Use the <a href="/compress-image-to-50kb/">50KB tool</a> or <a href="/compress-image-to-200kb/">200KB tool</a> if a slightly larger target is allowed.</p>
+      <h2>Explore related tools and guides</h2>
+      <ul class="links">
+        <li><a href="/compress-image-to-20kb/">Compress image to 20KB online</a></li>
+        <li><a href="/blog/how-to-compress-image-to-20kb/">Guide: how to compress image to 20KB</a></li>
+        <li><a href="/compress-image-to-100kb/">Compress image to 100KB</a></li>
+        <li><a href="/image-compressor/">General image compressor</a></li>
+        <li><a href="/image-resizer/">Image resizer</a></li>
+        <li><a href="/government-exam-photo-signature-size/">Government exam photo and signature size</a></li>
+        <li><a href="/blog/">Blog: photo and signature upload help</a></li>
+        <li><a href="/faqs/">Frequently asked questions</a></li>
+        <li><a href="/how-it-works/">How the compression works</a></li>
+      </ul>
     </article>
   </div>
   <script>

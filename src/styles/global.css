@@ -181,3 +181,12 @@ body.menu-open{overflow:hidden}
 .site-footer ul.social{display:flex;flex-wrap:wrap;gap:10px}
 
 .facts{padding-left:1.2em}.facts li{margin:.35em 0}
+
+.size-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.95rem}
+.size-table th,.size-table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+.size-table thead th{background:color-mix(in srgb,var(--primary) 8%,var(--surface))}
+.size-table tbody th{white-space:nowrap}
+@media(max-width:600px){.size-table{display:block;overflow-x:auto}}
+.decisions h3{margin:1.1em 0 .2em;font-size:1.05rem}.decisions p{margin:.2em 0 .6em}
+
+.steps{padding-left:1.3em}.steps li{margin:.6em 0}
