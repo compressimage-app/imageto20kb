@@ -26,7 +26,7 @@ export function chunkHtml(html) {
     return parts.map((p) => `<p${attrs}>${p}</p>`).join('');
   });
 }
-if (process.argv[1].endsWith('chunk-paragraphs.mjs')) {
+if (process.argv[1]?.endsWith('chunk-paragraphs.mjs')) {
   let files = 0, before = 0, after = 0;
   (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); if (statSync(p).isDirectory()) walk(p); else if (p.endsWith('.html')) {
     const html = readFileSync(p, 'utf8'), out = chunkHtml(html); before += (html.match(/<p[\s>]/g) || []).length; after += (out.match(/<p[\s>]/g) || []).length;

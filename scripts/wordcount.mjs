@@ -10,4 +10,4 @@ export function allPages(DIST = 'dist') {
   const out = {}; (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') && (out['/' + p.slice(DIST.length + 1).replace(/index\.html$/, '')] = words(readFileSync(p, 'utf8'))); } })(DIST);
   return out;
 }
-if (process.argv[1].endsWith('wordcount.mjs')) for (const [k, v] of Object.entries(allPages()).sort()) console.log(String(v).padStart(5), k);
+if (process.argv[1]?.endsWith('wordcount.mjs')) for (const [k, v] of Object.entries(allPages()).sort()) console.log(String(v).padStart(5), k);

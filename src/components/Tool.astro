@@ -1,10 +1,10 @@
 ---
-interface Props { target?: number; format?: string; advanced?: boolean; examPresets?: { label: string; kb: number; min: number }[] }
-const { target = 20, format = 'image/jpeg', advanced = false, examPresets = [] } = Astro.props;
+interface Props { heading?: string; target?: number; format?: string; advanced?: boolean; examPresets?: { label: string; kb: number; min: number }[] }
+const { heading = 'Free image compression tool', target = 20, format = 'image/jpeg', advanced = false, examPresets = [] } = Astro.props;
 const presets = [20, 50, 100, 200, 500];
 ---
 <section class="panel" id="tool" aria-labelledby="tool-h" data-target={target} data-format={format}>
-  <h2 id="tool-h" style="margin-top:0">Compression tool</h2>
+  <h2 id="tool-h" style="margin-top:0">{heading}</h2>
   <label class="drop" id="drop">
     <input type="file" id="file" accept="image/jpeg,image/png,image/webp" multiple />
     <strong>Drop images here or click to choose</strong><br />

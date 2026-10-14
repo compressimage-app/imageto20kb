@@ -15,7 +15,9 @@
     "verify": "npm run build && npm test && npm run check:seo && npm run audit:render && npm run audit:perf",
     "deploy": "npm run build && wrangler deploy",
     "audit:perf": "node scripts/perf-budget.mjs",
-    "audit:browser": "node scripts/browser-audit.mjs"
+    "audit:browser": "node scripts/browser-audit.mjs",
+    "check:meta": "node scripts/meta-lengths.mjs",
+    "audit:headings": "node scripts/heading-audit.mjs"
   },
   "dependencies": {
     "astro": "^5.0.0",

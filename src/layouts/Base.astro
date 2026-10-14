@@ -48,7 +48,7 @@ window.__consent={ID:ID,KEY:KEY,load:load};if(get()==='granted')defer();})();`}>
         <div class="dd">
           <button type="button" class:list={['dd-btn', { active: toolPaths.has(here) }]} id="tools-btn" aria-expanded="false" aria-controls="tools-menu">Tools <svg class="chev" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="dd-panel" id="tools-menu">
-            {toolGroups.map((g) => (<div><h3>{g.title}</h3>{g.links.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}</div>))}
+            {toolGroups.map((g) => (<div><p class="dd-title">{g.title}</p>{g.links.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}</div>))}
           </div>
         </div>
         {top2.map(([n, h]) => <a href={h} aria-current={cur(h)}>{n}</a>)}

@@ -12,7 +12,7 @@ const jsonld = [
   { '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: post.description, datePublished: post.date, dateModified: post.date, author: { '@type': 'Person', name: OPERATOR_NAME, jobTitle: OWNER_ROLE }, mainEntityOfPage: abs(path) },
 ];
 ---
-<Base title={`${post.title} | ImageTo20KB`} description={post.description} path={path} jsonld={jsonld} crumbs={[{ name: 'Blog', href: '/blog/' }, { name: post.title, href: path }]}>
+<Base title={post.seoTitle ?? `${post.title} | ImageTo20KB`} description={post.description} path={path} jsonld={jsonld} crumbs={[{ name: 'Blog', href: '/blog/' }, { name: post.title, href: path }]}>
   <link slot="head" rel="preload" as="image" href={`/img/blog/${post.slug}.svg`} fetchpriority="high" />
   <div class="wrap"><article class="prose">
     <h1>{post.title}</h1>

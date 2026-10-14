@@ -2,6 +2,8 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { words } from './wordcount.mjs';
 import { report as kwReport } from './keyword-report.mjs';
+import { headingProblems } from './heading-audit.mjs';
+import { metaRows, TITLE_MAX, DESC_MAX, DESC_MIN } from './meta-lengths.mjs';
 const DIST = 'dist', SITE = 'https://www.imageto20kb.in';
 const html = []; (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') && html.push(p); } })(DIST);
 const noindexRoutes = new Set(), errors = [], titles = new Map(), descs = new Map(), routes = new Set();
@@ -45,5 +47,7 @@ for (const [page, kw] of [['compress-image-to-200kb/', 'compress image to 200kb'
   const need = { '/': all, '/image-compressor/': all, '/compress-image-to-20kb/': all, '/compress-image-to-100kb/': all.filter((k) => k.includes('100')) };
   for (const [route, ks] of Object.entries(need)) for (const k of ks) if (!by[route] || by[route].counts[k] < 3) errors.push(`${route}: "${k}" used ${by[route]?.counts[k] ?? 0} times (need 3+)`);
   if (!existsSync(join(DIST, 'compress-image-to-20kb/index.html'))) errors.push('no URL containing the primary keyword'); }
+for (const m of new Set(headingProblems(DIST))) errors.push(m);
+for (const r of metaRows(DIST)) { const t = [...r.title].length, d = [...r.desc].length; if (t > TITLE_MAX) errors.push(`${r.route}: title is ${t} characters (max ${TITLE_MAX})`); if (d > DESC_MAX || d < DESC_MIN) errors.push(`${r.route}: meta description is ${d} characters (allowed ${DESC_MIN}-${DESC_MAX})`); }
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 console.log(`SEO check passed: ${html.length} HTML files, ${locs.length} sitemap URLs.`);

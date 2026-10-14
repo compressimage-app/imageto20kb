@@ -5,7 +5,7 @@ export const CONTACT_EMAIL = 'compressimageto@gmail.com';
 export const OPERATOR_NAME = 'Kamlesh Mohabe';
 export const OWNER_ROLE = 'Software Engineer';
 export const JURISDICTION = '[GOVERNING JURISDICTION – TO BE CONFIRMED]';
-export const LAST_UPDATED = '2026-10-03';
+export const LAST_UPDATED = '2026-10-14';
 export const abs = (path: string) => new URL(path, SITE + '/').toString();
 export const GA_ID = 'G-YNJS39ZTBL';
 export const BING_VALIDATION = 'B2CC874597C52F944CF785656679176A';

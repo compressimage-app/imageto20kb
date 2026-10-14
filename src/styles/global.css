@@ -58,7 +58,7 @@ details.faq{border-bottom:1px solid var(--border);padding:10px 0}details.faq sum
 .dd{position:relative}.chev{font-size:.75em;transition:transform .2s}.dd-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
 .dd-panel{position:absolute;top:calc(100% + 12px);left:50%;transform:translate(-50%,6px);width:min(620px,92vw);display:grid;grid-template-columns:repeat(2,1fr);gap:18px 26px;padding:22px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 60px rgba(16,23,42,.3);opacity:0;visibility:hidden;transition:opacity .18s,transform .18s,visibility .18s;z-index:80}
 .dd-panel.open{opacity:1;visibility:visible;transform:translate(-50%,0)}
-.dd-panel h3{margin:0 0 6px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dd-panel .dd-title{margin:0 0 6px;font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 :root .dd-panel a{display:block;padding:7px 10px;border-radius:8px;color:var(--text);text-decoration:none;font-size:.93rem}
 :root .dd-panel a:hover,:root .dd-panel a[aria-current]{background:color-mix(in srgb,var(--primary) 12%,transparent);color:var(--primary)}
 .actions{display:flex;gap:8px;margin-left:auto}
@@ -78,7 +78,7 @@ body.menu-open{overflow:hidden}
   .dd{width:100%}
   .dd-panel{position:static;transform:none;width:auto;display:none;grid-template-columns:1fr;gap:10px;padding:10px 8px;margin-top:6px;background:rgba(255,255,255,.08);border:0;border-radius:12px;box-shadow:none;opacity:1;visibility:visible}
   .dd-panel.open{display:grid;transform:none}
-  .dd-panel h3{color:#a5f3fc}
+  .dd-panel .dd-title{color:#a5f3fc}
   :root .dd-panel a{color:#fff;font-size:.98rem}
   :root .dd-panel a:hover,:root .dd-panel a[aria-current]{background:rgba(255,255,255,.16);color:#fff}
   #nav a.nav-cta{display:block;margin-top:auto;text-align:center;border:0;background:linear-gradient(135deg,#06B6D4,#A78BFA);color:#10172A;box-shadow:0 8px 20px rgba(0,0,0,.3);padding:14px 16px;border-radius:12px;font-weight:700}
@@ -179,3 +179,5 @@ body.menu-open{overflow:hidden}
 :root .site-footer .social a{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;text-decoration:none}
 :root .site-footer .social a:hover{background:rgba(255,255,255,.22);text-decoration:none}
 .site-footer ul.social{display:flex;flex-wrap:wrap;gap:10px}
+
+.facts{padding-left:1.2em}.facts li{margin:.35em 0}

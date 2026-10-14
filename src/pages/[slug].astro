@@ -29,6 +29,8 @@ const guides: Record<string, [string, string]> = {
   'compress-jpg-to-100kb': ['How to compress image to 100KB online (without losing clarity)', '/blog/how-to-compress-image-to-100kb/'],
 };
 const guide = page ? guides[page.slug] : undefined;
+const sizeMatch = page?.slug.match(/^compress-(?:(jpg|png)|image)-to-(\d+)kb$/);
+const toolHeading = sizeMatch ? `Compress image to ${sizeMatch[2]}KB: free ${sizeMatch[1] ? sizeMatch[1].toUpperCase() : 'online'} tool` : undefined;
 const title = (page ?? doc)!.title, description = (page ?? doc)!.description, h1 = (page ?? doc)!.h1;
 const crumbs = [{ name: h1, href: path }];
 const jsonld = [
@@ -40,7 +42,7 @@ const jsonld = [
   {page && (<>
     <section class="hero" style="padding-bottom:0"><div class="wrap"><h1>{page.h1}</h1><p class="lead">{page.intro}</p>{answers[page.slug] && <Answer text={answers[page.slug]} />}{page.updated && <p class="note">Size ranges last reviewed: {page.updated}. Always confirm against your exam notification.</p>}</div></section>
     <div class="wrap">
-      <Tool target={page.target} format={page.format} advanced={page.advanced} examPresets={page.examPresets} />
+      <Tool heading={toolHeading} target={page.target} format={page.format} advanced={page.advanced} examPresets={page.examPresets} />
       <BeforeAfter target={page.target} />
       <article class="prose">
         {[...page.sections, ...(more[page.slug] ?? []), ...(more2[page.slug] ?? []), ...(more3[page.slug] ?? []), ...(seoMore[page.slug] ?? [])].map((s) => <><h2>{s.h2}</h2>{s.body.map((b) => <p>{b}</p>)}</>)}

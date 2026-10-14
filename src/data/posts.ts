@@ -1,4 +1,4 @@
-export interface Post { slug: string; title: string; description: string; date: string; excerpt: string; sections: { h2: string; body: string[] }[]; links: [string, string][] }
+export interface Post { seoTitle?: string; slug: string; title: string; description: string; date: string; excerpt: string; sections: { h2: string; body: string[] }[]; links: [string, string][] }
 const D = '2026-10-04';
 export const posts: Post[] = [
 { slug: 'how-to-resize-photo-and-signature-for-online-exam-forms', date: D,
@@ -117,7 +117,7 @@ posts.unshift(
   ] },
 { slug: 'how-to-compress-image-to-100kb', date: '2026-10-08',
   title: 'How to Compress Image to 100KB Online (Without Losing Clarity)',
-  description: 'How to compress image to 100KB online for forms and uploads: choose dimensions, pick the format, check quality and avoid common mistakes with image compress to 100KB.',
+  description: 'How to compress image to 100KB online for forms and uploads: choose dimensions, pick the format, check quality and avoid common mistakes.',
   excerpt: 'How to compress image to 100KB online and keep photos and text clear, step by step.',
   links: [['Compress image to 100KB online', '/compress-image-to-100kb/'], ['Compress JPG to 100KB', '/compress-jpg-to-100kb/'], ['Compress image to 20KB', '/compress-image-to-20kb/']],
   sections: [
@@ -134,3 +134,15 @@ posts.unshift(
 );
 posts.find((p) => p.slug === 'how-to-resize-photo-and-signature-for-online-exam-forms')!.sections.push({ h2: 'If you need to compress image to 20KB', body: ['For a signature or a small photograph with a 20KB limit, follow the guide on how to compress image to 20KB. Use the same steps: crop first, choose JPEG, run the tool, check the size and keep the original.'] });
 posts.find((p) => p.slug === 'photo-rejected-file-size-too-large-after-compression')!.sections.push({ h2: 'Try again with a safer target', body: ['If a portal rejects a 20KB file, compress image to 20KB again but aim for 18KB, or compress image to 100KB if the limit is larger. You can also read the full guide on how to compress image to 20KB.'] });
+
+const seoTitles: Record<string, string> = {
+  'how-to-compress-image-to-20kb': 'How to Compress Image to 20KB: Step-by-Step | ImageTo20KB',
+  'how-to-compress-image-to-100kb': 'How to Compress Image to 100KB Online | ImageTo20KB',
+  'how-to-resize-photo-and-signature-for-online-exam-forms': 'Resize Photo and Signature for Exam Forms | ImageTo20KB',
+  'photo-rejected-file-size-too-large-after-compression': 'File Size Too Large After Compression? Fixes | ImageTo20KB',
+  'how-to-make-a-clean-signature-image-for-online-forms': 'Make a Clean Signature Image for Online Forms | ImageTo20KB',
+  'photo-upload-checklist-for-private-jobs-and-online-admissions': 'Photo Upload Checklist for Jobs and Admissions | ImageTo20KB',
+  'jpg-png-or-webp-which-format-for-online-forms': 'JPG, PNG or WebP for Online Forms? | ImageTo20KB',
+  'is-it-safe-to-compress-photos-online': 'Is It Safe to Compress Photos Online? | ImageTo20KB',
+};
+for (const p of posts) p.seoTitle = seoTitles[p.slug];

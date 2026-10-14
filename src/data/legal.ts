@@ -11,7 +11,7 @@ export const legal: Doc[] = [
    { h2: 'Browser storage', body: ['The site stores your light/dark theme choice and your cookie choice in your browser’s localStorage. It is not used for tracking and is not sent to us.'] },
    { h2: 'Your rights and contact', body: ['Depending on where you live you may have rights to access, correct or delete personal data we hold. Because we do not intentionally collect personal data through the tool, there is usually nothing to retrieve, but you can email us at ' + CONTACT_EMAIL + '.'] },
    { h2: 'Changes', body: ['We may update this policy; the “last updated” date on the page will change.'] } ] },
-{ slug: 'terms-and-conditions', title: 'Terms and Conditions | ImageTo20KB', description: 'Terms for using ImageTo20KB.', h1: 'Terms and Conditions',
+{ slug: 'terms-and-conditions', title: 'Terms and Conditions | ImageTo20KB', description: 'Terms and conditions for using ImageTo20KB: permitted use, your responsibility for images, no guarantees, and limits of liability.', h1: 'Terms and Conditions',
   sections: [
    { h2: 'Status', body: [review] },
    { h2: 'Acceptance', body: ['By using this website you agree to these terms. If you do not agree, do not use the site.'] },
@@ -19,26 +19,26 @@ export const legal: Doc[] = [
    { h2: 'Intellectual property', body: ['The site’s design, text and code belong to the operator or its licensors. You keep all rights in your own images; we claim none because we do not receive them.'] },
    { h2: 'No guarantees', body: ['The service is provided “as is” and “as available”. Results depend on your browser and image. We do not guarantee any target size, image quality, uninterrupted availability, or that a file will be accepted by a third-party form or portal.'] },
    { h2: 'Limitation of liability', body: [`To the extent permitted by law, the operator is not liable for indirect or consequential loss arising from use of the site. Nothing excludes liability that cannot be excluded by law. Governing law and courts: ${JURISDICTION}.`] } ] },
-{ slug: 'cookie-policy', title: 'Cookie Policy | ImageTo20KB', description: 'Cookies and browser storage used by ImageTo20KB.', h1: 'Cookie Policy',
+{ slug: 'cookie-policy', title: 'Cookie Policy | ImageTo20KB', description: 'Which cookies and browser storage ImageTo20KB uses: Google Analytics only if you accept, plus your theme and cookie choice. Change it any time.', h1: 'Cookie Policy',
   sections: [
    { h2: 'Status', body: [review] },
    { h2: 'Cookies', body: ['Analytics cookies are not set unless you accept them in the cookie banner or on this page. If you accept, Google Analytics sets cookies in your browser to recognise a visit across page views and to measure usage. They are typically named _ga and _ga_ followed by an identifier. The site does not set advertising cookies of its own. Our hosting provider may use strictly necessary cookies or similar technologies for security, such as bot protection. [Confirm the exact cookies against your Google Analytics and Cloudflare configuration before launch.]'] },
    { h2: 'Local storage', body: ['We save your theme preference (key: theme) and your cookie choice (key: cookie-consent) in localStorage. You can clear it in your browser settings at any time.'] } ] },
-{ slug: 'disclaimer', title: 'Disclaimer | ImageTo20KB', description: 'Disclaimer for ImageTo20KB results and third-party forms.', h1: 'Disclaimer',
+{ slug: 'disclaimer', title: 'Disclaimer | ImageTo20KB', description: 'Disclaimer for ImageTo20KB: compression is lossy, target sizes are not guaranteed, and third-party portals set their own upload rules.', h1: 'Disclaimer',
   sections: [
    { h2: 'Status', body: [review] },
    { h2: 'Results', body: ['Compression is lossy for JPEG and WebP and reduces image quality. Keep your original files. Target sizes are not always achievable; the tool tells you when it was not reached.'] },
    { h2: 'Third-party requirements', body: ['Government, exam, employer and other portals set their own rules. We are not affiliated with them and cannot guarantee acceptance of any file.'] } ] },
-{ slug: 'security', title: 'Security | ImageTo20KB', description: 'Security measures used by ImageTo20KB.', h1: 'Security',
+{ slug: 'security', title: 'Security | ImageTo20KB', description: 'Security at ImageTo20KB: images are compressed in your browser, the site is static and served over HTTPS, with security headers and file checks.', h1: 'Security',
   sections: [
    { h2: 'How the tool is built', body: ['Image processing runs locally, so there is no image upload endpoint. The site is static, served over HTTPS from Cloudflare, with security headers including a Content Security Policy, X-Content-Type-Options and frame blocking.'] },
    { h2: 'Input safety', body: ['Files are checked by their binary signature, not just their extension. Size and megapixel limits protect your browser. SVG files are rejected rather than rendered.'] },
    { h2: 'Limits', body: ['No system is perfectly secure and we cannot promise absolute security. Report a vulnerability by email to ' + CONTACT_EMAIL + '.'] } ] },
-{ slug: 'accessibility', title: 'Accessibility | ImageTo20KB', description: 'Accessibility approach of ImageTo20KB.', h1: 'Accessibility',
+{ slug: 'accessibility', title: 'Accessibility | ImageTo20KB', description: 'Accessibility at ImageTo20KB: semantic headings, labelled controls, keyboard focus, light and dark themes, and reduced-motion support.', h1: 'Accessibility',
   sections: [
    { h2: 'Our approach', body: ['We use semantic HTML, visible keyboard focus, labelled controls, live-region status messages and a reduced-motion mode. We have not completed a formal accessibility audit and do not claim WCAG conformance.'] },
    { h2: 'Feedback', body: ['If you find a barrier, please tell us by email at ' + CONTACT_EMAIL + '.'] } ] },
-{ slug: 'copyright-policy', title: 'Copyright Policy | ImageTo20KB', description: 'Copyright policy for ImageTo20KB.', h1: 'Copyright Policy',
+{ slug: 'copyright-policy', title: 'Copyright Policy | ImageTo20KB', description: 'Copyright policy for ImageTo20KB: you keep the rights to your images, we keep ours, and how to report suspected infringement.', h1: 'Copyright Policy',
   sections: [
    { h2: 'Status', body: [review] },
    { h2: 'Your content', body: ['Only process images you have the right to use. Because images are handled in your browser, we do not host or receive user images.'] },

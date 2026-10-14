@@ -11,7 +11,7 @@ const hero = variant === 'hero';
 const blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 ---
 <figure class:list={['ba', cls]}>
-  {!hero && <h2 class="ba-h">See the difference: {before} → {after}</h2>}
+  {!hero && <h2 class="ba-h">Compress image to {key}KB: see the difference ({before} → {after})</h2>}
   <div class="ba-stage">
     {hero ? (
       <>

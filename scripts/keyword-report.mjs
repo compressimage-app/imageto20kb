@@ -22,7 +22,7 @@ export function report(DIST = 'dist') {
   } } })(DIST);
   return rows.sort((a, b) => a.route.localeCompare(b.route));
 }
-if (process.argv[1].endsWith('keyword-report.mjs')) {
+if (process.argv[1]?.endsWith('keyword-report.mjs')) {
   const rows = report();
   console.log('primary | +20 online | img cmp 20 | cmp 100 | cmp 100 online | img cmp 100 | H1 | title | route');
   for (const r of rows) { const c = r.counts; if (/403|404|500|503/.test(r.route)) continue;
