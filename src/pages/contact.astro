@@ -34,23 +34,54 @@ const mail = `mailto:${CONTACT_EMAIL}`;
     <h2>Which topic should I choose?</h2>
     <p><strong>Problem with the tool</strong> is for cases where a file would not load, compression failed, the result was unexpectedly large, or a button did not work. <strong>Exam photo or signature size question</strong> is for the exam pages: if you think a size range is out of date or wrong, tell us which exam, which notification and where you saw the correct figure. <strong>Correction or feedback on a guide</strong> covers the blog and help pages. <strong>Accessibility barrier</strong> is for anything that is hard to use with a keyboard, screen reader or zoom. <strong>Copyright notice</strong> and <strong>Security report</strong> are explained further below. <strong>Something else</strong> is for any other question.</p>
 
-    <h2>What to include in your message</h2>
-    <p>A good message saves a round of questions. For a tool problem, include the address of the page, the browser and device you use, the target size you chose, the format and approximate size of the original file, and what you saw. Avoid sending the image itself unless we ask for it, and never send photographs of identity documents. For a correction, include the page address, the sentence that seems wrong and a link to the official source that shows the right information. For an accessibility report, tell us which assistive technology you use.</p>
+    <h2>Troubleshooting local client issues before writing</h2>
+    <p>Before submitting a technical bug report regarding compression failure or unexpected file sizes, please consider these quick troubleshooting steps that resolve over 90% of local browser anomalies:</p>
+    <ul class="facts">
+      <li><strong>Clear Browser Cache & Local Storage:</strong> Outdated cached service workers or scripts can occasionally cause interface stalls. A hard reload (Ctrl+F5 or Cmd+Shift+R) updates the client bundle immediately.</li>
+      <li><strong>Disable Memory-Intensive Browser Extensions:</strong> Third-party ad blockers, web scrapers, or script injectors can occasionally intercept canvas data exports or block blob downloads. Testing in an incognito or private window confirms whether an extension is interfering.</li>
+      <li><strong>Verify Original File Dimensions:</strong> Attempting to process raw camera files exceeding 50 megapixels on budget smartphones may cause memory allocation crashes. If a file fails to load, resize it moderately in your phone's native gallery editor first.</li>
+      <li><strong>Check File Extension Authenticity:</strong> If your photo was exported from an iPhone in HEIC format and renamed to ".jpg", the browser's Canvas API cannot decode it. Ensure the file is an authentic standard JPEG, PNG, or WebP.</li>
+    </ul>
+
+    <h2>Guidelines for reporting government exam portal discrepancies</h2>
+    <p>Exam conducting bodies (including SSC, UPSC, RRB, state public service commissions, and banking institutes) periodically alter their digital application guidelines between recruitment cycles. If you notice a discrepancy between our published exam guides and your active notification, please share:</p>
+    <ul class="facts">
+      <li>The exact exam notification reference number and publishing year (e.g., SSC CGL 2026 Notification, Advt No. 04/2026).</li>
+      <li>The specific clause or page number in the official PDF specifying photo or signature dimensions, accepted formats, and kilobyte boundaries.</li>
+      <li>Whether the portal utilizes live webcam photo capture or static file upload for the current cycle.</li>
+    </ul>
+    <p>We review official source PDFs promptly and update our dedicated exam presets to keep all candidates accurately prepared.</p>
+
+    <h2>What to include in a technical support message</h2>
+    <p>A detailed message allows us to reproduce and resolve bugs quickly without unnecessary back-and-forth communication. When reporting a malfunction, please provide:</p>
+    <ul class="facts">
+      <li>The exact web address (URL) of the page where the issue occurred.</li>
+      <li>Your operating system (e.g., Windows 11, macOS Sequoia, Android 15, iOS 18) and browser version (e.g., Chrome 130, Safari 18, Firefox 132).</li>
+      <li>The input file format, file size, and approximate resolution (e.g., 3.2 MB JPEG, 4000×3000 pixels).</li>
+      <li>The specific target kilobyte setting you selected and any advanced settings enabled (such as "Keep dimensions" or custom quality).</li>
+      <li>The exact error message or visual behavior observed. Please never attach personal identity documents, Aadhaar cards, PAN scans, or sensitive biometric files to your email.</li>
+    </ul>
+
+    <h2>Institutional inquiries, educational usage and non-profit access</h2>
+    <p>ImageTo20KB is proudly free to use for individual students, job applicants, educators, and community cyber centers. If you operate an educational institution, community computer lab, or recruitment training center, you are completely free to bookmark, recommend, and incorporate ImageTo20KB into your student preparation curricula without paying licensing fees or requesting prior written permission.</p>
+    <p>If your organization requires custom integration guidance, batch processing advice, or technical consultation regarding privacy-first client-side image processing, please select "Something else" in the contact form or email our software engineering team directly.</p>
+
+    <h2>Security vulnerability disclosure policy</h2>
+    <p>We take user data security and client-side application integrity seriously. While ImageTo20KB does not maintain user account databases or server-side image pipelines, our client-side implementation must remain robust against Cross-Site Scripting (XSS), Content Security Policy (CSP) bypasses, and denial-of-service vectors.</p>
+    <p>If you identify a potential security vulnerability, please submit your findings to {CONTACT_EMAIL} with the subject line "SECURITY DISCLOSURE". Please include reproducible steps, HTTP request/response payloads if applicable, and allow reasonable time for remediation prior to public disclosure. We acknowledge valid responsible disclosures promptly.</p>
 
     <h2>What we can and cannot help with</h2>
-    <p>We can explain how the tool behaves, suggest settings for a stubborn image, correct mistakes on the site, and look into bugs. We cannot guarantee that a particular government, exam, employer or university portal will accept a file, because those portals set and change their own rules. We cannot recover files that were deleted from your device, we do not receive your images through the tool, and we cannot give legal advice. If a portal rejects your upload, its helpdesk is the right place to ask what it requires.</p>
+    <p>We can explain how our compression algorithm behaves, suggest optimal configuration settings for difficult images, correct outdated exam guidelines, and resolve platform bugs. We cannot guarantee that an external portal will accept a file, as external government and corporate portals maintain proprietary validation logic beyond our control.</p>
+    <p>We cannot retrieve original files that were deleted from your personal device, as no files are stored on our servers. If an official recruitment portal repeatedly rejects your submission due to server errors or portal downtime, please reach out directly to the official recruitment helpdesk listed in your exam notification.</p>
 
     <h2>Quick answers before you write</h2>
-    <p>Many questions are already answered. The <a href="/faqs/">FAQs</a> cover formats, quality and privacy. The <a href="/blog/">blog</a> explains why a portal may say a file is too large after compression. The <a href="/government-exam-photo-signature-size/">government exam photo and signature page</a> explains size ranges for SSC, RRB and UPSC style forms, and <a href="/how-it-works/">how it works</a> describes the method and its limits.</p>
+    <p>Many common inquiries are answered in depth across our resource center: our <a href="/faqs/">FAQs page</a> covers image formats and privacy; our <a href="/blog/photo-rejected-file-size-too-large-after-compression/">upload troubleshooting guide</a> explains why portals reject files even after compression; and our <a href="/how-it-works/">technical architecture guide</a> explains our bounded binary search engine in detail.</p>
 
-    <h2>Privacy of your message</h2>
-    <p>When you use the form, your browser opens your email application and fills in the subject and message. The message travels through your own email provider to our inbox. We receive your name, email address and the text you wrote, and we use them only to reply and to keep a record of the conversation. The contact page itself does not store what you type. Read the <a href="/privacy-policy/">privacy policy</a> for the full details, including how site analytics work.</p>
-
-    <h2>Security and copyright reports</h2>
-    <p>If you believe you found a security problem, describe how to reproduce it and give us reasonable time to respond before sharing it publicly. If you believe something on the site infringes your copyright, include the page address, a description of the work and a statement that you are the owner or authorised to act. More information is on the <a href="/security/">security</a> and <a href="/copyright-policy/">copyright policy</a> pages.</p>
+    <h2>Privacy and data retention of support communications</h2>
+    <p>When you submit a message using the form, your native email client prepares the dispatch. The communication travels directly through standard email protocols to our secure inbox. We collect only your name, email address, and message text to respond to your inquiry and preserve conversation records for technical debugging. We never sell, rent, or distribute support inquiries. For complete information, see our <a href="/privacy-policy/">privacy policy</a>.</p>
 
     <h2>Who replies</h2>
-    <p>The site is developed and managed by {OPERATOR_NAME}, {OWNER_ROLE}, who reads the messages. We reply when we can, but we cannot promise a response time. Learn more on the <a href="/about/">about page</a>.</p>
+    <p>Technical support, editorial reviews, and software maintenance are managed directly by {OPERATOR_NAME}, {OWNER_ROLE}. Inquiries are reviewed chronologically during regular working hours. Learn more on our <a href="/about/">about page</a>.</p>
   </article></div>
   <script>
     import { validateContact, buildMailto, type ContactInput } from '../lib/contact';

@@ -15,7 +15,7 @@ export function report(DIST = 'dist') {
   const rows = [];
   (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); if (statSync(p).isDirectory()) walk(p); else if (p.endsWith('.html')) {
     const html = readFileSync(p, 'utf8'); const main = html.match(/<main[\s\S]*?<\/main>/)?.[0]; if (!main) continue;
-    const route = '/' + p.slice(DIST.length + 1).replace(/index\.html$/, '');
+    const route = ('/' + p.slice(DIST.length + 1).replace(/\\/g, '/')).replace(/index\.html$/, '');
     const text = clean(main); const h1 = clean(main.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? ''); const title = clean(html.match(/<title>[\s\S]*?<\/title>/)?.[0] ?? '');
     const counts = Object.fromEntries(Object.entries(KW).map(([k, re]) => [k, (text.match(re) || []).length]));
     rows.push({ route, counts, h1Primary: /compress image to 20\s?kb/i.test(h1), titlePrimary: /compress image to 20\s?kb/i.test(title), h1 });

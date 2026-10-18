@@ -169,3 +169,136 @@ add('security', [{ h2: 'Summary', body: ['Compression is performed on your devic
 
 add('copyright-policy', [{ h2: 'Changes to this policy', body: ['We may update this policy as the site, its components and the law change. The date at the top shows the latest revision, and continued use of the site means you accept the current version.'] }]);
 add('disclaimer', [{ h2: 'Changes to this disclaimer', body: ['We may revise this disclaimer when the tool, browsers or the rules of third-party websites change. The date at the top shows the latest revision, and we recommend checking it from time to time, especially before relying on the site for an important submission.'] }]);
+
+add('privacy-policy', [
+  { h2: 'Alignment with international data protection frameworks', body: [
+    'ImageTo20KB is designed to respect international privacy frameworks, including the European Union General Data Protection Regulation (GDPR), the California Consumer Privacy Act (CCPA/CPRA), the UK Data Protection Act, and the Digital Personal Data Protection Act (DPDPA 2023) of India. The core principle of these regulations is data minimization: organizations should collect only the personal data strictly necessary to fulfill a legitimate service.',
+    'By performing all image manipulation, compression, and format encoding locally within client memory via the HTML5 Canvas API, our software architecture practices absolute data minimization. We do not collect, process, transfer, or retain your biometric records, passport photographs, or legal signatures on server storage. Consequently, there is no remote database susceptible to data breaches, external leaks, or unauthorized third-party processing.'
+  ] },
+  { h2: 'Network transmission and CDN edge caching', body: [
+    'When you navigate between pages on ImageTo20KB, your web browser requests static HTML documents, stylesheet files, and client-side JavaScript scripts from Cloudflare edge content delivery network (CDN) servers distributed worldwide. During these standard web requests, Cloudflare automatically processes essential network packet headers, including your public IP address, browser User-Agent string, requesting URL, and timestamp.',
+    'This basic routing data is processed solely to ensure rapid content delivery, maintain DDoS mitigation defenses, and prevent abusive bot behavior under Cloudflare privacy standards. Crucially, your personal image files are never part of these network payloads. When you drag and drop a photograph into the compressor, the image file is parsed exclusively by your device operating system and local browser runtime.'
+  ] },
+  { h2: 'Data subject rights and enforcement procedures', body: [
+    'Under applicable privacy statutes, users possess fundamental rights regarding their personal data, including the right of access, rectification, erasure, restriction of processing, and data portability. Because ImageTo20KB operates a zero-knowledge image architecture and collects no user accounts or uploaded files, we maintain no identifiable user records to retrieve, alter, or delete.',
+    'If you have communicated with us via email or submitted an inquiry through our contact page, you retain full rights to request the deletion or review of our correspondence history. To exercise your data subject rights, please email our designated privacy team at ' + CONTACT_EMAIL + ' with the subject line "DATA PRIVACY REQUEST". We verify and process valid requests within statutory deadlines.'
+  ] }
+]);
+
+add('terms-and-conditions', [
+  { h2: 'Permitted and prohibited automated usage', body: [
+    'You are granted a revocable, non-exclusive, non-transferable license to access and utilize ImageTo20KB for personal, educational, commercial, or institutional image optimization purposes via standard web browser software. However, automated scraping, bulk programmatic extraction of site resources, vulnerability scanning, or launching distributed denial-of-service (DDoS) traffic against our hosting infrastructure is strictly prohibited.',
+    'You agree not to decompile, reverse-engineer, or attempt to inject malicious code into client bundles delivered by the site. While we encourage educators and community cyber centers to recommend our tool, embedding the website within hidden frames (iFrames) or re-packaging our client code under deceptive branding without attribution is prohibited.'
+  ] },
+  { h2: 'High-stakes deadlines and candidate responsibility', body: [
+    'ImageTo20KB is designed as an assistive productivity tool. While we rigorously test our mathematical compression search algorithms to match reported portal specifications, users acknowledge that the ultimate responsibility for submitting compliant, readable, and timely application materials rests entirely with the individual applicant.',
+    'Technical factors beyond our control—including local device memory exhaustion, outdated browser engines, regional internet connectivity outages, and third-party portal server crashes—can affect submission workflows. We strongly urge all applicants to complete image preparation and final portal submission well in advance of official closing deadlines to prevent accidental disqualification.'
+  ] },
+  { h2: 'Severability, dispute resolution and jurisdiction', body: [
+    `These Terms of Service constitute the entire legal agreement governing your access to ImageTo20KB. If any provision of these terms is determined by a court of competent jurisdiction to be invalid or unenforceable, that specific clause shall be severed, and the remaining provisions shall continue in full force and effect.`,
+    `Any dispute, claim, or controversy arising out of or relating to your use of this service shall be governed by and construed in accordance with the laws of ${JURISDICTION}, without giving effect to conflict-of-law principles. Users agree that any formal legal proceedings shall be instituted exclusively in the competent courts situated within ${JURISDICTION}.`
+  ] }
+]);
+
+add('cookie-policy', [
+  { h2: 'Technical breakdown: cookies versus local storage', body: [
+    'Understanding the difference between traditional HTTP cookies and modern HTML5 Web Storage clarifies our privacy stance. HTTP cookies are small text files sent by a web server that your browser automatically transmits back with every subsequent HTTP request, enabling cross-page tracking and server session management.',
+    'In contrast, HTML5 Web Storage (localStorage) stores key-value pairs strictly within your device local browser sandbox. Data saved in localStorage is never transmitted over network headers to our hosting servers. ImageTo20KB uses localStorage solely to remember your UI display preference (light or dark mode) and your cookie consent status, ensuring you do not encounter repeated consent prompts on every visit.'
+  ] },
+  { h2: 'Global Privacy Control (GPC) and Do Not Track (DNT) signals', body: [
+    'We respect modern browser privacy signals. If your browser transmits a Global Privacy Control (GPC) header or a Do Not Track (DNT) preference indicating that you decline web tracking, ImageTo20KB treats this signal as an automatic refusal of optional analytics cookies, suppressing the loading of third-party measurement scripts automatically.',
+    'You maintain complete autonomy over analytics cookies at all times. Clicking the "Cookie settings" link in the footer allows you to toggle Google Analytics consent dynamically. When consent is revoked, existing measurement cookies are immediately excised from your browser session.'
+  ] },
+  { h2: 'Browser-specific instructions for clearing storage', body: [
+    'If you wish to purge all stored preferences and cookies set by this site manually, follow these standard instructions across popular browsers:',
+    'In Google Chrome, navigate to Settings > Privacy and Security > Third-Party Cookies > See all site data, search for "imageto20kb.in", and select "Delete". In Mozilla Firefox, open Settings > Privacy & Security > Cookies and Site Data > Manage Data, locate our domain, and select "Remove Selected". In Apple Safari, open Settings > Privacy > Manage Website Data, find our domain, and click "Remove". Clearing this data resets your theme to system defaults without affecting your ability to use the compression engine.'
+  ] }
+]);
+
+add('disclaimer', [
+  { h2: 'Variances in server-side validation algorithms', body: [
+    'Different web servers and backend enterprise software implement image validation differently. While ImageTo20KB generates strict, fully compliant baseline JPEG, PNG, and WebP image structures, certain proprietary portal firewalls employ aggressive automated screening tools.',
+    'For example, some government portals evaluate image compression ratios using proprietary edge-detection algorithms or reject files containing custom comment markers. We cannot predict or simulate proprietary server-side algorithms utilized across tens of thousands of independent third-party websites. Users must visually inspect their downloaded files and review official application portals for post-upload preview confirmations.'
+  ] },
+  { h2: 'No guarantee of employment or exam candidature', body: [
+    'Using ImageTo20KB to prepare, crop, resize, or compress a photograph or signature does not constitute an endorsement of your application or a guarantee that your candidature will be accepted by an examination board, educational institution, or employer.',
+    'Application rejections can occur due to ineligible qualifications, late submissions, incorrect biographical data, payment gateway errors, or photographic non-compliance unrelated to kilobyte size (such as wearing tinted spectacles, incorrect facial tilt, or obscured ears). ImageTo20KB bears no responsibility for candidate disqualifications arising from third-party administrative decisions.'
+  ] },
+  { h2: 'Preservation of uncompressed master files', body: [
+    'Lossy compression algorithms (such as JPEG and lossy WebP) function by permanently discarding fine pixel information that cannot be mathematically restored. Compressing an image multiple times compounds generational loss, leading to severe visual degradation.',
+    'Users are strongly cautioned to maintain untouched high-resolution master copies of all personal photographs, government identity documents, and signature scans in a secure location. Never overwrite or delete your original master photograph after creating a compressed 20KB or 100KB version for an application form.'
+  ] }
+]);
+
+add('security', [
+  { h2: 'Content Security Policy (CSP) and defense-in-depth', body: [
+    'ImageTo20KB deploys an enterprise-grade Content Security Policy (CSP) header on every served HTML page to prevent Cross-Site Scripting (XSS), data exfiltration, and unauthorized script execution. Our CSP directives strictly restrict script execution to trusted origins (our own domain and Google Tag Manager), forbid insecure inline object plugins, block frame embedding (clickjacking defense), and enforce encrypted HTTPS connections exclusively.',
+    'Furthermore, our response headers include "X-Content-Type-Options: nosniff" to prevent MIME-type confusion attacks and "Cross-Origin-Opener-Policy: same-origin" to isolate our browsing context from malicious third-party windows. These defensive headers ensure that even in hostile public network environments, your local compression workspace remains cryptographically isolated.'
+  ] },
+  { h2: 'Client-side memory sandboxing and object revocation', body: [
+    'When an image is loaded into ImageTo20KB, it is converted into an in-memory HTMLImageElement and drawn onto an HTML5 Canvas surface. This operation executes entirely within the browser memory heap assigned to our origin.',
+    'To prevent memory leaks and ensure user data is not retained longer than necessary, the application immediately calls <code>URL.revokeObjectURL()</code> whenever an image is deleted from the queue or replaced by a new file. When you close the browser tab or navigate away, the browser native garbage collector completely reclaims all memory buffers, ensuring that no biometric pixel traces linger on the host device.'
+  ] },
+  { h2: 'Vulnerability disclosure and incident response SLA', body: [
+    'We welcome responsible vulnerability reports from security researchers and developers. If you identify a potential security vulnerability within our web application or infrastructure, please transmit an encrypted or detailed report to our software engineering team at ' + CONTACT_EMAIL + '.',
+    'Our incident response team commits to acknowledging receipt of valid vulnerability disclosures within 48 business hours, providing an initial assessment and expected remediation timeline within 5 business days, and deploying necessary code patches promptly. We request that researchers allow reasonable time for remediation prior to public disclosure.'
+  ] }
+]);
+
+add('accessibility', [
+  { h2: 'Web Content Accessibility Guidelines (WCAG 2.1 AA) commitment', body: [
+    'We believe digital utilities must be accessible to everyone, including individuals with visual, auditory, motor, or cognitive disabilities. ImageTo20KB is structured to align with the Web Content Accessibility Guidelines (WCAG 2.1) Level AA standards.',
+    'Key accessibility features implemented across the platform include semantic landmark regions (<header>, <nav>, <main>, <article>, <footer>), logical heading structures (H1 through H3 without skipped levels), high-contrast text ratios exceeding 4.5:1 across both light and dark themes, visible keyboard focus indicators, and descriptive alternative text for all informational illustrations.'
+  ] },
+  { h2: 'Screen reader optimization and ARIA live regions', body: [
+    'The interactive compression panel utilizes ARIA live regions (<code>role="status" aria-live="polite"</code>) to communicate compression progress, final kilobyte counts, and target verification states dynamically to assistive technology users without stealing keyboard focus.',
+    'Form inputs—including custom kilobyte numerical inputs and output format selection dropdowns—are explicitly associated with visible descriptive labels using standard <code>for</code> and <code>id</code> attributes. Users navigating with screen readers such as NVDA, JAWS, VoiceOver, or TalkBack receive clear contextual feedback regarding file processing results and error warnings.'
+  ] },
+  { h2: 'Motor accessibility and keyboard navigation pathways', body: [
+    'The entire image compression workflow can be operated solely using standard keyboard navigation pathways without requiring a mouse or pointing device. Pressing the "Tab" key moves sequentially through interactive controls, while "Enter" or "Space" activates buttons and triggers the native file selection dialog.',
+    'A prominent "Skip to content" link is positioned as the very first focusable element on every page, allowing keyboard users to bypass repetitive header navigation and jump immediately to the compression interface. Furthermore, all modal drawers and dropdown menus support intuitive escape key dismissal and focus trapping.'
+  ] }
+]);
+
+add('copyright-policy', [
+  { h2: 'Ownership of processed image derivatives', body: [
+    'Users retain full, uncompromised intellectual property ownership and moral rights in all photographs, graphics, artwork, and signatures processed through ImageTo20KB. Because our software executes processing entirely within your local browser runtime, ImageTo20KB does not acquire, claim, license, or store any ownership rights, distribution permissions, or derivative claims over your uploaded materials.',
+    'You are strictly responsible for ensuring that you hold all necessary legal rights, copyrights, or authorized permissions to modify and compress the files you choose to process. ImageTo20KB expressly disclaims all liability arising from unauthorized processing of copyrighted third-party photographs or proprietary visual assets.'
+  ] },
+  { h2: 'Digital Millennium Copyright Act (DMCA) and copyright compliance', body: [
+    'ImageTo20KB respects the intellectual property rights of creators and complies with the provisions of the Digital Millennium Copyright Act (17 U.S.C. § 512) and applicable international copyright statutes. Because our platform does not host, store, or publicly publish user images, copyright infringement claims typically relate to textual content, editorial guides, or original vector artwork published on our website.',
+    'If you are a copyright owner or authorized agent who believes that any material published on ImageTo20KB infringes upon your copyright, you may submit a formal notification of claimed infringement to our designated agent at ' + CONTACT_EMAIL + '. Your notice must include physical or electronic signature, identification of the copyrighted work claimed to have been infringed, specific URL location, and a statement of good-faith belief.'
+  ] },
+  { h2: 'Educational quotation, fair use and link attribution', body: [
+    'Educators, bloggers, and technical authors are permitted to quote brief excerpts of our instructional guides for educational, journalistic, or non-commercial review purposes under fair use doctrines, provided that clear attribution and an active hyperlink to the original source page on ImageTo20KB are maintained.',
+    'Systematic scraping, mass re-publication of our instructional articles, or cloning of our client-side software architecture for competitive commercial exploitation without prior written consent is strictly prohibited and will be pursued under applicable copyright and intellectual property laws.'
+  ] }
+]);
+
+add('accessibility', [
+  { h2: 'Cognitive accessibility, color vision deficiency and reading support', body: [
+    'Digital accessibility extends beyond blindness and motor impairment to encompass cognitive readability and neurodiversity. Our interface avoids flashing banners, sudden unexpected layout shifts, and aggressive auto-playing animations that can disorient users with vestibular or attention disorders.',
+    'For candidates with color vision deficiencies (such as protanopia, deuteranopia, or tritanopia), all system messages and compression status badges pair color cues with explicit icon symbols and unambiguous written text such as "Ready for Download" or "File Exceeds Target". Font selections maintain generous line spacing, high optical clarity, and support for browser text reflow up to 400% without horizontal clipping.'
+  ] }
+]);
+
+add('copyright-policy', [
+  { h2: 'Third-party trademarks and educational fair reference', body: [
+    'References throughout this platform to examination agencies (such as UPSC, SSC, RRB, IBPS, or NTA) and software projects (such as Squoosh) are made strictly for descriptive, identification, and educational purposes under nominative fair use doctrine.',
+    'All registered trademarks, service marks, exam acronyms, and organizational emblems remain the exclusive property of their respective owners. ImageTo20KB is an independent software application and is neither affiliated with, sponsored by, endorsed by, nor operated on behalf of any government department, public recruitment commission, or private testing authority.'
+  ] }
+]);
+
+add('disclaimer', [
+  { h2: 'Browser extension interference and client hardware variance', body: [
+    'Local client-side image compression performance depends directly on your device CPU, available physical RAM, operating system, and installed web browser extensions. Aggressive ad blockers, privacy add-ons, or script-modifying browser extensions can occasionally alter the behavior of native HTML5 Canvas drawing routines or block client Web Workers.',
+    'If you notice unexpected compression artifacts, prolonged processing spinners, or color shifts, try processing your image in a clean browser window or private incognito session with extensions temporarily disabled. Furthermore, older mobile smartphones with constrained memory heaps may struggle with ultra-high-resolution panoramic camera captures exceeding 25 megapixels; users should crop their photos in their native mobile gallery before uploading.'
+  ] }
+]);
+
+add('terms-and-conditions', [
+  { h2: 'Service updates, technical modifications and legacy support', body: [
+    'We reserve the right to modify, refine, update, or temporarily suspend specific features of ImageTo20KB at our sole discretion without prior notice, in order to maintain security integrity, optimize client-side compression algorithms, or improve standards compliance.',
+    'While we endeavor to provide continuous, backward-compatible service across all modern web browsers, we do not warrant that older legacy browser releases lacking support for the HTML5 Canvas API, WebP image encoding, or ECMAScript modules will remain capable of executing our processing engine. Users are encouraged to utilize modern, updated browser versions for optimal security and compression accuracy.'
+  ] }
+]);

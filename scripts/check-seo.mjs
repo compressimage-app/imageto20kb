@@ -7,13 +7,13 @@ import { metaRows, TITLE_MAX, DESC_MAX, DESC_MIN } from './meta-lengths.mjs';
 const DIST = 'dist', SITE = 'https://www.imageto20kb.in';
 const html = []; (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') && html.push(p); } })(DIST);
 const noindexRoutes = new Set(), errors = [], titles = new Map(), descs = new Map(), routes = new Set();
-const route = (p) => '/' + p.slice(DIST.length + 1).replace(/index\.html$/, '').replace(/404\.html$/, '404/');
+const route = (p) => ('/' + p.slice(DIST.length + 1).replace(/\\/g, '/')).replace(/index\.html$/, '').replace(/404\.html$/, '404/');
 for (const p of html) routes.add(route(p).replace(/^\/\//, '/'));
 for (const p of html) {
   const s = readFileSync(p, 'utf8'), r = route(p);
   const is404 = /noindex/.test(s.match(/<meta name="robots"[^>]*>/)?.[0] ?? ''); if (is404) noindexRoutes.add(r);
   const t = s.match(/<title>(.*?)<\/title>/)?.[1], d = s.match(/<meta name="description" content="(.*?)"/)?.[1], c = s.match(/<link rel="canonical" href="(.*?)"/)?.[1];
-  if (!is404 && words(s) < 600) errors.push(`${r}: only ${words(s)} words (min 600)`);
+  if (!is404 && words(s) < 1000) errors.push(`${r}: only ${words(s)} words (min 1000)`);
   if (!/rel="apple-touch-icon"/.test(s) || !/rel="manifest"/.test(s) || !/favicon-96x96\.png/.test(s)) errors.push(`${r}: favicon links missing`);
   if (!s.includes('googletagmanager.com/gtag/js?id=') || !s.includes('G-YNJS39ZTBL') || !s.includes('id="consent"')) errors.push(`${r}: Google tag loader / consent banner missing`);
   if (!s.includes('name="msvalidate.01" content="B2CC874597C52F944CF785656679176A"')) errors.push(`${r}: Bing tag missing`);
