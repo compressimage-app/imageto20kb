@@ -1,4 +1,4 @@
-export const SITE = 'https://www.imageto20kb.in';
+export const SITE = 'https://imageto20kb.in';
 export const SITE_NAME = 'ImageTo20KB';
 // ---- LAUNCH PLACEHOLDERS: owner must confirm before production (see LAUNCH-CHECKLIST.md) ----
 export const CONTACT_EMAIL = 'compressimageto@gmail.com';

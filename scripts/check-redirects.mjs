@@ -1,7 +1,7 @@
 // Follows redirects hop by hop for the URL variants Google may request. Run from your own machine:
 //   node scripts/check-redirects.mjs            (default URL list)
-//   node scripts/check-redirects.mjs https://www.imageto20kb.in/compress-image-to-100kb
-// Expected: at most ONE redirect to the final canonical https://www... URL ending in "/", then HTTP 200.
+//   node scripts/check-redirects.mjs https://imageto20kb.in/compress-image-to-100kb
+// Expected: at most ONE redirect to the final canonical https://imageto20kb.in... URL ending in "/", then HTTP 200.
 const defaults = [];
 for (const scheme of ['http', 'https']) for (const host of ['imageto20kb.in', 'www.imageto20kb.in']) for (const path of ['/', '/compress-image-to-100kb', '/compress-image-to-100kb/', '/sitemap.xml', '/robots.txt'])
   defaults.push(`${scheme}://${host}${path}`);

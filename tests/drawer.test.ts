@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 // Runs the real built page script in a simulated DOM. Requires `npm run build` first.
 function load() {
   const html = readFileSync('dist/index.html', 'utf8');
-  const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://www.imageto20kb.in/', pretendToBeVisual: true,
+  const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://imageto20kb.in/', pretendToBeVisual: true,
     beforeParse(w) { (w as any).matchMedia = () => ({ matches: true, addEventListener() {}, addListener() {} }); } });
   const d = dom.window.document;
   const q = (id: string) => d.getElementById(id)!;
@@ -58,7 +58,7 @@ describe('footer', () => {
 
 // ---- cookie consent ----
 function loadWith(storage: Record<string, string> = {}, path = 'dist/index.html') {
-  const dom = new JSDOM(readFileSync(path, 'utf8'), { runScripts: 'dangerously', url: 'https://www.imageto20kb.in/', pretendToBeVisual: true,
+  const dom = new JSDOM(readFileSync(path, 'utf8'), { runScripts: 'dangerously', url: 'https://imageto20kb.in/', pretendToBeVisual: true,
     beforeParse(w) { (w as any).matchMedia = () => ({ matches: false, addEventListener() {}, addListener() {} }); for (const [k, v] of Object.entries(storage)) w.localStorage.setItem(k, v); } });
   const d = dom.window.document;
   const gaScripts = () => [...d.querySelectorAll('script')].filter((s) => (s.getAttribute('src') || '').includes('googletagmanager.com'));
@@ -106,7 +106,7 @@ describe('footer share icons', () => {
   it('has labelled share links using canonical, non-redirecting hosts', () => {
     const { d } = load(); const links = [...d.querySelectorAll('footer .social a')] as HTMLAnchorElement[];
     expect(links.length).toBe(5);
-    for (const a of links) { expect(a.getAttribute('aria-label')).toMatch(/^Share this page on /); expect(a.href.startsWith('https://')).toBe(true); expect(a.rel).toContain('noopener'); expect(a.href).toContain(encodeURIComponent('https://www.imageto20kb.in/')); expect(a.href).not.toContain('twitter.com'); expect(a.href).not.toContain('//wa.me'); }
+    for (const a of links) { expect(a.getAttribute('aria-label')).toMatch(/^Share this page on /); expect(a.href.startsWith('https://')).toBe(true); expect(a.rel).toContain('noopener'); expect(a.href).toContain(encodeURIComponent('https://imageto20kb.in/')); expect(a.href).not.toContain('twitter.com'); expect(a.href).not.toContain('//wa.me'); }
     expect(links.map((a) => new URL(a.href).hostname)).toEqual(['x.com', 'www.facebook.com', 'www.linkedin.com', 'api.whatsapp.com', 't.me']);
   });
 });

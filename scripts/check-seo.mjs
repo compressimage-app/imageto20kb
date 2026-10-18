@@ -4,7 +4,7 @@ import { words } from './wordcount.mjs';
 import { report as kwReport } from './keyword-report.mjs';
 import { headingProblems } from './heading-audit.mjs';
 import { metaRows, TITLE_MAX, DESC_MAX, DESC_MIN } from './meta-lengths.mjs';
-const DIST = 'dist', SITE = 'https://www.imageto20kb.in';
+const DIST = 'dist', SITE = 'https://imageto20kb.in';
 const html = []; (function walk(d) { for (const f of readdirSync(d)) { const p = join(d, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.html') && html.push(p); } })(DIST);
 const noindexRoutes = new Set(), errors = [], titles = new Map(), descs = new Map(), routes = new Set();
 const route = (p) => ('/' + p.slice(DIST.length + 1).replace(/\\/g, '/')).replace(/index\.html$/, '').replace(/404\.html$/, '404/');
@@ -22,6 +22,7 @@ for (const p of html) {
   if ((s.match(/<h1[ >]/g) || []).length !== 1) errors.push(`${r}: expected exactly one h1`);
   if (!is404) {
     if (c !== SITE + r) errors.push(`${r}: canonical ${c}`);
+    if (c && c.includes('www.imageto20kb.in')) errors.push(`${r}: canonical contains www: ${c}`);
     if (/noindex/.test(s)) errors.push(`${r}: unexpected noindex`);
     if (titles.has(t)) errors.push(`${r}: duplicate title with ${titles.get(t)}`); titles.set(t, r);
     if (descs.has(d)) errors.push(`${r}: duplicate description with ${descs.get(d)}`); descs.set(d, r);
@@ -30,7 +31,12 @@ for (const p of html) {
   for (const m of s.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)) { try { JSON.parse(m[1]); } catch { errors.push(`${r}: invalid JSON-LD`); } }
 }
 const sm = readFileSync(join(DIST, 'sitemap.xml'), 'utf8'); const locs = [...sm.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
-for (const l of locs) if (!routes.has(l.replace(SITE, ''))) errors.push(`sitemap URL has no page: ${l}`);
+const smPriorities = [...sm.matchAll(/<priority>(.*?)<\/priority>/g)].map((m) => m[1]);
+if (smPriorities.length !== locs.length) errors.push(`sitemap priorities mismatch: found ${smPriorities.length} priorities for ${locs.length} URLs`);
+for (const l of locs) {
+  if (l.includes('www.imageto20kb.in')) errors.push(`sitemap URL contains www: ${l}`);
+  if (!routes.has(l.replace(SITE, ''))) errors.push(`sitemap URL has no page: ${l}`);
+}
 for (const r of routes) if (!noindexRoutes.has(r) && !locs.includes(SITE + r)) errors.push(`page missing from sitemap: ${r}`);
 if (!readFileSync(join(DIST, 'robots.txt'), 'utf8').includes(`Sitemap: ${SITE}/sitemap.xml`)) errors.push('robots.txt missing sitemap');
 for (const e of ['404.html','500.html','403/index.html','503/index.html']) if (!existsSync(join(DIST, e))) errors.push(`missing error page ${e}`);

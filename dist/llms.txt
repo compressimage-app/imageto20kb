@@ -1,33 +1,33 @@
 # ImageTo20KB
 
-> ImageTo20KB (https://www.imageto20kb.in/) is a free browser-based image compressor. Users choose a target size in KB (for example 20KB or 100KB); compression runs locally in the user's browser and images are not uploaded for compression.
+> ImageTo20KB (https://imageto20kb.in/) is a free browser-based image compressor. Users choose a target size in KB (for example 20KB or 100KB); compression runs locally in the user's browser and images are not uploaded for compression.
 
 ## Tools
-- [Compress Image to 20KB Online](https://www.imageto20kb.in/compress-image-to-20kb/)
-- [Compress Image to 100KB Online](https://www.imageto20kb.in/compress-image-to-100kb/)
-- [Compress Image to 20KB: JPG and JPEG Photos](https://www.imageto20kb.in/compress-jpg-to-20kb/)
-- [Compress JPG to 100KB](https://www.imageto20kb.in/compress-jpg-to-100kb/)
-- [Compress Image to 20KB: PNG to Smaller JPG or WebP](https://www.imageto20kb.in/compress-png-to-20kb/)
-- [Compress Image to 50KB](https://www.imageto20kb.in/compress-image-to-50kb/)
-- [Compress Image to 200KB](https://www.imageto20kb.in/compress-image-to-200kb/)
-- [Compress Image to 500KB](https://www.imageto20kb.in/compress-image-to-500kb/)
-- [Image Resizer: Resize and Compress Image to 20KB](https://www.imageto20kb.in/image-resizer/)
-- [Image Compressor: Compress Image to 20KB, 100KB and More](https://www.imageto20kb.in/image-compressor/)
-- [Compress Image to 20KB for Online Forms](https://www.imageto20kb.in/image-compressor-for-online-forms/)
-- [Compress Image to 20KB for Government Exam Photo and Signature](https://www.imageto20kb.in/government-exam-photo-signature-size/)
-- [SSC Photo and Signature: Compress Image to 20KB and Beyond](https://www.imageto20kb.in/ssc-photo-signature-size/)
-- [RRB Photo and Signature Size](https://www.imageto20kb.in/rrb-photo-signature-size/)
-- [UPSC Photo and Signature Size](https://www.imageto20kb.in/upsc-photo-signature-size/)
+- [Compress Image to 20KB Online](https://imageto20kb.in/compress-image-to-20kb/)
+- [Compress Image to 100KB Online](https://imageto20kb.in/compress-image-to-100kb/)
+- [Compress Image to 20KB: JPG and JPEG Photos](https://imageto20kb.in/compress-jpg-to-20kb/)
+- [Compress JPG to 100KB](https://imageto20kb.in/compress-jpg-to-100kb/)
+- [Compress Image to 20KB: PNG to Smaller JPG or WebP](https://imageto20kb.in/compress-png-to-20kb/)
+- [Compress Image to 50KB](https://imageto20kb.in/compress-image-to-50kb/)
+- [Compress Image to 200KB](https://imageto20kb.in/compress-image-to-200kb/)
+- [Compress Image to 500KB](https://imageto20kb.in/compress-image-to-500kb/)
+- [Image Resizer: Resize and Compress Image to 20KB](https://imageto20kb.in/image-resizer/)
+- [Image Compressor: Compress Image to 20KB, 100KB and More](https://imageto20kb.in/image-compressor/)
+- [Compress Image to 20KB for Online Forms](https://imageto20kb.in/image-compressor-for-online-forms/)
+- [Compress Image to 20KB for Government Exam Photo and Signature](https://imageto20kb.in/government-exam-photo-signature-size/)
+- [SSC Photo and Signature: Compress Image to 20KB and Beyond](https://imageto20kb.in/ssc-photo-signature-size/)
+- [RRB Photo and Signature Size](https://imageto20kb.in/rrb-photo-signature-size/)
+- [UPSC Photo and Signature Size](https://imageto20kb.in/upsc-photo-signature-size/)
 
 ## Blog
-- [How to Compress Image to 20KB: A Step-by-Step Guide](https://www.imageto20kb.in/blog/how-to-compress-image-to-20kb/)
-- [How to Compress Image to 100KB Online (Without Losing Clarity)](https://www.imageto20kb.in/blog/how-to-compress-image-to-100kb/)
-- [How to Resize Photo and Signature for Online Exam Forms (Step by Step)](https://www.imageto20kb.in/blog/how-to-resize-photo-and-signature-for-online-exam-forms/)
-- [Why Does the Portal Say "File Size Too Large" After I Compressed My Photo?](https://www.imageto20kb.in/blog/photo-rejected-file-size-too-large-after-compression/)
-- [How to Make a Clean Signature Image for Online Forms](https://www.imageto20kb.in/blog/how-to-make-a-clean-signature-image-for-online-forms/)
-- [Photo Upload Checklist for Private Job Applications and Online Admissions](https://www.imageto20kb.in/blog/photo-upload-checklist-for-private-jobs-and-online-admissions/)
-- [JPG, PNG or WebP: Which Image Format Should You Use for Online Forms?](https://www.imageto20kb.in/blog/jpg-png-or-webp-which-format-for-online-forms/)
-- [Is It Safe to Compress Photos and ID Images Online?](https://www.imageto20kb.in/blog/is-it-safe-to-compress-photos-online/)
+- [How to Compress Image to 20KB: A Step-by-Step Guide](https://imageto20kb.in/blog/how-to-compress-image-to-20kb/)
+- [How to Compress Image to 100KB Online (Without Losing Clarity)](https://imageto20kb.in/blog/how-to-compress-image-to-100kb/)
+- [How to Resize Photo and Signature for Online Exam Forms (Step by Step)](https://imageto20kb.in/blog/how-to-resize-photo-and-signature-for-online-exam-forms/)
+- [Why Does the Portal Say "File Size Too Large" After I Compressed My Photo?](https://imageto20kb.in/blog/photo-rejected-file-size-too-large-after-compression/)
+- [How to Make a Clean Signature Image for Online Forms](https://imageto20kb.in/blog/how-to-make-a-clean-signature-image-for-online-forms/)
+- [Photo Upload Checklist for Private Job Applications and Online Admissions](https://imageto20kb.in/blog/photo-upload-checklist-for-private-jobs-and-online-admissions/)
+- [JPG, PNG or WebP: Which Image Format Should You Use for Online Forms?](https://imageto20kb.in/blog/jpg-png-or-webp-which-format-for-online-forms/)
+- [Is It Safe to Compress Photos and ID Images Online?](https://imageto20kb.in/blog/is-it-safe-to-compress-photos-online/)
 
 ## Supported formats
 - Input: JPG/JPEG, PNG, WebP. Output: JPEG, WebP or PNG depending on the browser.
@@ -35,8 +35,8 @@
 - 1 KB = 1,024 bytes. Targets are not always achievable; the tool reports when a result is above target.
 
 ## Help
-- [FAQs](https://www.imageto20kb.in/faqs/)
-- [How it works](https://www.imageto20kb.in/how-it-works/)
-- [Privacy policy](https://www.imageto20kb.in/privacy-policy/)
-- [Contact](https://www.imageto20kb.in/contact/)
+- [FAQs](https://imageto20kb.in/faqs/)
+- [How it works](https://imageto20kb.in/how-it-works/)
+- [Privacy policy](https://imageto20kb.in/privacy-policy/)
+- [Contact](https://imageto20kb.in/contact/)
 - Email: compressimageto@gmail.com
